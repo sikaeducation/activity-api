@@ -1,0 +1,5 @@
+services:
+  tests:
+    logging:
+      driver: none
+    command: ["sh", "-c", "npm install && npm test"]
