@@ -1,0 +1,18 @@
+services:
+  database:
+    image: mongo:5.0.10-focal
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - ./database:/data/db
+  tests:
+    depends_on:
+      - database
+    build: .
+    environment:
+      DATABASE_URL: "mongodb://root:password@database:27017"
+    command: ["npm", "run", "test:watch"]
+    volumes:
+      - "./:/app"
+      - "../api:/app/api"
