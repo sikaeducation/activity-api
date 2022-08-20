@@ -1,6 +1,6 @@
 # Activity Service
 
-RESTful API for interacting with activities.
+RESTful API for interacting with activities. Lives at [http://sika-activity-api.herokuapp.com](http://sika-activity-api.herokuapp.com).
 
 ## Dependencies
 
@@ -11,6 +11,7 @@ RESTful API for interacting with activities.
 * Express
 * Mongo
 * Cucumber, Expect
+* Supertest
 
 ## Scripts
 
