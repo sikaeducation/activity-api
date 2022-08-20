@@ -3,6 +3,3 @@ WORKDIR /app
 
 COPY package*.json ./
 RUN npm install
-
-USER node
-EXPOSE 27017
