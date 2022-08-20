@@ -4,10 +4,12 @@
   "description": "Sika's activity service",
   "scripts": {
     "test": "cucumber-js --require-module \"ts-node/register\" --require \"features/**/*.ts\" --force-exit",
-    "test:watch": "nodemon -L -x 'npm test' -e ts,feature -w api/ -w features/"
+    "test:watch": "nodemon -L -x 'npm test' -e ts,feature -w api/ -w features/",
+    "lint": "eslint . --ext .ts --fix"
   },
   "author": "Kyle Coberly",
   "license": "UNLICENSED",
+  "pre-commit": ["lint"],
   "dependencies": {
     "@cucumber/cucumber": "^8.5.1",
     "@types/cors": "^2.8.12",
@@ -16,11 +18,15 @@
     "@types/node": "^18.7.7",
     "@types/supertest": "^2.0.12",
     "cors": "^2.8.5",
+    "eslint": "^8.22.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "expect": "^28.1.3",
     "express": "^4.18.1",
     "mongodb": "^4.9.0",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.19",
+    "pre-commit": "^1.2.2",
     "supertest": "^6.2.4",
     "ts-node": "^10.9.1",
     "typescript": "^4.7.4"
