@@ -4,9 +4,7 @@
   "description": "Sika's activity service",
   "scripts": {
     "test": "cucumber-js --require-module \"ts-node/register\" --require \"features/**/*.ts\" --force-exit",
-    "test:watch": "nodemon -L -x 'npm test' -e ts,feature -w api/ -w features/",
-    "lint": "eslint . --ext .ts --fix",
-    "prepare": "cd .. && husky install tests/.husky"
+    "test:watch": "nodemon -L -x 'npm test' -e ts,feature -w api/ -w features/"
   },
   "author": "Kyle Coberly",
   "license": "UNLICENSED",
@@ -18,12 +16,8 @@
     "@types/node": "^18.7.7",
     "@types/supertest": "^2.0.12",
     "cors": "^2.8.5",
-    "eslint": "^8.22.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.2.1",
     "expect": "^28.1.3",
     "express": "^4.18.1",
-    "husky": "^8.0.1",
     "mongodb": "^4.9.0",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.19",
