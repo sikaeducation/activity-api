@@ -1,0 +1,30 @@
+{
+  "name": "sika-activty-service",
+  "version": "0.1.2",
+  "description": "RESTful API for interacting with activities. Lives at [http://sika-activity-api.herokuapp.com](http://sika-activity-api.herokuapp.com).",
+  "directories": {
+    "api": "api",
+    "test": "tests"
+  },
+  "scripts": {
+    "lint": "eslint . --ext .ts --fix",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sikaeducation/activity-service.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sikaeducation/activity-service/issues"
+  },
+  "homepage": "https://github.com/sikaeducation/activity-service#readme",
+  "dependencies": {
+    "eslint": "^8.22.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.1"
+  }
+}
