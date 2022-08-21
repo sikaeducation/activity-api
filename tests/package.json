@@ -1,13 +1,9 @@
 {
-  "name": "sika-activty-service",
-  "version": "0.1.2",
-  "description": "Sika's activity service",
+  "name": "sika-activty-service-tests",
   "scripts": {
     "test": "cucumber-js --require-module \"ts-node/register\" --require \"features/**/*.ts\" --force-exit",
     "test:watch": "nodemon -L -x 'npm test' -e ts,feature -w api/ -w features/"
   },
-  "author": "Kyle Coberly",
-  "license": "UNLICENSED",
   "dependencies": {
     "@cucumber/cucumber": "^8.5.1",
     "@types/cors": "^2.8.12",

@@ -8,7 +8,9 @@
   },
   "scripts": {
     "lint": "eslint . --ext .ts --fix",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test": "cd tests && docker-compose run tests",
+    "dev": "cd api && docker-compose run api"
   },
   "repository": {
     "type": "git",
