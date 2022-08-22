@@ -8,11 +8,11 @@ import type { Db } from "mongodb";
 
 async function resetArticles(database: Db) {
   const existingArticles = await database
-    .collection("articles")
+    .collection("activities")
     .find()
     .toArray();
   if (existingArticles.length) {
-    await database.collection("articles").drop();
+    await database.collection("activities").drop();
   }
 }
 
@@ -21,11 +21,11 @@ Given("there are {int} saved articles", async function (count: number) {
   await resetArticles(database);
 
   const newArticles = Array.from({ length: count }, () => ({}));
-  await database.collection("articles").insertMany(newArticles);
+  await database.collection("activities").insertMany(newArticles);
 });
 
 Then("I see {int} articles", function (count: number) {
   this.request.then((response: Response) => {
-    expect(response.body.articles).toHaveLength(count);
+    expect(response.body.activities).toHaveLength(count);
   });
 });
