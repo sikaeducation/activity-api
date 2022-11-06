@@ -2,7 +2,9 @@
   "name": "sika-activty-service-tests",
   "scripts": {
     "test": "cucumber-js --require-module \"ts-node/register\" --require \"features/**/*.ts\" --force-exit",
-    "test:watch": "nodemon -L -x 'npm test' -e ts,feature -w api/ -w features/"
+    "test:watch": "nodemon -L -x 'npm test' -e ts,feature -w api/ -w features/",
+    "test:scripts": "npx jest scripts",
+    "test:scripts:watch": "npx jest --watchAll scripts"
   },
   "dependencies": {
     "@cucumber/cucumber": "^8.5.1",
@@ -16,11 +18,13 @@
     "cors": "^2.8.5",
     "expect": "^28.1.3",
     "express": "^4.18.1",
+    "jest": "^29.2.2",
     "mongodb": "^4.9.0",
     "mongoose": "^6.5.2",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.19",
     "supertest": "^6.2.4",
+    "ts-jest": "^29.0.3",
     "ts-node": "^10.9.1",
     "typescript": "^4.7.4"
   }
