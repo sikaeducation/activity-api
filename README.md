@@ -83,8 +83,6 @@ video_url: string
 There is a vocab API at `/vocab`, featuring the following properties:
 
 ```
-readonly _id: string
-id?: string
 term: string
 definition: string
 context?: string
@@ -95,7 +93,6 @@ context?: string
 There is a question and answer API at `/questions`, featuring the following properties:
 
 ```
-id?: string
 prompt: string
 answer: string
 ```

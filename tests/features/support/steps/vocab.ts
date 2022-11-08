@@ -1,85 +1,72 @@
 import { Given, When, Then } from "@cucumber/cucumber";
 import { expect } from "expect";
 
-Given("{int} saved vocabs exist", async function (count: number) {
-  const vocabs = Array.from({ length: count }, () => ({}));
-  if (vocabs.length) {
-    await this.database.collection("vocabs").insertMany(vocabs);
-  }
+Given("these vocabs exist:", async function (table) {
+  const vocabs = table.hashes();
+  await this.database.collection("vocabs").insertMany(vocabs);
 });
 
-Given("the vocab for {string} exists", async function (term: string) {
-  const vocab = {
-    term,
-  };
+Given("this vocab exists:", async function (table) {
+  const vocab = table.hashes()[0];
   await this.database.collection("vocabs").insertOne(vocab);
 });
 
-When("I list vocabs", async function () {
-  this.request = this.request.get("/vocab");
+When("I list all the vocabs", async function () {
+  this.request = this.request.get("/vocabs");
 });
 
-When("I get the vocab for {string}", async function (term: string) {
+When("I get the vocab {string}", async function (term) {
   const record = await this.database.collection("vocabs").find({ term }).next();
-  this.request = this.request.get(`/vocab/${record._id}`);
+  this.request = this.request.get(`/vocabs/${record._id}`);
 });
 
-When("I create the vocab for {string}", async function (term: string) {
-  this.request = await this.request.post(`/vocab`).send({
-    term,
-    definition: "Some definition",
-  });
+When("I create this vocab:", async function (table) {
+  const vocab = table.hashes()[0];
+  this.request = await this.request.post(`/vocabs`).send(vocab);
 });
 
-When(
-  "I update the vocab definition for {string} to {string}",
-  async function (term: string, definition: string) {
-    const record = await this.database
-      .collection("vocabs")
-      .find({ term })
-      .next();
-    this.request = await this.request.patch(`/vocab/${record._id}`).send({
-      definition,
-    });
-  }
-);
-
-When("I delete a vocab", async function () {
-  const record = await this.database.collection("vocabs").find({}).next();
-  this.request = await this.request.delete(`/vocab/${record._id}`);
+When("I update the vocab {string} to:", async function (term, table) {
+  const vocab = table.hashes()[0];
+  const record = await this.database.collection("vocabs").find({ term }).next();
+  this.request = await this.request.patch(`/vocabs/${record._id}`).send(vocab);
 });
 
-Then("I see the vocab for {string}", async function (term: string) {
+When("I delete the vocab {string}", async function (term) {
+  const record = await this.database.collection("vocabs").find({ term }).next();
+  this.request = await this.request.delete(`/vocabs/${record._id}`);
+});
+
+Then("I see these vocabs:", async function (table) {
+  const vocabs = table.hashes();
   const response = await this.request;
-  expect(response.body).toMatchObject({
-    term,
-  });
+  expect(response.body).toMatchObject(vocabs);
 });
 
-Then("the vocab for {string} is saved", async function (term: string) {
+Then("I see this vocab:", async function (table) {
+  const vocab = table.hashes()[0];
+  const response = await this.request;
+  expect(response.body).toMatchObject(vocab);
+});
+
+Then("these vocabs are saved:", async function (table) {
+  const expectedVocabs = table.hashes();
+  const actualVocabs = await this.database
+    .collection("vocabs")
+    .find()
+    .toArray();
+  expect(actualVocabs).toMatchObject(expectedVocabs);
+});
+
+Then("this vocab is saved:", async function (table) {
+  const vocab = table.hashes()[0];
+  const record = await this.database.collection("vocabs").find(vocab).next();
+
+  expect(record).toMatchObject(vocab);
+});
+
+Then("the vocab {string} is updated to:", async function (term, table) {
+  const vocab = table.hashes()[0];
   const record = await this.database.collection("vocabs").find({ term }).next();
 
-  expect(record).toBeTruthy();
-});
-
-Then(
-  "{string}'s definition is updated to {string}",
-  async function (term: string, definition: string) {
-    const record = await this.database
-      .collection("vocabs")
-      .find({ term })
-      .next();
-
-    expect(record.definition).toBe(definition);
-  }
-);
-
-Then("I see {int} vocabs", async function (count: number) {
-  const response = await this.request;
-  expect(response.body).toHaveLength(count);
-});
-
-Then("there are {int} saved vocabs", async function (expectedCount: number) {
-  const actualCount = await this.database.collection("vocabs").count();
-  expect(actualCount).toBe(expectedCount);
+  expect(record).toMatchObject(vocab);
 });
