@@ -1,5 +1,5 @@
-import { Activity } from "../models/Activity";
-import { Article } from "../models/Article";
+import Activity from "../models/Activity";
+import Article from "../models/Article";
 
 import type { ActivityType } from "../../types";
 

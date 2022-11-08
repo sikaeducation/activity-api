@@ -31,8 +31,8 @@ app.use(
   service({
     Model: Activity,
     discriminators: [Article, Guide, Exercise, VocabList, Lesson, Video],
-  })
-);
+  } as any)
+); // mongoose-feathers is missing the discriminators key in this type
 app.use("/vocabs", service({ Model: Vocab, lean: true }));
 app.use("/questions", service({ Model: Question }));
 app.use("/", indexRoutes);

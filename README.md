@@ -111,6 +111,7 @@ There is a questions API at `/questions` featuring the following properties:
 
 ## Scripts
 
-* `npm test` - Run tests
+* `npm test:ci` - Run CI tests
+* `npm test:watch` - Run tests in development
 * `npm run dev` - Start dev environment (base URL is `localhost://3000`)
 * `npm run lint` - Check and fix code for formatting and linting errors
