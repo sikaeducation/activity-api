@@ -1,0 +1,14 @@
+services:
+  tests:
+    depends_on:
+      - database
+    build:
+      context: ../
+      target: base
+    environment:
+      DATABASE_URL: "mongodb://root:password@database:27017"
+    volumes:
+      - "../:/app"
+    command: ["npm", "run", "_test:watch"]
+  database:
+    command: --storageEngine ephemeralForTest

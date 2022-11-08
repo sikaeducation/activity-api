@@ -1,0 +1,15 @@
+services:
+  api:
+    build:
+      context: ../
+      target: base
+    ports:
+      - "3000:80"
+    environment:
+      PORT: 80
+      DATABASE_URL: "mongodb://root:password@database:27017"
+    volumes:
+      - "../:/app"
+    command: ["npm", "run", "_dev"]
+    depends_on:
+      - database

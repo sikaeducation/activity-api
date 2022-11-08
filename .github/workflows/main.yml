@@ -13,7 +13,7 @@ jobs:
       - name: Checkout files from repo
         uses: actions/checkout@v2
       - name: Run feature tests
-        run: npm test
+        run: npm run test:ci
   deploy:
     needs:
       - test
@@ -22,8 +22,7 @@ jobs:
       - name: Checkout files from repo
         uses: actions/checkout@v2
       - name: Build API
-        working-directory: api
-        run: npm run build
+        run: npm run _build
       # - name: Setup upterm session
       #   uses: lhotari/action-upterm@v1
       #   with:
@@ -34,4 +33,4 @@ jobs:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
-          appdir: api
+          appdir: ./dist

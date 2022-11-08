@@ -1,0 +1,8 @@
+services:
+  database:
+    image: mongo:5.0.10-focal
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    expose:
+      - "27017"

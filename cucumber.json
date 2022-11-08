@@ -1,0 +1,6 @@
+{
+  "default": {
+    "paths": ["tests"],
+    "publishQuiet": true
+  }
+}
