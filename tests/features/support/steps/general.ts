@@ -1,9 +1,8 @@
 import { When, Then } from "@cucumber/cucumber";
-import request from "supertest";
 import { expect } from "expect";
 
 When("I make a request to the index route", async function () {
-  return (this.request = request(this.app).get("/").expect(200));
+  this.request = this.request.get("/");
 });
 
 Then("I get description of the API", async function () {
@@ -27,8 +26,7 @@ const httpMethods = {
 When(
   "I make a {string} request to the {string} endpoint",
   async function (method: HTTPMethod, endpoint: string) {
-    console.log(endpoint);
     const normalizedMethod = httpMethods[method];
-    this.request = request(this.app)[normalizedMethod](endpoint);
+    this.request = this.request[normalizedMethod](endpoint);
   }
 );
