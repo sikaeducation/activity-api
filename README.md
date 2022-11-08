@@ -21,81 +21,82 @@ These activity types are currently supported:
 
 All activities have these properties:
 
-```
-readonly _id?: string
-_type: ActivityType
-title: string
-published: boolean
-tags?: string[]
-notes?: string
-description?: string
-readonly created_at?: string
-readonly updated_at?: string
-```
+| Property | Type | Note |
+| --- | --- | --- |
+| _id | ActivityType | Read only |
+| _type | ActivityType | |
+| title | string | |
+| published | boolean | Defaults to false |
+| tags | string[] | |
+| notes | string | Optional |
+| description | string | Optional |
+| created_at | string | Read only |
+| updated_at | string | Read only |
 
 Specific activities have these properties:
 
 ### Article
 
-```
-post_url: string
-```
+| Property | Type | Note |
+| --- | --- | --- |
+| post_url | string | |
 
 ### Guide
 
-```
-post_url: string
-```
+| Property | Type | Note |
+| --- | --- | --- |
+| post_url | string | |
 
 ### Exercise
 
-```
-submission_url: string
-prompt: string
-solution_url: string
-tests: boolean
-```
+| Property | Type | Note |
+| --- | --- | --- |
+| submission_url | string | |
+| prompt | string | |
+| solution_url | string | |
+| tests | boolean | |
 
 ### Vocab List
 
-```
-entries: Vocab[]
-```
+| Property | Type | Note |
+| --- | --- | --- |
+| entries | Vocab[] | |
 
 ### Lesson
 
-```
-video_url?: string
-plan?: string
-objectives?: string[]
-video_link?: string
-scheduled_at: string
-```
+| Property | Type | Note |
+| --- | --- | --- |
+| video_url | string | Optional |
+| plan | string | Optional |
+| objectives | string[] | Optional |
+| video_link | string | Optional |
+| scheduled_at | string | |
 
 ### Video
 
-```
-video_url: string
-```
+| Property | Type | Note |
+| --- | --- | --- |
+| video_url | string | |
 
 ## Vocab
 
-There is a vocab API at `/vocab`, featuring the following properties:
+There is a vocab API at `/vocabs` featuring the following properties:
 
-```
-term: string
-definition: string
-context?: string
-```
+| Property | Type | Note |
+| --- | --- | --- |
+| term | string | |
+| definition | string | |
+| context | string | Optional |
 
-## Question/Answer
+## Question
 
-There is a question and answer API at `/questions`, featuring the following properties:
+There is a questions API at `/questions` featuring the following properties:
 
-```
-prompt: string
-answer: string
-```
+| Property | Type | Note |
+| --- | --- | --- |
+| prompt | string | |
+| answer | string | |
+| context | string | Optional |
 
 ## Dependencies
 
