@@ -9,7 +9,7 @@
   "scripts": {
     "lint": "eslint . --ext .ts --fix",
     "prepare": "husky install",
-    "test": "cd tests && docker-compose run tests",
+    "test": "cd tests && docker-compose -f docker-compose.yml -f docker-compose.ci.yml run tests",
     "dev": "cd api && docker-compose up"
   },
   "repository": {
