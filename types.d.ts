@@ -42,9 +42,9 @@ export type ActivityArticle = Activity & {
 };
 
 export type ActivityExercise = Activity & {
-  submission_url: string;
+  exercise_url: string;
   prompt: string;
-  solution_url: string;
+  solution_url?: string;
   tests: boolean;
 };
 
@@ -56,8 +56,8 @@ export type ActivityLesson = Activity & {
   video_url?: string;
   plan?: string;
   objectives?: string[];
-  video_link?: string;
-  scheduled_at: string;
+  notes?: string;
+  date?: string;
 };
 
 export type ActivityVideo = Activity & {

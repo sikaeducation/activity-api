@@ -4,7 +4,7 @@ import type { ActivityExercise } from "../../types";
 
 const schema = new Schema<ActivityExercise>(
   {
-    submission_url: {
+    exercise_url: {
       type: String,
       required: true,
     },
@@ -14,11 +14,11 @@ const schema = new Schema<ActivityExercise>(
     },
     solution_url: {
       type: String,
-      required: true,
     },
     tests: {
       type: Boolean,
       required: true,
+      default: false,
     },
   },
   {
