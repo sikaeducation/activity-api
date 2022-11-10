@@ -80,23 +80,11 @@ Specific activities have these properties:
 
 ## Vocab
 
-There is a vocab API at `/vocabs` featuring the following properties:
-
-| Property | Type | Note |
-| --- | --- | --- |
-| term | string | |
-| definition | string | |
-| context | string | Optional |
+[Documentation](tests/vocab.feature)
 
 ## Question
 
-There is a questions API at `/questions` featuring the following properties:
-
-| Property | Type | Note |
-| --- | --- | --- |
-| prompt | string | |
-| answer | string | |
-| context | string | Optional |
+[Documentation](tests/question.feature)
 
 ## Dependencies
 
