@@ -13,12 +13,11 @@ const schema = new Schema<ActivityLesson>(
     objectives: {
       type: [String],
     },
-    video_link: {
+    notes: {
       type: String,
     },
-    scheduled_at: {
+    date: {
       type: String,
-      required: true,
     },
   },
   {
