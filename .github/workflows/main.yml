@@ -12,8 +12,8 @@ jobs:
     steps:
       - name: Checkout files from repo
         uses: actions/checkout@v2
-      - name: Run feature tests
-        run: npm run test:ci
+      - name: Run tests
+        run: npm test
   deploy:
     needs:
       - test
