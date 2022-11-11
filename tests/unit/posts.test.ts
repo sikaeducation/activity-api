@@ -1,7 +1,7 @@
 import { expect, jest, test, beforeEach } from "@jest/globals";
 import { populatePosts, getCurrentPosts } from "../../src/services/posts";
 
-jest.mock("../../src/integrations/github", () => ({
+jest.mock("../../src/services/github", () => ({
   getPostContent: jest.fn(() =>
     Promise.resolve([
       {

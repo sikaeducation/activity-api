@@ -3,7 +3,7 @@ import expect from "expect";
 import sinon from "sinon";
 
 import * as postsService from "../../../../src/services/posts";
-import * as gitHubIntegration from "../../../../src/integrations/github";
+import * as gitHubIntegration from "../../../../src/services/github";
 
 const populatePostsStub = sinon
   .stub(postsService, "populatePosts")
