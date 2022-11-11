@@ -29,26 +29,26 @@ Feature: Activities Types
 
     | Property  | Type   | Note |
     | --------- | ------ | ---- |
-    | post_url  | string |      |
+    | post_slug  | string |      |
 
     When I make a "POST" request to the "/activities" endpoint with:
-      | _id                      | _type    | title          | post_url |
+      | _id                      | _type    | title          | post_slug |
       | 507f1f77bcf86cd799439011 | Article  | Intro to Mongo | /        |
     Then this is saved in "activities":
-      | _id                      | _type    | title          | post_url |
+      | _id                      | _type    | title          | post_slug |
       | 507f1f77bcf86cd799439011 | Article  | Intro to Mongo | /        |
 
   Scenario: Guide
 
     | Property  | Type   | Note |
     | --------- | ------ | ---- |
-    | post_url  | string |      |
+    | post_slug  | string |      |
 
     When I make a "POST" request to the "/activities" endpoint with:
-      | _id                      | _type    | title          | post_url |
+      | _id                      | _type    | title          | post_slug |
       | 507f1f77bcf86cd799439011 | Guide    | Guide to Mongo | /        |
     Then this is saved in "activities":
-      | _id                      | _type    | title          | post_url |
+      | _id                      | _type    | title          | post_slug |
       | 507f1f77bcf86cd799439011 | Guide    | Guide to Mongo | /        |
 
   Scenario: Exercise
