@@ -1,4 +1,4 @@
-import { Octokit } from "@octokit/rest";
+import { Octokit } from "octokit";
 import AdmZip, { IZipEntry } from "adm-zip";
 import axios from "axios";
 import { flow, mapValues, keyBy } from "lodash/fp";

@@ -3,10 +3,8 @@ import service from "feathers-mongoose";
 import express from "@feathersjs/express";
 import cors from "cors";
 import morgan from "morgan";
-import { getCurrentPosts, populatePosts } from "./services/posts";
 import { getContent, getAllContent } from "./hooks/content";
 import regeneratePostsRoutes from "./routes/regenerate-posts";
-import { insertNewPosts } from "./services/new-post-sync";
 
 import { connect } from "./database-connection";
 connect();
@@ -50,14 +48,5 @@ app.service("activities").hooks({
 });
 
 app.use(express.errorHandler());
-
-!(async () => {
-  if (process.env.NODE_ENV === "production") {
-    console.log("Populating posts...");
-    await populatePosts();
-    const posts = getCurrentPosts();
-    await insertNewPosts(app, posts);
-  }
-})();
 
 export default app;

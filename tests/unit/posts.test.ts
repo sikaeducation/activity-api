@@ -3,16 +3,10 @@ import { populatePosts, getCurrentPosts } from "../../src/services/posts";
 
 jest.mock("../../src/services/github", () => ({
   getPostContent: jest.fn(() =>
-    Promise.resolve([
-      {
-        name: "mongo-guide",
-        content: "# Some markdown",
-      },
-      {
-        name: "sql-1",
-        content: "# Some other markdown",
-      },
-    ])
+    Promise.resolve({
+      "mongo-guide": "# Some markdown",
+      "sql-1": "# Some other markdown",
+    })
   ),
 }));
 
@@ -32,6 +26,7 @@ test("#populatePosts adds posts to memo", async () => {
 });
 
 test("#getPost", async () => {
+  // Get around cached state
   const { getPost, populatePosts } = await import("../../src/services/posts");
   const initialPost = getPost("mongo-guide");
   expect(initialPost).toBe("");
