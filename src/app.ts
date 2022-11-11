@@ -38,9 +38,26 @@ app.use(
   } as any) // mongoose-feathers is missing the discriminators key in this type
 );
 app.use("/vocabs", service({ Model: Vocab, lean: true }));
-app.use("/questions", service({ Model: Question }));
+app.use("/questions", service({ Model: Question, lean: true }));
 app.use("/", indexRoutes);
+app.use(regeneratePostsRoutes);
+
+app.service("activities").hooks({
+  after: {
+    find: [getAllContent],
+    get: [getContent],
+  },
+});
 
 app.use(express.errorHandler());
+
+!(async () => {
+  if (process.env.NODE_ENV === "production") {
+    console.log("Populating posts...");
+    await populatePosts();
+    const posts = getCurrentPosts();
+    await insertNewPosts(app, posts);
+  }
+})();
 
 export default app;
