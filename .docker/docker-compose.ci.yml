@@ -5,8 +5,6 @@ services:
     build:
       context: ../
       target: base
-    env_file:
-      - ../.env
     environment:
       DATABASE_URL: "mongodb://root:password@database:27017"
     logging:
