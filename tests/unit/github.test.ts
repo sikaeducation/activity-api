@@ -1,6 +1,6 @@
 import { expect, jest, test } from "@jest/globals";
 import AdmZip from "adm-zip";
-import { getPostContent, verifyWebHook } from "../../src/integrations/github";
+import { getPostContent, verifyWebHook } from "../../src/services/github";
 
 jest.mock("axios", () => ({
   get: jest.fn(() => {

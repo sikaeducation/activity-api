@@ -1,6 +1,6 @@
 import express from "express";
 import { populatePosts } from "../services/posts";
-import { verifyWebHook } from "../integrations/github";
+import { verifyWebHook } from "../services/github";
 
 import type { Request, Response } from "express";
 

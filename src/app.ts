@@ -3,6 +3,10 @@ import service from "feathers-mongoose";
 import express from "@feathersjs/express";
 import cors from "cors";
 import morgan from "morgan";
+import { getCurrentPosts, populatePosts } from "./services/posts";
+import { getContent, getAllContent } from "./hooks/content";
+import regeneratePostsRoutes from "./routes/regenerate-posts";
+import { insertNewPosts } from "./services/new-post-sync";
 
 import { connect } from "./database-connection";
 connect();
