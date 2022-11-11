@@ -9,8 +9,6 @@ services:
       - ../.env
     environment:
       DATABASE_URL: "mongodb://root:password@database:27017"
-      GITHUB_TOKEN: $GITHUB_TOKEN
-      GITHUB_WEBHOOK_TOKEN: $GITHUB_WEBHOOK_TOKEN
     volumes:
       - "../:/app"
     command: ["npm", "run", "_test:integration:watch"]

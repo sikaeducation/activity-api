@@ -1,4 +1,5 @@
-import { setWorldConstructor, World, Before, After } from "@cucumber/cucumber";
+import { setWorldConstructor, World, Before } from "@cucumber/cucumber";
+process.env.NODE_ENV = "test";
 import app from "../../../src/app";
 import request from "supertest";
 import type { SuperTest } from "supertest";
@@ -16,13 +17,6 @@ Before(async function () {
 
   this.database = database;
   this.request = request(app);
-});
-
-Before({ tags: "@production" }, () => {
-  process.env.NODE_ENV = "production";
-});
-After({ tags: "@production" }, () => {
-  process.env.NODE_ENV = "env";
 });
 
 setWorldConstructor(CustomWorld);
