@@ -42,10 +42,10 @@ Feature: Activities actions
 
   Scenario: Creating
     When I make a "POST" request to the "/activities" endpoint with:
-      | _id                      | _type    | title          | post_url |
+      | _id                      | _type    | title          | post_slug |
       | 507f1f77bcf86cd799439011 | Article  | Intro to Mongo | /        |
     Then this is saved in "activities":
-      | _id                      | _type    | title          | post_url |
+      | _id                      | _type    | title          | post_slug |
       | 507f1f77bcf86cd799439011 | Article  | Intro to Mongo | /        |
 
   Scenario: Updating
@@ -53,13 +53,13 @@ Feature: Activities actions
     The `_type` key is required for patches.
 
     Given this exists in "activities":
-      | _id                      | _type    | title          | post_url |
+      | _id                      | _type    | title          | post_slug |
       | 507f1f77bcf86cd799439011 | Article  | Intro to Mongo | /        |
     When I make a "PATCH" request to the "/activities/507f1f77bcf86cd799439011?_type=Article" endpoint with:
-      | post_url |
+      | post_slug |
       | /mongo   |
     Then this is saved in "activities":
-      | _id                      | _type    | title          | post_url |
+      | _id                      | _type    | title          | post_slug |
       | 507f1f77bcf86cd799439011 | Article  | Intro to Mongo | /mongo   |
 
   Scenario: Deleting
