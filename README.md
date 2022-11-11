@@ -7,7 +7,6 @@ RESTful API for interacting with activities. Lives at [https://divine-snow-6176.
 * `npm test:watch` - Run tests in development
 * `npm test:ci` - Run CI tests
 * `npm run dev` - Start dev environment (base URL is `localhost://3000`)
-* `npm run lint` - Check and fix code for formatting and linting errors
 * `npm run build` - Force rebuild CI container
 
 ## REST Endpoints
