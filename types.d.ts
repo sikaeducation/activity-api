@@ -34,11 +34,11 @@ export type Question = {
 } & MongoDocument;
 
 export type ActivityGuide = Activity & {
-  post_url: string;
+  post_slug: string;
 };
 
 export type ActivityArticle = Activity & {
-  post_url: string;
+  post_slug: string;
 };
 
 export type ActivityExercise = Activity & {

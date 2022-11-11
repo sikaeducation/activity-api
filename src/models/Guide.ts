@@ -4,7 +4,7 @@ import type { ActivityGuide } from "../../types";
 
 const schema = new Schema<ActivityGuide>(
   {
-    post_url: {
+    post_slug: {
       type: String,
       required: true,
     },
