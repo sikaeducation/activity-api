@@ -4,7 +4,7 @@ import type { ActivityArticle } from "../../types";
 
 const schema = new Schema<ActivityArticle>(
   {
-    post_url: {
+    post_slug: {
       type: String,
       required: true,
     },
