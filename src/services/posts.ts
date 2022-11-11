@@ -12,6 +12,7 @@ export function getPost(slug: string) {
 
 export async function populatePosts() {
   const files = await getPostContent();
+  console.log("hrm", files);
   files.forEach((file: File) => {
     posts[file.name] = file.content;
   });
