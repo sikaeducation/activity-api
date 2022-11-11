@@ -1,10 +1,6 @@
 import { getPostContent } from "../services/github";
 
-const posts: Record<string, string> = {};
-type File = {
-  name: string;
-  content: string;
-};
+let posts: Record<string, string> = {};
 
 export function getPost(slug: string) {
   return posts[slug] ? posts[slug] : "";
@@ -12,10 +8,10 @@ export function getPost(slug: string) {
 
 export async function populatePosts() {
   const files = await getPostContent();
-  console.log("hrm", files);
-  files.forEach((file: File) => {
-    posts[file.name] = file.content;
-  });
+  posts = {
+    ...posts,
+    ...files,
+  };
 }
 
 export function getCurrentPosts() {

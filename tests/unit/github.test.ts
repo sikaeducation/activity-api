@@ -13,7 +13,7 @@ jest.mock("axios", () => ({
     return Promise.resolve({ data: buffer });
   }),
 }));
-jest.mock("@octokit/rest", () => ({
+jest.mock("octokit", () => ({
   Octokit: jest.fn(() => ({
     rest: {
       repos: {
