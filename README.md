@@ -16,6 +16,10 @@ RESTful API for interacting with activities. Lives at [https://divine-snow-6176.
 * `/vocab` - [Documentation](tests/vocab.feature)
 * `/questions` - [Documentation](tests/question.feature)
 
+## Environment Variables
+
+Copy `.env.example` to `.env` and add GitHub tokens for `GITHUB_TOKEN` and `GITHUB_WEBHOOK_TOKEN`.
+
 ## Dependencies
 
 * Docker / Docker Compose
