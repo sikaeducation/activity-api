@@ -24,7 +24,7 @@ const app = express(feathers());
 app.configure(express.rest());
 app.use(cors());
 app.use(express.json());
-app.use(morgan("tiny"));
+if (process.env.NODE_ENV !== "test") app.use(morgan("tiny"));
 
 app.use(
   "/activities",
