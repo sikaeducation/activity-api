@@ -7,17 +7,25 @@
     "test": "tests"
   },
   "scripts": {
-    "build": "docker-compose -f .docker/docker-compose.yml -f .docker/docker-compose.ci.yml build",
-    "test:ci": "docker-compose -f .docker/docker-compose.yml -f .docker/docker-compose.ci.yml run tests",
-    "test:watch": "docker-compose -f .docker/docker-compose.yml -f .docker/docker-compose.test.yml run tests",
+    "start": "node dist/index.js",
     "dev": "docker-compose -f .docker/docker-compose.yml -f .docker/docker-compose.dev.yml up",
+    "_dev": "nodemon -L src/index.ts",
+
     "prepare": "husky install",
     "lint": "eslint . --ext .ts --fix",
-    "start": "node dist/index.js",
+    "build": "docker-compose -f .docker/docker-compose.yml -f .docker/docker-compose.ci.yml build",
     "_build": "npm ci && tsc",
-    "_dev": "nodemon -L src/index.ts",
-    "_test": "cucumber-js --require-module \"ts-node/register\" --require \"tests/**/*.ts\" --force-exit --tags \"not @skip\"",
-    "_test:watch": "nodemon -L -x 'cucumber-js --require-module \"ts-node/register\" --require \"tests/**/*.ts\" --force-exit --tags \"not @skip\"' -e ts,feature"
+
+    "test": "docker-compose -f .docker/docker-compose.yml -f .docker/docker-compose.ci.yml run tests",
+    "test:watch": "docker-compose -f .docker/docker-compose.yml -f .docker/docker-compose.test.yml up",
+    "_test": "npm run _test:unit && npm run _test:integration",
+    "_test:unit": "jest",
+    "_test:integration": "cucumber-js --fail-fast --require-module \"ts-node/register\" --require \"tests/integration/**/*.ts\" --force-exit --tags \"not @skip\"",
+
+    "test:unit:watch": "docker-compose -f .docker/docker-compose.yml -f .docker/docker-compose.test.yml run unit_tests",
+    "_test:unit:watch": "jest --watchAll",
+    "test:integration:watch": "docker-compose -f .docker/docker-compose.yml -f .docker/docker-compose.test.yml run integration_tests",
+    "_test:integration:watch": "nodemon -L -x 'cucumber-js --fail-fast --require-module \"ts-node/register\" --require \"tests/integration/**/*.ts\" --force-exit --tags \"not @skip\"' -e ts,feature"
   },
   "repository": {
     "type": "git",
