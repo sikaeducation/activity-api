@@ -11,10 +11,10 @@ RESTful API for interacting with activities. Lives at [https://divine-snow-6176.
 
 ## REST Endpoints
 
-* `/activities` - [Documentation](tests/activities.feature)
-  * Activity Types - [Documentation](tests/activity-types.feature)
-* `/vocab` - [Documentation](tests/vocab.feature)
-* `/questions` - [Documentation](tests/question.feature)
+* `/activities` - [Documentation](tests/integration/activities.feature)
+  * Activity Types - [Documentation](tests/integration/activity-types.feature)
+* `/vocab` - [Documentation](tests/integration/vocab.feature)
+* `/questions` - [Documentation](tests/integration/question.feature)
 
 ## Environment Variables
 
