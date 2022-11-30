@@ -14,7 +14,7 @@ router.post(
       "utf8"
     );
     const isValid =
-      process.env.NODE_ENV === "production" ||
+      process.env.NODE_ENV === "production" &&
       verifyWebHook(request.body, signature);
     if (isValid) {
       await populatePosts();
