@@ -1,8 +1,8 @@
 import { getContent, getAllContent } from "./hooks/content";
 import { serialize, serializeAll } from "./hooks/serialization";
-import type { App } from "@feathersjs/express";
+import type { Application } from "@feathersjs/express";
 
-export function attachHooks(app: App) {
+export function attachHooks(app: Application) {
   app.service("activities").hooks({
     after: {
       find: [getAllContent],
