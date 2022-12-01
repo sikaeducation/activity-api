@@ -1,5 +1,5 @@
-import { getContent, getAllContent } from "./hooks/content";
-import { serialize, serializeAll } from "./hooks/serialization";
+import { getContent, getAllContent } from "./content";
+import { serialize, serializeAll } from "./serialization";
 import type { Application } from "@feathersjs/express";
 
 export function attachHooks(app: Application) {
