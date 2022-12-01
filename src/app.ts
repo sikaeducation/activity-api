@@ -3,9 +3,8 @@ import service from "feathers-mongoose";
 import express from "@feathersjs/express";
 import cors from "cors";
 import morgan from "morgan";
-import { getContent, getAllContent } from "./hooks/content";
+
 import regeneratePostsRoutes from "./routes/regenerate-posts";
-import { serialize, serializeAll } from "./hooks/serialization";
 
 import { connect } from "./database-connection";
 connect();
@@ -21,6 +20,7 @@ import {
   Vocab,
   Question,
 } from "./models";
+import { attachHooks } from "./hooks";
 
 import indexRoutes from "./routes/index";
 import { populatePosts } from "./services/posts";
@@ -46,18 +46,7 @@ app.use("/questions", service({ Model: Question, lean: true }));
 app.use("/", indexRoutes);
 app.use(regeneratePostsRoutes);
 
-app.service("activities").hooks({
-  after: {
-    find: [getAllContent],
-    get: [getContent],
-  },
-});
-app.hooks({
-  after: {
-    find: [serializeAll],
-    get: [serialize],
-  },
-});
+attachHooks(app);
 
 app.use(express.errorHandler());
 
