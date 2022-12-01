@@ -10,23 +10,23 @@ Feature: Vocab actions
 
   Scenario: Listing
     Given these "vocabs" exist:
-      | term | definition |
-      | T1   | D1         |
-      | T2   | D2         |
-      | T3   | D3         |
+      | _id                       | term | definition |
+      | 507f1f77bcf86cd799439011  | T1   | D1         |
+      | 507f1f77bcf86cd799439012  | T2   | D2         |
+      | 507f1f77bcf86cd799439013  | T3   | D3         |
     When I make a "GET" request to the "/vocabs" endpoint
-    Then I see these:
-      | term | definition |
-      | T1   | D1         |
-      | T2   | D2         |
-      | T3   | D3         |
+    Then I see these "vocabs":
+      | _id                       | term | definition |
+      | 507f1f77bcf86cd799439011  | T1   | D1         |
+      | 507f1f77bcf86cd799439012  | T2   | D2         |
+      | 507f1f77bcf86cd799439013  | T3   | D3         |
 
   Scenario: Reading
     Given this exists in "vocabs":
       | _id                      | term  | definition                  |
       | 507f1f77bcf86cd799439011 | HTTP  | HyperText Transfer Protocol |
     When I make a "GET" request to the "/vocabs/507f1f77bcf86cd799439011" endpoint
-    Then I see this:
+    Then I see this "vocab":
       | _id                      | term  | definition                  |
       | 507f1f77bcf86cd799439011 | HTTP  | HyperText Transfer Protocol |
 

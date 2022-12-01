@@ -20,23 +20,23 @@ Feature: Activities actions
 
   Scenario: Listing
     Given these "activities" exist:
-      | _type       | title           |
-      | Article     | Intro to Mongo  |
-      | Exercise    | Mongo practice  |
-      | Guide       | Guide to Mongo  |
+      | _id                       | _type       | title           |
+      | 507f1f77bcf86cd799439011  | Article     | Intro to Mongo  |
+      | 507f1f77bcf86cd799439012  | Exercise    | Mongo practice  |
+      | 507f1f77bcf86cd799439013  | Guide       | Guide to Mongo  |
     When I make a "GET" request to the "/activities" endpoint
-    Then I see these:
-      | _type       | title           |
-      | Article     | Intro to Mongo  |
-      | Exercise    | Mongo practice  |
-      | Guide       | Guide to Mongo  |
+    Then I see these "activities":
+      | _id                       | _type       | title           |
+      | 507f1f77bcf86cd799439011  | Article     | Intro to Mongo  |
+      | 507f1f77bcf86cd799439012  | Exercise    | Mongo practice  |
+      | 507f1f77bcf86cd799439013  | Guide       | Guide to Mongo  |
 
   Scenario: Reading
     Given this exists in "activities":
       | _id                      | _type    | title          |
       | 507f1f77bcf86cd799439011 | Article  | Intro to Mongo |
     When I make a "GET" request to the "/activities/507f1f77bcf86cd799439011" endpoint
-    Then I see this:
+    Then I see this "activity":
       | _id                      | _type    | title          |
       | 507f1f77bcf86cd799439011 | Article  | Intro to Mongo |
 
