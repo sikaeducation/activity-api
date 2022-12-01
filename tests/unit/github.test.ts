@@ -1,6 +1,10 @@
 import { expect, jest, test } from "@jest/globals";
 import AdmZip from "adm-zip";
 import { getPostContent, verifyWebHook } from "../../src/services/github";
+import {
+  body as githubHookBody,
+  signature as githubSignature,
+} from "./github-token-validation-fixture";
 
 jest.mock("axios", () => ({
   get: jest.fn(() => {
@@ -30,25 +34,20 @@ test("#getPostContent retrieves post content from GitHub", async () => {
   expect(postContent).toEqual({ "mongo-intro": "# Some Markdown" });
 });
 
-// The logic of this test is fine, but needs real values for the mock token comparison
-test.skip("#verifyWebHook correctly validates a good token", async () => {
-  process.env.GITHUB_WEBHOOK_TOKEN = "xxxxxxxxxxxxxxxxxxxx";
+test("#verifyWebHook verifies good tokens", async () => {
+  process.env.GITHUB_WEBHOOK_TOKEN = "HTRdIMlFw0";
 
-  const isValid = verifyWebHook(
-    "abcdefg",
-    Buffer.from("xxxxxxxxxxxxxxxxxxxxx", "utf8")
-  );
+  const isValid = verifyWebHook(githubHookBody, githubSignature);
 
   expect(isValid).toBe(true);
 });
 
-// The logic of this test is fine, but needs real values for the mock token comparison
-test.skip("#verifyWebHook correctly validates a good token", async () => {
-  process.env.GITHUB_WEBHOOK_TOKEN = "xxxxxxxxxxxxxxxxxxxx";
+test("#verifyWebHook doesn't verify bad tokens", async () => {
+  process.env.GITHUB_WEBHOOK_TOKEN = "HTRdIMlFw0";
 
   const isValid = verifyWebHook(
-    "abcdefg",
-    Buffer.from("xxxxxxxxxxxxxxxxxxxxx", "utf8")
+    githubHookBody + "anything that doesn't belong there",
+    githubSignature
   );
 
   expect(isValid).toBe(false);

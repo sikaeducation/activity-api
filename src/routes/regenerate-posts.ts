@@ -10,10 +10,9 @@ router.post(
   "/regenerate-posts",
   async (request: Request, response: Response) => {
     const rawSignature = request.get("X-Hub-Signature-256") || "";
-    const signature = Buffer.from(rawSignature, "utf8");
     const isValid =
       ["production", "test"].includes(process.env.NODE_ENV || "") &&
-      verifyWebHook(request.body, signature);
+      verifyWebHook(request.body, rawSignature);
     if (isValid) {
       await populatePosts();
       response.status(200).send();
