@@ -10,15 +10,17 @@ import { serialize, serializeAll } from "./hooks/serialization";
 import { connect } from "./database-connection";
 connect();
 
-import Activity from "./models/Activity";
-import Article from "./models/Article";
-import Guide from "./models/Guide";
-import Exercise from "./models/Exercise";
-import VocabList from "./models/VocabList";
-import Lesson from "./models/Lesson";
-import Video from "./models/Video";
-import Vocab from "./models/Vocab";
-import Question from "./models/Question";
+import {
+  Activity,
+  Article,
+  Guide,
+  Exercise,
+  VocabList,
+  Lesson,
+  Video,
+  Vocab,
+  Question,
+} from "./models";
 
 import indexRoutes from "./routes/index";
 import { populatePosts } from "./services/posts";
