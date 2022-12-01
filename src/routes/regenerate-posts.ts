@@ -10,7 +10,6 @@ router.post(
   "/regenerate-posts",
   async (request: Request, response: Response) => {
     const rawSignature = request.get("X-Hub-Signature-256") || "";
-    console.log({ body: JSON.stringify(request.body), rawSignature });
     const signature = Buffer.from(rawSignature, "utf8");
     const isValid =
       ["production", "test"].includes(process.env.NODE_ENV || "") &&
