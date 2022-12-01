@@ -11,9 +11,9 @@ const populatePostsStub = sinon
 
 sinon
   .stub(gitHubIntegration, "verifyWebHook")
-  .withArgs(sinon.match.any, Buffer.from("valid", "utf8"))
+  .withArgs(sinon.match.any, "valid")
   .returns(true)
-  .withArgs(sinon.match.any, Buffer.from("invalid", "utf8"))
+  .withArgs(sinon.match.any, "invalid")
   .returns(false);
 
 When(

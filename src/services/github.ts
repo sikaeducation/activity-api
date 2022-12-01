@@ -48,7 +48,8 @@ export async function getPostContent() {
     });
 }
 
-export function verifyWebHook(body: unknown, signature: Buffer) {
+export function verifyWebHook(body: unknown, rawSignature: string) {
+  const signature = Buffer.from(rawSignature, "utf8");
   const GITHUB_WEBHOOK_TOKEN = process.env.GITHUB_WEBHOOK_TOKEN || "";
 
   const hmac = crypto.createHmac("sha256", GITHUB_WEBHOOK_TOKEN);
