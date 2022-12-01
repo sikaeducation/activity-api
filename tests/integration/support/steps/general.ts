@@ -53,10 +53,19 @@ Given("this exists in {string}:", async function (collection, table) {
   await this.database.collection(collection).insertOne(data);
 });
 
-Then(/I see (these|this):/, async function (quantifier, table) {
-  const data = quantifier === "this" ? table.hashes()[0] : table.hashes();
+import { keyBy } from "lodash/fp"
+Then("I see these {string}:", async function (resourceType, table) {
+  let data = table.hashes()
+  data = keyBy("_id")(data)
   const response = await this.request;
-  expect(response.body).toMatchObject(data);
+  expect(response.body).toMatchObject({[resourceType]: data});
+});
+
+Then("I see this {string}:", async function (resourceType, table) {
+  const data = table.hashes()[0];
+    
+  const response = await this.request;
+  expect(response.body).toMatchObject({[resourceType]: data});
 });
 
 Then("these are saved in {string}:", async function (collection, table) {

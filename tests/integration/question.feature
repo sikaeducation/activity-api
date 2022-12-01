@@ -10,23 +10,23 @@ Feature: Question actions
 
   Scenario: Listing
     Given these "questions" exist:
-      | prompt | answer |
-      | P1     | A1     |
-      | P2     | A2     |
-      | P3     | A3     |
+      | _id                       | prompt | answer |
+      | 507f1f77bcf86cd799439011  | P1     | A1     |
+      | 507f1f77bcf86cd799439012  | P2     | A2     |
+      | 507f1f77bcf86cd799439013  | P3     | A3     |
     When I make a "GET" request to the "/questions" endpoint
-    Then I see these:
-      | prompt | answer |
-      | P1     | A1     |
-      | P2     | A2     |
-      | P3     | A3     |
+    Then I see these "questions":
+      | _id                       | prompt | answer |
+      | 507f1f77bcf86cd799439011  | P1     | A1     |
+      | 507f1f77bcf86cd799439012  | P2     | A2     |
+      | 507f1f77bcf86cd799439013  | P3     | A3     |
 
   Scenario: Reading
     Given this exists in "questions":
       | _id                      | prompt      | answer            |
       | 507f1f77bcf86cd799439011 | What is √4? | Why, 2 of course  |
     When I make a "GET" request to the "/questions/507f1f77bcf86cd799439011 " endpoint
-    Then I see this:
+    Then I see this "question":
       | _id                      | prompt      | answer            |
       | 507f1f77bcf86cd799439011 | What is √4? | Why, 2 of course  |
 
