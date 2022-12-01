@@ -5,7 +5,7 @@ import cors from "cors";
 import morgan from "morgan";
 import { getContent, getAllContent } from "./hooks/content";
 import regeneratePostsRoutes from "./routes/regenerate-posts";
-import { serialize, serializeAll } from "./hooks/serialization"
+import { serialize, serializeAll } from "./hooks/serialization";
 
 import { connect } from "./database-connection";
 connect();
