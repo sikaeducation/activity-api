@@ -15,6 +15,7 @@ export async function authenticate(
   next: (error: Error | undefined) => void
 ) {
   const token = request.get("authorization") || "";
+  const extractedToken = token.split(" ")[1];
   const { verify } = jwt;
 
   const client = jwksClient({
@@ -31,8 +32,8 @@ export async function authenticate(
     });
   };
 
-  verify(token, getKey, (error, decodedJwt: any) => {
-    console.log(token, error, decodedJwt);
+  verify(extractedToken, getKey, (error, decodedJwt: any) => {
+    console.log(extractedToken, error, decodedJwt);
     if (decodedJwt) {
       request.user = {
         email: decodedJwt["https://sikaeducation.com/email"],
