@@ -32,6 +32,7 @@ export async function authenticate(
   };
 
   verify(token, getKey, (error, decodedJwt: any) => {
+    console.log(token, error, decodedJwt);
     if (decodedJwt) {
       request.user = {
         email: decodedJwt["https://sikaeducation.com/email"],
