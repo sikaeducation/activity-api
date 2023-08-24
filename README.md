@@ -18,7 +18,12 @@ RESTful API for interacting with activities. Lives at [https://divine-snow-6176.
 
 ## Environment Variables
 
-Copy `.env.example` to `.env` and add GitHub tokens for `GITHUB_TOKEN` and `GITHUB_WEBHOOK_TOKEN`.
+Copy `.env.example` to `.env` and add:
+
+* `GITHUB_TOKEN` (personal access token for API access)
+* `GITHUB_WEBHOOK_TOKEN` (from the `posts` repo)
+* `AUTH_KEY_URL` (from the Auth0 jwks URL)
+* `DATABASE_URL` (URL to Mongo instance)
 
 ## Dependencies
 
