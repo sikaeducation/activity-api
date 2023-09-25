@@ -1,5 +1,7 @@
 # Activity Service
 
+[![CI](https://github.com/sikaeducation/activity-service/actions/workflows/main.yml/badge.svg)](https://github.com/sikaeducation/activity-service/actions/workflows/main.yml)
+
 RESTful API for interacting with activities. Lives at [https://divine-snow-6176.fly.dev](https://divine-snow-6176.fly.dev).
 
 ## Scripts
