@@ -7,13 +7,13 @@ import { connect as connectToDatabase } from "../database-connection";
 import type { Application } from "@feathersjs/express";
 
 export function attachMiddleware(app: Application) {
-	connectToDatabase();
-	app.configure(express.rest());
-	app.use(cors());
-	app.use(express.json());
-	if (process.env.NODE_ENV !== "test") app.use(morgan("tiny"));
-	if (process.env.NODE_ENV === "production") {
-		app.use(authenticate);
-		!(async () => await populatePosts())();
-	}
+  connectToDatabase();
+  app.configure(express.rest());
+  app.use(cors());
+  app.use(express.json());
+  if (process.env.NODE_ENV !== "test") app.use(morgan("tiny"));
+  if (process.env.NODE_ENV === "production") {
+    app.use(authenticate);
+    !(async () => await populatePosts())();
+  }
 }
