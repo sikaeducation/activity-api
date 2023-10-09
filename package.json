@@ -36,7 +36,7 @@
 	},
 	"homepage": "https://github.com/sikaeducation/activity-service#readme",
 	"dependencies": {
-		"@cucumber/cucumber": "^8.5.1",
+		"@cucumber/cucumber": "^9.6.0",
 		"@feathersjs/express": "^4.5.15",
 		"@feathersjs/feathers": "^4.5.15",
 		"@feathersjs/transport-commons": "^4.5.15",
