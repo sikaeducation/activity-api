@@ -1,4 +1,4 @@
-import { expect, jest, test } from "@jest/globals";
+import { expect, vi, test } from "vitest";
 import AdmZip from "adm-zip";
 import { getPostContent, verifyWebHook } from "../../src/services/github";
 import {
@@ -6,24 +6,28 @@ import {
   signature as githubSignature,
 } from "./github-token-validation-fixture";
 
-jest.mock("axios", () => ({
-  get: jest.fn(() => {
-    const zip = new AdmZip();
-    zip.addFile(
-      "posts/mongo-intro/README.md",
-      Buffer.from("# Some Markdown", "utf8")
-    );
-    const buffer = zip.toBuffer();
-    return Promise.resolve({ data: buffer });
-  }),
+vi.mock("axios", () => ({
+  default: {
+    get: vi.fn(() => {
+      const zip = new AdmZip();
+      zip.addFile(
+        "posts/mongo-intro/README.md",
+        Buffer.from("# Some Markdown", "utf8"),
+      );
+      const buffer = zip.toBuffer();
+      return Promise.resolve({ data: buffer });
+    }),
+  },
 }));
-jest.mock("octokit", () => ({
-  Octokit: jest.fn(() => ({
+vi.mock("octokit", () => ({
+  Octokit: vi.fn(() => ({
     rest: {
       repos: {
-        downloadZipballArchive: jest.fn(() =>
-          Promise.resolve("https://github.com/zipballs/some-id.zip")
-        ),
+        downloadZipballArchive: vi.fn(() => {
+          return Promise.resolve({
+            url: "https://github.com/zipballs/some-id.zip",
+          });
+        }),
       },
     },
   })),
@@ -47,7 +51,7 @@ test("#verifyWebHook doesn't verify bad tokens", async () => {
 
   const isValid = verifyWebHook(
     githubHookBody + "anything that doesn't belong there",
-    githubSignature
+    githubSignature,
   );
 
   expect(isValid).toBe(false);
