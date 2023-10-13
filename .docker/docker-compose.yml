@@ -12,12 +12,13 @@ services:
     build:
       context: ../
       target: base
-    env_file:
-      - ../.env
     environment:
       PORT: 80
       DATABASE_URL: "mongodb://root:password@database:27017"
+    env_file:
+      - ../.env
     ports:
       - "4000:80"
     volumes:
       - "../:/app"
+    command: ["npm", "run", "_dev"]
