@@ -1,10 +1,9 @@
 name: CI/CD
-
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
   workflow_dispatch:
 jobs:
   test:
@@ -15,17 +14,12 @@ jobs:
       - name: Run tests
         run: npm test
   deploy:
-    needs:
-      - test
+    needs: [test]
     runs-on: ubuntu-latest
     env:
       FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
     steps:
       - name: Checkout files from repo
         uses: actions/checkout@v2
-      # - name: Setup upterm session
-      #   uses: lhotari/action-upterm@v1
-      #   with:
-      #     limit-access-to-actor: true
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - run: flyctl deploy --remote-only

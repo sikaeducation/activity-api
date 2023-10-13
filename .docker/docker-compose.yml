@@ -6,3 +6,18 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: password
     expose:
       - "27017"
+  api:
+    depends_on:
+      - database
+    build:
+      context: ../
+      target: base
+    env_file:
+      - ../.env
+    environment:
+      PORT: 80
+      DATABASE_URL: "mongodb://root:password@database:27017"
+    ports:
+      - "4000:80"
+    volumes:
+      - "../:/app"
