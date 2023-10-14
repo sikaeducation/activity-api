@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+import { Db, MongoClient } from "mongodb";
 
 export async function getDatabase(url = "") {
   const client = new MongoClient(url);
@@ -6,12 +6,12 @@ export async function getDatabase(url = "") {
   return connection.db(`activityService`);
 }
 
-export async function resetDatabase(database: any) {
+export async function resetDatabase(database: Db) {
   const collections = ["activities", "questions", "vocabs"];
 
   await Promise.all(
     collections.map((collection: string) => {
       return database.collection(collection)?.deleteMany({});
-    })
+    }),
   );
 }

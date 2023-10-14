@@ -1,13 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es2016",                      
-    "module": "commonjs",                    
-    "lib": ["esnext"],
-    "outDir": "dist",
-    "esModuleInterop": true,                 
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "strict": true,                          
-    "skipLibCheck": true                     
-  },
-  "files": ["src/index.ts"]
+    "lib": ["esnext"],
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ESNext"
+  }
 }
