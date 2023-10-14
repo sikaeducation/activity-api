@@ -8,8 +8,8 @@ type Activity = {
   content?: string;
 };
 
-export function getAllContent(context: HookContext) {
-  context.result = context.result.map((activity: Activity) => {
+export function getAllContent(context: HookContext<Activity[]>) {
+  context.result = context.result?.map((activity: Activity) => {
     if (gitHubableTypes.includes(activity._type)) {
       activity.content = getPost(activity.post_slug || "");
     }
@@ -19,8 +19,12 @@ export function getAllContent(context: HookContext) {
   return context;
 }
 
-export function getContent(context: HookContext) {
-  if (gitHubableTypes.includes(context.result._type)) {
+export function getContent(context: HookContext<Activity>) {
+  if (
+    context.result?.post_slug &&
+    context.result?._type &&
+    gitHubableTypes.includes(context.result._type)
+  ) {
     context.result = {
       ...context.result,
       content: getPost(context.result.post_slug),
