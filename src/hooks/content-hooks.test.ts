@@ -1,8 +1,8 @@
 import { HookContext } from "@feathersjs/feathers";
 import { expect, vi, test } from "vitest";
-import { getContent, getAllContent } from "../../src/hooks/content";
+import { getContent, getAllContent } from "./content";
 
-vi.mock("../../src/services/posts", () => ({
+vi.mock("../services/posts", () => ({
 	getPost: vi.fn(() => "# Some Markdown"),
 }));
 
