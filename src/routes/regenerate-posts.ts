@@ -6,9 +6,9 @@ import type { Request, Response } from "express";
 
 const router = express.Router();
 
-router.post(
-  "/regenerate-posts",
-  async (request: Request, response: Response) => {
+router.post("/regenerate-posts", (request: Request, response: Response) => {
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  !(async function (request: Request, response: Response) {
     const rawSignature = request.get("X-Hub-Signature-256") || "";
     const isValid =
       ["production", "test"].includes(process.env.NODE_ENV || "") &&
@@ -19,7 +19,7 @@ router.post(
     } else {
       response.status(401).send();
     }
-  }
-);
+  })(request, response);
+});
 
 export default router;
