@@ -1,15 +1,24 @@
 # Activity Service
 
+TODO:
+
+- Not passing TSLint
+- Update all the meta docs
+- Clean up service files
+- Turn tests back on in the FE
+- Structure API folder better, for hosting purposes
+
 [![CI](https://github.com/sikaeducation/activity-service/actions/workflows/main.yml/badge.svg)](https://github.com/sikaeducation/activity-service/actions/workflows/main.yml)
 
-RESTful API for interacting with activities. Lives at [https://divine-snow-6176.fly.dev](https://divine-snow-6176.fly.dev).
+RESTful API for interacting with activities. Lives at [https://activity-service.fly.dev](https://activity-service.fly.dev).
 
 ## Scripts
 
 - `npm test:watch` - Run tests in development
 - `npm test:ci` - Run CI tests
 - `npm run dev` - Start dev environment (base URL is `localhost://3000`)
-- `npm run build` - Force rebuild CI container
+- `npm run build` - Compile TS to `/dist`
+- `npm run build:docker` - Force rebuild CI container
 
 ## REST Endpoints
 
@@ -30,10 +39,3 @@ Copy `.env.example` to `.env` and add:
 ## Dependencies
 
 - Docker / Docker Compose
-
-## Stack
-
-- Express
-- Mongo
-- Cucumber, Expect
-- Supertest

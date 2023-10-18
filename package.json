@@ -5,7 +5,6 @@
   "scripts": {
     "start": "pm2 start dist/index.js -i 'max'",
     "dev": "docker compose config && docker compose up --abort-on-container-exit",
-    "_dev": "nodemon -L src/index.ts",
     "lint": "npm run lint:ts ; npm run format",
     "lint:ts": "eslint --ignore-path .gitignore --fix .",
     "format": "prettier . --write",
@@ -13,12 +12,13 @@
     "build:docker": "docker compose build",
     "test": "docker compose run api sh -c 'npm run _test:unit && npm run _test:integration'",
     "test:unit": "docker compose run api npm run _test:unit",
-    "_test:unit": "vitest --run src features",
     "test:unit:watch": "docker compose run api npm run _test:unit:watch",
-    "_test:unit:watch": "vitest --watch src features",
     "test:integration": "docker compose run api npm run _test:integration",
-    "_test:integration": "cucumber-js --fail-fast --require-module \"ts-node/register\" --require \"features/**/*.ts\" --force-exit --tags \"not @skip\"",
     "test:integration:watch": "docker compose run api npm run _test:integration:watch",
+    "_dev": "nodemon -L src/index.ts",
+    "_test:unit": "vitest --run src features",
+    "_test:unit:watch": "vitest --watch src features",
+    "_test:integration": "cucumber-js --fail-fast --require-module \"ts-node/register\" --require \"features/**/*.ts\" --force-exit --tags \"not @skip\"",
     "_test:integration:watch": "nodemon -L -x 'cucumber-js --fail-fast --require-module \"ts-node/register\" --require \"features/**/*.ts\" --force-exit --tags \"not @skip\"' -e ts,feature"
   },
   "repository": {
