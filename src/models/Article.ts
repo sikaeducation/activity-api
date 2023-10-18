@@ -1,8 +1,8 @@
-import { Schema } from "mongoose";
+import { Model, Schema } from "mongoose";
 import Activity from "./Activity";
 import type { ActivityArticle } from "../../types";
 
-const schema = new Schema<ActivityArticle>(
+const schema = new Schema<ActivityArticle, Model<ActivityArticle>>(
   {
     post_slug: {
       type: String,
@@ -11,7 +11,8 @@ const schema = new Schema<ActivityArticle>(
   },
   {
     discriminatorKey: "_type",
-  }
+  },
 );
 
-export default Activity.discriminator("Article", schema);
+const ActivityArticleSchema = Activity.discriminator("Article", schema);
+export default ActivityArticleSchema;

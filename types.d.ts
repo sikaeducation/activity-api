@@ -1,10 +1,12 @@
+import type { Types } from "mongoose";
+
 export type ActivityType = "article";
 /*
-  | "guide"
-  | "exercise"
-  | "quiz"
-  | "lesson"
-  | "video";
+	| "guide"
+	| "exercise"
+	| "quiz"
+	| "lesson"
+	| "video";
 */
 
 type MongoDocument = {
@@ -17,7 +19,7 @@ export type Activity = {
   _type: ActivityType;
   title: string;
   published: boolean;
-  tags?: string[];
+  tags?: Types.Array<string>;
   notes?: string;
   description?: string;
 } & MongoDocument;
@@ -49,13 +51,13 @@ export type ActivityExercise = Activity & {
 };
 
 export type ActivityVocabList = Activity & {
-  entries: Vocab[];
+  entries: Types.DocumentArray[Vocab];
 };
 
 export type ActivityLesson = Activity & {
   video_url?: string;
   plan?: string;
-  objectives?: string[];
+  objectives?: Types.Array<string>;
   notes?: string;
   date?: string;
 };

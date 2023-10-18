@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { getContent, getAllContent } from "./content";
-import type { Application } from "@feathersjs/express";
-import App from "../app";
+import { feathersApp } from "../app";
 
-export function attachHooks(app: typeof App) {
-  app.service("activities").hooks({
+export function attachHooks(app: typeof feathersApp) {
+  // @ts-ignore because this is untyped
+  app.service("activity").hooks({
     after: {
       find: [getAllContent],
       get: [getContent],

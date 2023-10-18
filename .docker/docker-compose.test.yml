@@ -1,5 +1,0 @@
-services:
-  api:
-    logging:
-      driver: none
-    command: [npm, run, _test]
