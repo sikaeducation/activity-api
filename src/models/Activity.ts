@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import type { Activity } from "../../types";
 
-const schema = new mongoose.Schema<Activity>(
+const schema = new mongoose.Schema<Activity, Model<Activity>>(
   {
     _type: {
       type: String,
@@ -22,7 +22,11 @@ const schema = new mongoose.Schema<Activity>(
   {
     timestamps: true,
     discriminatorKey: "_type",
-  }
+  },
 );
 
-export default mongoose.model("Activity", schema);
+const ActivitySchema = mongoose.model<Activity, Model<Activity>>(
+  "Activity",
+  schema,
+);
+export default ActivitySchema;

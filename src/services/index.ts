@@ -1,19 +1,22 @@
-import {
-  Vocab,
-  Question,
-  Activity,
-  Article,
-  Guide,
-  Exercise,
-  VocabList,
-  Lesson,
-  Video,
-} from "../models";
+import { Vocab, Question, Activity, Article } from "../models";
 import service from "feathers-mongoose";
 
-export const VocabService = service({ Model: Vocab, lean: true });
-export const QuestionService = service({ Model: Question, lean: true });
-export const ActivityService = service({
-  Model: Activity,
-  discriminators: [Article, Guide, Exercise, VocabList, Lesson, Video],
-}); // mongoose-feathers is missing the discriminators key in this type
+const patchedService = service as (
+	options: Parameters<typeof service>[0] & {
+		discriminators?: [typeof Article];
+	},
+) => ReturnType<typeof service>;
+
+export const VocabService = patchedService({
+	Model: Vocab,
+	lean: true,
+});
+export const QuestionService = patchedService({
+	Model: Question,
+	lean: true,
+});
+export const ActivityService = patchedService({
+	Model: Activity,
+	discriminators: [Article],
+	lean: true,
+});

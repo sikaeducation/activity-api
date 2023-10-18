@@ -1,7 +1,5 @@
 import { readdir } from "fs/promises";
-import app from "./src/app";
-
-const activityService = app.service("activities");
+import { ActivityService } from "./src/services";
 
 const POSTS_FOLDER = "./posts";
 const GITHUB_BASE = "https://github.com/sikaeducation/posts/blob/master";
@@ -13,7 +11,7 @@ function process() {
         .filter((folder: string) => folder !== ".git")
         .map((folder: string) => {
           console.log(`Adding ${folder}...`);
-          return activityService.create({
+          return ActivityService.create({
             _type: "article",
             title: folder,
             post_url: `${GITHUB_BASE}/${folder}`,
@@ -21,7 +19,7 @@ function process() {
         });
     })
     .then((articles) => Promise.all(articles))
-    .catch((error) => {
+    .catch((error: { message: string }) => {
       console.error(error.message);
     });
 }
