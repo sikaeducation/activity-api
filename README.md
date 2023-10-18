@@ -3,10 +3,14 @@
 TODO:
 
 - Not passing TSLint
-- Update all the meta docs
-- Clean up service files
-- Turn tests back on in the FE
+  - Tests
 - Structure API folder better, for hosting purposes
+
+- Turn tests back on in the FE
+- Review BE types
+- Review FE types
+
+- Update all the meta docs
 
 [![CI](https://github.com/sikaeducation/activity-service/actions/workflows/main.yml/badge.svg)](https://github.com/sikaeducation/activity-service/actions/workflows/main.yml)
 

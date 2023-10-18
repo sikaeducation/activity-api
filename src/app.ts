@@ -1,43 +1,22 @@
 import express from "@feathersjs/express";
 import feathers from "@feathersjs/feathers";
-import cors from "cors";
-import morgan from "morgan";
 import { connect as connectToDatabase } from "./database-connection";
+
 import { attachHooks } from "./hooks";
-import { authenticate } from "./middleware/auth0";
-import { ActivityService, QuestionService, VocabService } from "./services";
-import { populatePosts } from "./services/posts";
-import indexRoutes from "./routes/home";
-import regeneratePostsRoutes from "./routes/regenerate-posts";
+import attachMiddleware from "./middleware";
+import { attachServices, ServiceTypes } from "./services";
+import attachRoutes from "./routes";
+import mongoose from "mongoose";
 
-export const feathersApp = feathers<{
-  activity: typeof ActivityService;
-  question: typeof QuestionService;
-  vocab: typeof VocabService;
-}>();
-feathersApp.use("activity", ActivityService);
-feathersApp.use("question", QuestionService);
-feathersApp.use("vocab", VocabService);
+mongoose.Promise = global.Promise;
+connectToDatabase();
 
+export const feathersApp = feathers<ServiceTypes>();
 const app = express(feathersApp);
-app.configure(express.rest());
-app.use(cors());
-app.use(express.json());
+
+attachMiddleware(app);
+attachServices(app);
+attachRoutes(app);
+attachHooks(app);
 
 export default app;
-
-if (process.env.NODE_ENV !== "test") app.use(morgan("tiny"));
-if (process.env.NODE_ENV === "production") {
-  app.use(authenticate);
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  !(async () => await populatePosts())();
-}
-
-connectToDatabase();
-app.use("/activities", ActivityService);
-app.use("/vocabs", VocabService);
-app.use("/questions", QuestionService);
-app.use("/", indexRoutes);
-app.use(regeneratePostsRoutes);
-app.use(express.errorHandler());
-attachHooks(app);

@@ -1,8 +1,18 @@
-import { Model, Schema } from "mongoose";
+import { Schema } from "mongoose";
 import Activity from "./Activity";
-import type { ActivityArticle } from "../../types";
+// import type { ActivityArticle } from "../../types";
 
-const schema = new Schema<ActivityArticle, Model<ActivityArticle>>(
+type ArticleDocument = {
+  _type: string;
+  published: boolean;
+  tags: string[];
+  notes: string;
+  description: string;
+  title: string;
+  post_slug: string;
+};
+
+const schema = new Schema<ArticleDocument>(
   {
     post_slug: {
       type: String,

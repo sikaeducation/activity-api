@@ -6,4 +6,12 @@ COPY . .
 
 RUN npm ci
 
+USER node
+
 CMD ["npm", "run", "dev"]
+
+FROM base as prod
+
+RUN npm build
+
+CMD ["npm", "start"]

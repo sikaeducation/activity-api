@@ -1,11 +1,14 @@
 import { Vocab, Question, Activity, Article } from "../models";
 import service from "feathers-mongoose";
+import { Application } from "@feathersjs/express";
 
-const patchedService = service as (
-  options: Parameters<typeof service>[0] & {
-    discriminators?: [typeof Article];
-  },
-) => ReturnType<typeof service>;
+// Feathers is missing the discriminator key in its type
+// const patchedService = service as (
+//   options: Parameters<typeof service>[0] & {
+//     discriminators?: [typeof Article];
+//   },
+// ) => ReturnType<typeof service>;
+const patchedService = service;
 
 export const VocabService = patchedService({
   Model: Vocab,
@@ -20,3 +23,15 @@ export const ActivityService = patchedService({
   discriminators: [Article],
   lean: true,
 });
+
+export type ServiceTypes = {
+  activity: typeof ActivityService;
+  question: typeof QuestionService;
+  vocab: typeof VocabService;
+};
+
+export const attachServices = (app: Application) => {
+  app.use("activity", ActivityService);
+  app.use("question", QuestionService);
+  app.use("vocab", VocabService);
+};
