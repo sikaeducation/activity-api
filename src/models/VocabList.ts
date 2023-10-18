@@ -13,7 +13,7 @@ const schema = new Schema<ActivityVocabList>(
   },
   {
     discriminatorKey: "_type",
-  }
+  },
 );
 
 export default Activity.discriminator("VocabList", schema);

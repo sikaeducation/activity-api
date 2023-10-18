@@ -12,7 +12,7 @@ vi.mock("axios", () => ({
       const zip = new AdmZip();
       zip.addFile(
         "posts/mongo-intro/README.md",
-        Buffer.from("# Some Markdown", "utf8")
+        Buffer.from("# Some Markdown", "utf8"),
       );
       const buffer = zip.toBuffer();
       return Promise.resolve({ data: buffer });
@@ -51,7 +51,7 @@ test("#verifyWebHook doesn't verify bad tokens", () => {
 
   const isValid = verifyWebHook(
     { ...githubHookBody, totallyWrong: "anything that doesn't belong there" },
-    githubSignature
+    githubSignature,
   );
 
   expect(isValid).toBe(false);

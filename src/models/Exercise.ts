@@ -23,7 +23,7 @@ const schema = new Schema<ActivityExercise>(
   },
   {
     discriminatorKey: "_type",
-  }
+  },
 );
 
 export default Activity.discriminator("Exercise", schema);

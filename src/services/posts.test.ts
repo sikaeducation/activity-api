@@ -6,7 +6,7 @@ vi.mock("./github", () => ({
     Promise.resolve({
       "mongo-guide": "# Some markdown",
       "sql-1": "# Some other markdown",
-    })
+    }),
   ),
 }));
 

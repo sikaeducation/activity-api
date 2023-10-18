@@ -14,7 +14,7 @@ const schema = new mongoose.Schema<Question>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 export default mongoose.model("Question", schema);

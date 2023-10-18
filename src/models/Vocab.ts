@@ -17,7 +17,7 @@ const schema = new mongoose.Schema<Vocab>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 export default mongoose.model("Vocab", schema);

@@ -11,7 +11,7 @@ const schema = new Schema<ActivityGuide>(
   },
   {
     discriminatorKey: "_type",
-  }
+  },
 );
 
 export default Activity.discriminator("Guide", schema);
