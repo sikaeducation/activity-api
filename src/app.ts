@@ -15,7 +15,7 @@ export const feathersApp = feathers<ServiceTypes>();
 const app = express(feathersApp);
 
 attachMiddleware(app);
-attachServices(app);
+attachServices(feathersApp);
 attachRoutes(app);
 attachHooks(app);
 
