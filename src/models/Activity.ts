@@ -1,7 +1,6 @@
-import mongoose, { Model } from "mongoose";
-import type { Activity } from "../../types";
+import mongoose, { Schema, InferSchemaType } from "mongoose";
 
-const schema = new mongoose.Schema<Activity, Model<Activity>>(
+const schema = new Schema(
   {
     _type: {
       type: String,
@@ -24,9 +23,7 @@ const schema = new mongoose.Schema<Activity, Model<Activity>>(
     discriminatorKey: "_type",
   },
 );
+type ActivityDocument = InferSchemaType<typeof schema>;
 
-const ActivitySchema = mongoose.model<Activity, Model<Activity>>(
-  "Activity",
-  schema,
-);
+const ActivitySchema = mongoose.model<ActivityDocument>("Activity", schema);
 export default ActivitySchema;

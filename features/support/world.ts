@@ -1,11 +1,12 @@
 import { setWorldConstructor, World, Before } from "@cucumber/cucumber";
-process.env.NODE_ENV = "test";
 import app from "../../src/app";
 import request from "supertest";
 import type { SuperTest } from "supertest";
 import type { SuperAgentRequest } from "superagent";
 import type { Db } from "mongodb";
 import { getDatabase, resetDatabase } from "./database";
+
+process.env.NODE_ENV = "test";
 
 function CustomWorld(
   this: World & { database: Db; request: SuperTest<SuperAgentRequest> },
