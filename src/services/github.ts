@@ -60,7 +60,7 @@ export function verifyWebHook(body: unknown, rawSignature: string) {
   const hmac = crypto.createHmac("sha256", GITHUB_WEBHOOK_TOKEN);
   const digest = Buffer.from(
     `sha256=${hmac.update(JSON.stringify(body)).digest("hex")}`,
-    "utf8"
+    "utf8",
   );
 
   return crypto.timingSafeEqual(signature, digest);

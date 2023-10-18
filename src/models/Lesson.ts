@@ -22,7 +22,7 @@ const schema = new Schema<ActivityLesson>(
   },
   {
     discriminatorKey: "_type",
-  }
+  },
 );
 
 export default Activity.discriminator("Lesson", schema);

@@ -11,7 +11,7 @@ const schema = new Schema<ActivityVideo>(
   },
   {
     discriminatorKey: "_type",
-  }
+  },
 );
 
 export default Activity.discriminator("Video", schema);

@@ -6,31 +6,31 @@ import * as postsService from "../../../src/services/posts";
 import * as gitHubIntegration from "../../../src/services/github";
 
 const populatePostsStub = sinon
-	.stub(postsService, "populatePosts")
-	.returns(Promise.resolve());
+  .stub(postsService, "populatePosts")
+  .returns(Promise.resolve());
 
 sinon
-	.stub(gitHubIntegration, "verifyWebHook")
-	.withArgs(sinon.match.any, "valid")
-	.returns(true)
-	.withArgs(sinon.match.any, "invalid")
-	.returns(false);
+  .stub(gitHubIntegration, "verifyWebHook")
+  .withArgs(sinon.match.any, "valid")
+  .returns(true)
+  .withArgs(sinon.match.any, "invalid")
+  .returns(false);
 
 When(
-	"I make a POST request to the {string} endpoint with a {string} webhook token",
-	async function(endpoint, validity) {
-		const signature = validity;
-		this.request = await this.request
-			.post(endpoint)
-			.set("X-Hub-Signature-256", signature);
-	},
+  "I make a POST request to the {string} endpoint with a {string} webhook token",
+  async function (endpoint, validity) {
+    const signature = validity;
+    this.request = await this.request
+      .post(endpoint)
+      .set("X-Hub-Signature-256", signature);
+  },
 );
 
-Then("posts are repopulated", function() {
-	expect(populatePostsStub.calledOnce).toBe(true);
+Then("posts are repopulated", function () {
+  expect(populatePostsStub.calledOnce).toBe(true);
 });
 
-Then("I get a {int} response code", function(statusCode) {
-	const response = this.request;
-	expect(response.statusCode).toBe(statusCode);
+Then("I get a {int} response code", function (statusCode) {
+  const response = this.request;
+  expect(response.statusCode).toBe(statusCode);
 });

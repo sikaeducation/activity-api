@@ -8,15 +8,15 @@ import type { Db } from "mongodb";
 import { getDatabase, resetDatabase } from "./database";
 
 function CustomWorld(
-	this: World & { database: Db; request: SuperTest<SuperAgentRequest> },
-) { }
+  this: World & { database: Db; request: SuperTest<SuperAgentRequest> },
+) {}
 
-Before(async function() {
-	const database = await getDatabase(process.env.DATABASE_URL);
-	await resetDatabase(database);
+Before(async function () {
+  const database = await getDatabase(process.env.DATABASE_URL);
+  await resetDatabase(database);
 
-	this.database = database;
-	this.request = request(app);
+  this.database = database;
+  this.request = request(app);
 });
 
 setWorldConstructor(CustomWorld);
