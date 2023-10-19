@@ -2,11 +2,11 @@ Feature: Question actions
 
   There is a questions API at `/questions` featuring the following properties:
 
-  | Property  | Type   | Note     |
-  | --------- | ------ | -------- |
-  | prompt    | string |          |
-  | answer    | string |          |
-  | context   | string | Optional |
+  # | Property  | Type   | Note     |
+  # | --------- | ------ | -------- |
+  # | prompt    | string |          |
+  # | answer    | string |          |
+  # | context   | string | Optional |
 
   Scenario: Listing
     Given these "questions" exist:
