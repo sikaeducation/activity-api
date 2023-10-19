@@ -1,15 +1,18 @@
 import { getPost } from "../services/posts";
 import type { HookContext } from "@feathersjs/feathers";
+import {
+  type ArticleDocument,
+  areArticles,
+  isArticle,
+} from "../models/Article";
 
 const gitHubableTypes = ["Article", "Guide"];
-type Activity = {
-  post_slug?: string;
-  _type: string;
-  content?: string;
-};
 
-export function getAllContent(context: HookContext<Activity[]>) {
-  context.result = context.result?.map((activity: Activity) => {
+export function getAllContent(context: HookContext) {
+  if (!areArticles(context.result)) {
+    return context;
+  }
+  context.result = context.result?.map((activity: ArticleDocument) => {
     if (gitHubableTypes.includes(activity._type)) {
       activity.content = getPost(activity.post_slug || "");
     }
@@ -19,7 +22,10 @@ export function getAllContent(context: HookContext<Activity[]>) {
   return context;
 }
 
-export function getContent(context: HookContext<Activity>) {
+export function getContent(context: HookContext) {
+  if (!isArticle(context.result)) {
+    return context;
+  }
   if (
     context.result?.post_slug &&
     context.result?._type &&

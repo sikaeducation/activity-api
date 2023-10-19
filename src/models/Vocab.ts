@@ -1,7 +1,6 @@
-import mongoose from "mongoose";
-import type { Vocab } from "../../types";
+import mongoose, { Schema, InferSchemaType } from "mongoose";
 
-const schema = new mongoose.Schema<Vocab>(
+const schema = new Schema(
   {
     term: {
       type: String,
@@ -20,4 +19,5 @@ const schema = new mongoose.Schema<Vocab>(
   },
 );
 
-export default mongoose.model("Vocab", schema);
+export type VocabDocument = InferSchemaType<typeof schema>;
+export const VocabModel = mongoose.model<VocabDocument>("Vocab", schema);

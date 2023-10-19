@@ -1,12 +1,9 @@
-import express from "express";
 import { populatePosts } from "../services/posts";
 import { verifyWebHook } from "../services/github";
 
 import type { Request, Response } from "express";
 
-const router = express.Router();
-
-router.post("/regenerate-posts", (request: Request, response: Response) => {
+export const RegeneratePostsRoute = (request: Request, response: Response) => {
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   !(async function (request: Request, response: Response) {
     const rawSignature = request.get("X-Hub-Signature-256") || "";
@@ -20,6 +17,4 @@ router.post("/regenerate-posts", (request: Request, response: Response) => {
       response.status(401).send();
     }
   })(request, response);
-});
-
-export default router;
+};

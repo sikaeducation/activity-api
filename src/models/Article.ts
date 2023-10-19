@@ -1,22 +1,14 @@
-import { Schema } from "mongoose";
-import Activity from "./Activity";
-// import type { ActivityArticle } from "../../types";
+import { InferSchemaType, Schema } from "mongoose";
+import { ActivityModel, ActivityDocument } from "./Activity";
 
-type ArticleDocument = {
-  _type: string;
-  published: boolean;
-  tags: string[];
-  notes: string;
-  description: string;
-  title: string;
-  post_slug: string;
-};
-
-const schema = new Schema<ArticleDocument>(
+const schema = new Schema(
   {
     post_slug: {
       type: String,
       required: true,
+    },
+    content: {
+      type: String,
     },
   },
   {
@@ -24,5 +16,16 @@ const schema = new Schema<ArticleDocument>(
   },
 );
 
-const ActivityArticleSchema = Activity.discriminator("Article", schema);
-export default ActivityArticleSchema;
+export type ArticleDocument = ActivityDocument & InferSchemaType<typeof schema>;
+export const ArticleSchema = ActivityModel.discriminator("Article", schema);
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function isArticle(article: any): article is ArticleDocument {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  return article._type === "article";
+}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function areArticles(articles: any): articles is ArticleDocument[] {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  return Array.isArray(articles) && articles.every(isArticle);
+}

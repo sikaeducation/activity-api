@@ -1,13 +1,16 @@
-import express, { Application } from "@feathersjs/express";
-import { ActivityService, QuestionService, VocabService } from "../services";
-import indexRoutes from "./index";
-import regeneratePostsRoutes from "./index";
+import { Application } from "@feathersjs/express";
+import { ActivityService, VocabService } from "../services";
+import { HomeRoute } from "./home";
+import { RegeneratePostsRoute } from "./regenerate-posts";
+import { rest, notFound, errorHandler } from "@feathersjs/express";
 
 export default function attachRoutes(app: Application) {
+  app.configure(rest());
   app.use("/activities", ActivityService);
-  app.use("/vocabs", VocabService);
-  app.use("/questions", QuestionService);
-  app.use("/", indexRoutes);
-  app.use(regeneratePostsRoutes);
-  app.use(express.errorHandler());
+  app.use("/vocab", VocabService);
+  app.post("/regenerate-posts", RegeneratePostsRoute);
+  app.use("/", HomeRoute);
+
+  app.use(notFound());
+  app.use(errorHandler());
 }

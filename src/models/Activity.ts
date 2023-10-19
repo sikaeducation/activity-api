@@ -23,7 +23,9 @@ const schema = new Schema(
     discriminatorKey: "_type",
   },
 );
-type ActivityDocument = InferSchemaType<typeof schema>;
 
-const ActivitySchema = mongoose.model<ActivityDocument>("Activity", schema);
-export default ActivitySchema;
+export type ActivityDocument = InferSchemaType<typeof schema>;
+export const ActivityModel = mongoose.model<ActivityDocument>(
+  "Activity",
+  schema,
+);
