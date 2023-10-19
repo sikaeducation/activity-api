@@ -8,9 +8,11 @@ import { getDatabase, resetDatabase } from "./database";
 
 process.env.NODE_ENV = "test";
 
-function CustomWorld(
-  this: World & { database: Db; request: SuperTest<SuperAgentRequest> },
-) {}
+export type WorldEnvironment = World & {
+  database: Db;
+  request: SuperTest<SuperAgentRequest>;
+};
+function CustomWorld(this: WorldEnvironment) {}
 
 Before(async function () {
   const database = await getDatabase(process.env.DATABASE_URL);

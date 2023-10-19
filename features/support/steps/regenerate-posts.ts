@@ -1,4 +1,5 @@
 import { When, Then } from "@cucumber/cucumber";
+import { WorldEnvironment } from "../world";
 import expect from "expect";
 import sinon from "sinon";
 
@@ -18,7 +19,7 @@ sinon
 
 When(
   "I make a POST request to the {string} endpoint with a {string} webhook token",
-  async function (endpoint, validity) {
+  async function (this: WorldEnvironment, endpoint: string, validity: boolean) {
     const signature = validity;
     this.request = await this.request
       .post(endpoint)
@@ -30,7 +31,10 @@ Then("posts are repopulated", function () {
   expect(populatePostsStub.calledOnce).toBe(true);
 });
 
-Then("I get a {int} response code", function (statusCode) {
-  const response = this.request;
-  expect(response.statusCode).toBe(statusCode);
-});
+Then(
+  "I get a {int} response code",
+  function (this: WorldEnvironment, statusCode: number) {
+    const response = this.request;
+    expect(response.statusCode).toBe(statusCode);
+  },
+);

@@ -2,15 +2,15 @@ import { readdir } from "fs/promises";
 import { ActivityService } from "./src/services";
 
 const { LOCAL_POSTS_FOLDER, GITHUB_POSTS_BASE } = process.env;
-if (!LOCAL_POSTS_FOLDER || !GITHUB_POSTS_BASE) {
-  console.table({
-    LOCAL_POSTS_FOLDER,
-    GITHUB_POSTS_BASE,
-  });
-  throw new Error("Seed script missing required environment variables");
-}
 
 function seed() {
+  if (!LOCAL_POSTS_FOLDER || !GITHUB_POSTS_BASE) {
+    console.table({
+      LOCAL_POSTS_FOLDER,
+      GITHUB_POSTS_BASE,
+    });
+    throw new Error("Seed script missing required environment variables");
+  }
   readdir(LOCAL_POSTS_FOLDER)
     .then((folders: string[]) => {
       return folders

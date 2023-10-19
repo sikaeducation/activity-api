@@ -7,7 +7,7 @@ export async function getDatabase(url = "") {
 }
 
 export async function resetDatabase(database: Db) {
-  const collections = ["activities", "questions", "vocabs"];
+  const collections = ["activities", "vocabs"];
 
   await Promise.all(
     collections.map((collection: string) => {
