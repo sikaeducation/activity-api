@@ -1,11 +1,11 @@
 Feature: Vocab actions
   There is a vocab API at `/vocabs` featuring the following properties:
 
-  | Property    | Type    | Note      |
-  | ----------- | ------- | --------- |
-  | term        | string  |           |
-  | definition  | string  |           |
-  | context     | string  | Optional  |
+  # | Property    | Type    | Note      |
+  # | ----------- | ------- | --------- |
+  # | term        | string  |           |
+  # | definition  | string  |           |
+  # | context     | string  | Optional  |
 
   Scenario: Listing
     Given these "vocabs" exist:

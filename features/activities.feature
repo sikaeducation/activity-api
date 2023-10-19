@@ -6,17 +6,17 @@ Feature: Activities actions
 
   All activities have these properties:
 
-  | Property    | Type          | Note              |
-  | ----------- | ------------- | ----------------- |
-  | _id         | ActivityType  | Read only         |
-  | _type       | ActivityType  |                   |
-  | title       | string        |                   |
-  | published   | boolean       | Defaults to false |
-  | tags        | string[]      |                   |
-  | notes       | string        | Optional          |
-  | description | string        | Optional          |
-  | created_at  | string        | Read only         |
-  | updated_at  | string        | Read only         |
+  # | Property    | Type          | Note              |
+  # | ----------- | ------------- | ----------------- |
+  # | _id         | ActivityType  | Read only         |
+  # | _type       | ActivityType  |                   |
+  # | title       | string        |                   |
+  # | published   | boolean       | Defaults to false |
+  # | tags        | string[]      |                   |
+  # | notes       | string        | Optional          |
+  # | description | string        | Optional          |
+  # | created_at  | string        | Read only         |
+  # | updated_at  | string        | Read only         |
 
   Scenario: Listing
     Given these "activities" exist:
@@ -48,10 +48,7 @@ Feature: Activities actions
       | _id                      | _type    | title          | post_slug |
       | 507f1f77bcf86cd799439011 | Article  | Intro to Mongo | /        |
 
-  Scenario: Updating
-
-    The `_type` key is required for patches.
-
+  Scenario: Updating # The `_type` key is required for patches.
     Given this exists in "activities":
       | _id                      | _type    | title          | post_slug |
       | 507f1f77bcf86cd799439011 | Article  | Intro to Mongo | /        |
