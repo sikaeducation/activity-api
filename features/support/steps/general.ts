@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { When, Then, Given } from "@cucumber/cucumber";
 import expect from "expect";
 import { ObjectId } from "mongodb";
