@@ -3,7 +3,8 @@ import morgan from "morgan";
 import { populatePosts } from "../services/posts";
 import { authenticate } from "./auth0";
 
-export default function attachMiddleware(app: Application) {
+// TODO: More middleware?
+export function attachMiddleware(app: Application) {
   app.use(cors());
   app.use(json());
 

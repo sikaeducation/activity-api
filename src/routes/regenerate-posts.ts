@@ -3,7 +3,10 @@ import { verifyWebHook } from "../services/github";
 
 import type { Request, Response } from "express";
 
-export const RegeneratePostsRoute = (request: Request, response: Response) => {
+export default function RegeneratePostsRoute(
+  request: Request,
+  response: Response,
+) {
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   !(async function (request: Request, response: Response) {
     const rawSignature = request.get("X-Hub-Signature-256") || "";
@@ -17,4 +20,4 @@ export const RegeneratePostsRoute = (request: Request, response: Response) => {
       response.status(401).send();
     }
   })(request, response);
-};
+}
