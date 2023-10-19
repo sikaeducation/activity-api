@@ -7,7 +7,6 @@ TODO:
 - Structure API folder better, for hosting purposes
 
 - Turn tests back on in the FE
-- Review BE types
 - Review FE types
 
 - Update all the meta docs

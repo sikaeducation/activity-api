@@ -9,12 +9,12 @@ const patchedService = service as (
     discriminators?: [typeof ArticleSchema];
   },
 ) => ReturnType<typeof service>;
-// const patchedService = service;
 
 export const VocabService = patchedService({
   Model: VocabModel,
   lean: true,
 });
+
 export const ActivityService = patchedService({
   Model: ActivityModel,
   discriminators: [ArticleSchema],

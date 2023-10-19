@@ -11,7 +11,7 @@ export type AuthenticatedRequest = Request & {
 
 export function authenticate(
   request: AuthenticatedRequest,
-  response: Response,
+  _: Response,
   next: (error: Error | undefined) => void,
 ) {
   const token = request.get("authorization") || "";
