@@ -1,5 +1,5 @@
-import { populatePosts } from "../services/posts";
-import { verifyWebHook } from "../services/github";
+import { populatePosts } from "../tools/posts";
+import { verifyWebHook } from "../tools/github";
 
 import type { Request, Response } from "express";
 

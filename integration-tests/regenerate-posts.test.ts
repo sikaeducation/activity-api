@@ -4,8 +4,8 @@ import app from "../src/app";
 
 import sinon from "sinon";
 
-import * as postsService from "../src/services/posts";
-import * as gitHubIntegration from "../src/services/github";
+import * as postsService from "../src/tools/posts";
+import * as gitHubIntegration from "../src/tools/github";
 
 const populatePostsStub = sinon
   .stub(postsService, "populatePosts")
