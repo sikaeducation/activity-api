@@ -1,28 +1,17 @@
-import service from "feathers-mongoose";
-import { ActivityModel } from "../models/Activity";
-import { ArticleSchema } from "../models/Article";
-import { VocabModel } from "../models/Vocab";
+// For more information about this file see https://dove.feathersjs.com/guides/cli/application.html#configure-functions
+import type { Application } from "../declarations";
 
-// Feathers mongoose is missing the discriminator key in its type
-const patchedService = service as (
-  options: Parameters<typeof service>[0] & {
-    discriminators?: [typeof ArticleSchema];
-  },
-) => ReturnType<typeof service>;
-
-export const VocabService = patchedService({
-  Model: VocabModel,
-  lean: true,
-});
-
-console.log(Object.keys(ActivityModel));
-export const ActivityService = patchedService({
-  Model: ActivityModel,
-  discriminators: [ArticleSchema],
-  lean: true,
-});
-
-export type ServiceTypes = {
-  activities: typeof ActivityService;
-  vocabs: typeof VocabService;
+export const services = (app: Application) => {
+  // All services will be registered here
 };
+
+/*
+// Add to activities after hook
+import { getContent, getAllContent } from "./content";
+	app.service<"activities">("activities").hooks({
+		after: {
+			find: [getAllContent],
+			get: [getContent],
+		},
+	});
+*/
