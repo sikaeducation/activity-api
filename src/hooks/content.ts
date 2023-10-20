@@ -1,4 +1,4 @@
-import { getPost } from "../services/posts";
+import { getPost } from "../tools/posts";
 import type { HookContext } from "@feathersjs/feathers";
 import {
   type ArticleDocument,

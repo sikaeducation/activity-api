@@ -15,6 +15,7 @@ export const VocabService = patchedService({
   lean: true,
 });
 
+console.log(Object.keys(ActivityModel));
 export const ActivityService = patchedService({
   Model: ActivityModel,
   discriminators: [ArticleSchema],

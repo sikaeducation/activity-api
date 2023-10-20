@@ -1,4 +1,4 @@
-import { getPostContent } from "../services/github";
+import { getPostContent } from "./github";
 
 let posts: Record<string, string> = {};
 
