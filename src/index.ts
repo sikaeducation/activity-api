@@ -1,8 +1,11 @@
-import app from "./app";
+import { app } from './app'
+import { logger } from './logger'
 
-const PORT = process.env.PORT || 8080;
-app.listen(PORT).then(() => {
-  console.log(`App is listening on ${PORT}`);
-});
+const port = app.get('port')
+const host = app.get('host')
 
-export default app;
+process.on('unhandledRejection', (reason) => logger.error('Unhandled Rejection %O', reason))
+
+app.listen(port).then(() => {
+  logger.info(`Feathers app listening on http://${host}:${port}`)
+})
