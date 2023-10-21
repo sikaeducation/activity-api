@@ -16,10 +16,19 @@ import {
 
 import type { Application } from "../../declarations";
 import { VocabService, getOptions } from "./vocab.class";
-import { vocabPath, vocabMethods } from "./vocab.shared";
 
 export * from "./vocab.class";
 export * from "./vocab.schema";
+
+export const vocabPath = "vocab";
+
+export const vocabMethods = [
+  "find",
+  "get",
+  "create",
+  "patch",
+  "remove",
+] as const;
 
 // A configure function that registers the service and its hooks via `app.configure`
 export const vocab = (app: Application) => {
