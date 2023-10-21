@@ -40,7 +40,7 @@ function processFiles(entries: IZipEntry[]) {
     .filter((entry) => entry.name === "README.md")
     .map(entryToFile);
 
-  const byName = keyBy("name")(files);
+  const byName = keyBy<{ content: string }>("name")(files);
   return mapValues("content")(byName);
 }
 

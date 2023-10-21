@@ -1,29 +1,22 @@
 {
-	"ts-node": {
-		"files": true
-	},
-	"compilerOptions": {
-		"allowSyntheticDefaultImports": true,
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
-		"lib": [
-			"esnext"
-		],
-		"module": "CommonJS",
-		"moduleResolution": "node",
-		"noUnusedLocals": false,
-		"noUnusedParameters": false,
-		"resolveJsonModule": true,
-		"skipLibCheck": true,
-		"strict": true,
-		"target": "ESNext",
-		"rootDir": "src",
-		"outDir": "dist"
-	},
-	"include": [
-		"src"
-	],
-	"exclude": [
-		"test"
-	]
+  "ts-node": {
+    "files": true
+  },
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["esnext"],
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ESNext",
+    "outDir": "dist"
+  },
+  "include": ["src", "integration-tests"],
+  "exclude": ["test"]
 }
