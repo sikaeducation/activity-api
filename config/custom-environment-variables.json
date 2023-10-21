@@ -1,10 +1,16 @@
 {
-  "port": {
-    "__name": "PORT",
-    "__format": "number"
-  },
-  "host": "HOSTNAME",
-  "authentication": {
-    "secret": "FEATHERS_SECRET"
-  }
+	"port": {
+		"__name": "PORT",
+		"__format": "number"
+	},
+	"host": "HOSTNAME",
+	"DATABASE_URL": "DATABASE_URL",
+	"LOCAL_POSTS_FOLDER": "LOCAL_POSTS_FOLDER",
+	"GITHUB_POSTS_BASE": "GITHUB_POSTS_BASE",
+	"AUTH_KEY_URL": "AUTH_KEY_URL",
+	"GITHUB_WEBHOOK_TOKEN": "GITHUB_WEBHOOK_TOKEN",
+	"GITHUB_TOKEN": "GITHUB_TOKEN",
+	"authentication": {
+		"secret": "FEATHERS_SECRET"
+	}
 }

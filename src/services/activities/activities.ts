@@ -1,7 +1,7 @@
 // For more information about this file see https://dove.feathersjs.com/guides/cli/service.html
-import { authenticate } from '@feathersjs/authentication'
+import { authenticate } from "@feathersjs/authentication";
 
-import { hooks as schemaHooks } from '@feathersjs/schema'
+import { hooks as schemaHooks } from "@feathersjs/schema";
 
 import {
   activitiesDataValidator,
@@ -11,15 +11,15 @@ import {
   activitiesExternalResolver,
   activitiesDataResolver,
   activitiesPatchResolver,
-  activitiesQueryResolver
-} from './activities.schema'
+  activitiesQueryResolver,
+} from "./activities.schema";
 
-import type { Application } from '../../declarations'
-import { ActivitiesService, getOptions } from './activities.class'
-import { activitiesPath, activitiesMethods } from './activities.shared'
+import type { Application } from "../../declarations";
+import { ActivitiesService, getOptions } from "./activities.class";
+import { activitiesPath, activitiesMethods } from "./activities.shared";
 
-export * from './activities.class'
-export * from './activities.schema'
+export * from "./activities.class";
+export * from "./activities.schema";
 
 // A configure function that registers the service and its hooks via `app.configure`
 export const activities = (app: Application) => {
@@ -28,46 +28,45 @@ export const activities = (app: Application) => {
     // A list of all methods this service exposes externally
     methods: activitiesMethods,
     // You can add additional custom events to be sent to clients here
-    events: []
-  })
+    events: [],
+  });
   // Initialize hooks
   app.service(activitiesPath).hooks({
     around: {
       all: [
-        authenticate('jwt'),
         schemaHooks.resolveExternal(activitiesExternalResolver),
-        schemaHooks.resolveResult(activitiesResolver)
-      ]
+        schemaHooks.resolveResult(activitiesResolver),
+      ],
     },
     before: {
       all: [
         schemaHooks.validateQuery(activitiesQueryValidator),
-        schemaHooks.resolveQuery(activitiesQueryResolver)
+        schemaHooks.resolveQuery(activitiesQueryResolver),
       ],
       find: [],
       get: [],
       create: [
         schemaHooks.validateData(activitiesDataValidator),
-        schemaHooks.resolveData(activitiesDataResolver)
+        schemaHooks.resolveData(activitiesDataResolver),
       ],
       patch: [
         schemaHooks.validateData(activitiesPatchValidator),
-        schemaHooks.resolveData(activitiesPatchResolver)
+        schemaHooks.resolveData(activitiesPatchResolver),
       ],
-      remove: []
+      remove: [],
     },
     after: {
-      all: []
+      all: [],
     },
     error: {
-      all: []
-    }
-  })
-}
+      all: [],
+    },
+  });
+};
 
 // Add this service to the service type index
-declare module '../../declarations' {
+declare module "../../declarations" {
   interface ServiceTypes {
-    [activitiesPath]: ActivitiesService
+    [activitiesPath]: ActivitiesService;
   }
 }

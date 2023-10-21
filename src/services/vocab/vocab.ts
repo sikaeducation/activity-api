@@ -1,7 +1,7 @@
 // For more information about this file see https://dove.feathersjs.com/guides/cli/service.html
-import { authenticate } from '@feathersjs/authentication'
+import { authenticate } from "@feathersjs/authentication";
 
-import { hooks as schemaHooks } from '@feathersjs/schema'
+import { hooks as schemaHooks } from "@feathersjs/schema";
 
 import {
   vocabDataValidator,
@@ -11,15 +11,15 @@ import {
   vocabExternalResolver,
   vocabDataResolver,
   vocabPatchResolver,
-  vocabQueryResolver
-} from './vocab.schema'
+  vocabQueryResolver,
+} from "./vocab.schema";
 
-import type { Application } from '../../declarations'
-import { VocabService, getOptions } from './vocab.class'
-import { vocabPath, vocabMethods } from './vocab.shared'
+import type { Application } from "../../declarations";
+import { VocabService, getOptions } from "./vocab.class";
+import { vocabPath, vocabMethods } from "./vocab.shared";
 
-export * from './vocab.class'
-export * from './vocab.schema'
+export * from "./vocab.class";
+export * from "./vocab.schema";
 
 // A configure function that registers the service and its hooks via `app.configure`
 export const vocab = (app: Application) => {
@@ -28,37 +28,45 @@ export const vocab = (app: Application) => {
     // A list of all methods this service exposes externally
     methods: vocabMethods,
     // You can add additional custom events to be sent to clients here
-    events: []
-  })
+    events: [],
+  });
   // Initialize hooks
   app.service(vocabPath).hooks({
     around: {
       all: [
-        authenticate('jwt'),
         schemaHooks.resolveExternal(vocabExternalResolver),
-        schemaHooks.resolveResult(vocabResolver)
-      ]
+        schemaHooks.resolveResult(vocabResolver),
+      ],
     },
     before: {
-      all: [schemaHooks.validateQuery(vocabQueryValidator), schemaHooks.resolveQuery(vocabQueryResolver)],
+      all: [
+        schemaHooks.validateQuery(vocabQueryValidator),
+        schemaHooks.resolveQuery(vocabQueryResolver),
+      ],
       find: [],
       get: [],
-      create: [schemaHooks.validateData(vocabDataValidator), schemaHooks.resolveData(vocabDataResolver)],
-      patch: [schemaHooks.validateData(vocabPatchValidator), schemaHooks.resolveData(vocabPatchResolver)],
-      remove: []
+      create: [
+        schemaHooks.validateData(vocabDataValidator),
+        schemaHooks.resolveData(vocabDataResolver),
+      ],
+      patch: [
+        schemaHooks.validateData(vocabPatchValidator),
+        schemaHooks.resolveData(vocabPatchResolver),
+      ],
+      remove: [],
     },
     after: {
-      all: []
+      all: [],
     },
     error: {
-      all: []
-    }
-  })
-}
+      all: [],
+    },
+  });
+};
 
 // Add this service to the service type index
-declare module '../../declarations' {
+declare module "../../declarations" {
   interface ServiceTypes {
-    [vocabPath]: VocabService
+    [vocabPath]: VocabService;
   }
 }
