@@ -1,1 +1,1 @@
-export default ["src", "integration-tests"];
+export default ["./src/vite.config.ts", "./integration-tests/vite-config.ts"];

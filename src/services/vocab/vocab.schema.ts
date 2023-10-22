@@ -14,7 +14,7 @@ export const vocabSchema = Type.Object(
     _id: ObjectIdSchema(),
     term: Type.String(),
     definition: Type.String(),
-    context: Type.String(),
+    context: Type.Optional(Type.String()),
   },
   { $id: "Vocab", additionalProperties: false },
 );

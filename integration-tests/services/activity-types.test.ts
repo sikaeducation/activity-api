@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import request from "supertest";
-import { describe, expect, test } from "vitest";
-import { app } from "../src/app";
+import { beforeEach, describe, expect, test } from "vitest";
+import { app } from "../../src/app";
 
 /*
 	There are specific types of activities with their own schemas. All activities have these properties:
@@ -69,33 +70,38 @@ import { app } from "../src/app";
 	| date          | string    | Optional  |
 */
 
-const activitySampleData = {
-  article: {
-    _id: "507f1f77bcf86cd799439011",
-    _type: "Article",
+const seedData = [
+  {
+    _type: "article",
     title: "Intro to Mongo",
-    post_slug: "/",
+    post_slug: "intro-to-mongo",
   },
-  vocabList: {
-    _id: "507f1f77bcf86cd799439011",
-    _type: "VocabList",
-    title: "Mongo Vocab",
-    entries: "mongod: daemon, document: like a record",
+  {
+    _type: "exercise",
+    title: "Mongo Exercise",
+    post_slug: "mongo-exercise",
   },
-} as const;
+];
 
-describe("Using /POST to create different kinds of activity", () => {
-  Object.entries(activitySampleData).forEach(([type, scenario]) => {
-    test(`Creating activity type: ${type}`, async (context) => {
-      const response = await request(app).post("/activities").send(scenario);
+describe("activities", () => {
+  beforeEach(async (context) => {
+    await context.database!.collection("activities").insertMany(seedData);
+  });
 
-      expect(response.body).toMatchObject(scenario);
-      const items = await context
-        .database!.collection("activities")
-        .find({})
-        .toArray();
+  test("Listing - GET /activities", async () => {
+    const response = await request(app).get("/activities");
 
-      expect(items[0]).toMatchObject(scenario);
+    expect(response.body.data).toHaveLength(seedData.length);
+  });
+
+  seedData.forEach((data) => {
+    test(`Listing By Type - /activities?_type=${data._type}`, async () => {
+      const response = await request(app)
+        .get("/activities")
+        .query({ _type: data._type });
+
+      expect(response.body.data.length).toBe(1);
+      expect(response.body.data[0]).toMatchObject(data);
     });
   });
 });
