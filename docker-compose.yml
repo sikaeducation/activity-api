@@ -6,6 +6,8 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: password
     expose:
       - "27017"
+    ports:
+      - "27018:27017"
   api:
     depends_on:
       - database

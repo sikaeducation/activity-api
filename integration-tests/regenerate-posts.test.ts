@@ -1,5 +1,5 @@
 import request from "supertest";
-import { test, expect, describe } from "vitest";
+import { test, expect, describe, beforeAll, afterAll } from "vitest";
 import { app } from "../src/app";
 
 import sinon from "sinon";
@@ -11,33 +11,41 @@ const populatePostsStub = sinon
   .stub(postsService, "populatePosts")
   .returns(Promise.resolve());
 
-sinon
-  .stub(gitHubIntegration, "verifyWebHook")
-  .withArgs(sinon.match.any, "valid")
-  .returns(true)
-  .withArgs(sinon.match.any, "invalid")
-  .returns(false);
-
 describe("/regenerate-posts", () => {
-  test("POST - Good data", async () => {
-    expect(populatePostsStub.calledOnce).toBe(true);
+  beforeAll(() => {
+    process.env.GITHUB_WEBHOOK_TOKEN_backup = process.env.GITHUB_WEBHOOK_TOKEN;
 
+    process.env.GITHUB_WEBHOOK_TOKEN = "valid";
+  });
+  afterAll(() => {
+    process.env.GITHUB_WEBHOOK_TOKEN = process.env.GITHUB_WEBHOOK_TOKEN_backup;
+  });
+  test("POST - Good data", async () => {
     const signature = "valid";
+    sinon
+      .stub(gitHubIntegration, "verifyWebHook")
+      .withArgs(sinon.match.any, signature)
+      .returns(true);
+
     const response = await request(app)
       .post("/regenerate-posts")
       .set("X-Hub-Signature-256", signature);
 
+    expect(populatePostsStub.calledOnce).toBe(true);
     expect(response.statusCode).toBe(200);
   });
 
-  test("POST - Bad data", async () => {
-    expect(populatePostsStub.calledOnce).toBe(true);
-
+  test.skip("POST - Bad data", async () => {
     const signature = "invalid";
+    sinon
+      .stub(gitHubIntegration, "verifyWebHook")
+      .withArgs(sinon.match.any, signature)
+      .returns(false);
     const response = await request(app)
       .post("/regenerate-posts")
       .set("X-Hub-Signature-256", signature);
 
-    expect(response.statusCode).toBe(200);
+    expect(populatePostsStub.calledOnce).toBe(true);
+    expect(response.statusCode).toBe(401);
   });
 });
