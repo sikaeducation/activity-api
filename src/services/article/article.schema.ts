@@ -1,20 +1,23 @@
 // // For more information about this file see https://dove.feathersjs.com/guides/cli/service.schemas.html
-import { resolve } from "@feathersjs/schema";
+import { resolve, virtual } from "@feathersjs/schema";
 import { Type, getValidator, querySyntax } from "@feathersjs/typebox";
-import { ObjectIdSchema } from "@feathersjs/typebox";
 import type { Static } from "@feathersjs/typebox";
 
 import type { HookContext } from "../../declarations";
 import { dataValidator, queryValidator } from "../../validators";
 import type { ArticleService } from "./article.class";
 
-import { activitySchema } from "../activity/activity.schema";
+import {
+  activityEditableProperties,
+  activitySchema,
+} from "../activity/activity.schema";
+import { getPost } from "../../tools/posts";
 
 // Main data model schema
 export const articleProperties = Type.Object(
   {
-    _id: ObjectIdSchema(),
     post_slug: Type.String(),
+    content: Type.String(),
   },
   { $id: "Article", additionalProperties: false },
 );
@@ -24,9 +27,11 @@ export const articleSchema = Type.Intersect([
 ]);
 export type Article = Static<typeof articleSchema>;
 export const articleValidator = getValidator(articleSchema, dataValidator);
-export const articleResolver = resolve<Article, HookContext<ArticleService>>(
-  {},
-);
+export const articleResolver = resolve<Article, HookContext<ArticleService>>({
+  content: virtual(async (article) => {
+    return getPost(article.post_slug);
+  }),
+});
 
 export const articleExternalResolver = resolve<
   Article,
@@ -36,7 +41,7 @@ export const articleExternalResolver = resolve<
 // Schema for creating new entries
 export const articleDataSchema = Type.Pick(
   articleSchema,
-  ["title", "description", "published", "notes", "tags", "post_slug"],
+  activityEditableProperties,
   {
     $id: "ArticleData",
   },

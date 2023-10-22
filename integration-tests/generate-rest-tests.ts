@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 import request from "supertest";
 import { test, expect, describe } from "vitest";
-import app from "../src/app";
+import { app } from "../src/app";
 
 type SampleData = [Record<string, unknown>, Record<string, unknown>];
 export default function generateRESTTests(
