@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 // For more information about this file see https://dove.feathersjs.com/guides/cli/service.html
 import { authenticate } from "@feathersjs/authentication";
 
@@ -65,6 +66,7 @@ export const article = (app: Application) => {
     },
     after: {
       all: [],
+      find: [],
     },
     error: {
       all: [],

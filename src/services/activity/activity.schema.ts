@@ -24,6 +24,14 @@ export const activitySchema = Type.Object(
   },
   { $id: "Activity", additionalProperties: false },
 );
+export const activityEditableProperties = [
+  "title",
+  "description",
+  "published",
+  "notes",
+  "tags",
+  "post_slug",
+] as const;
 
 export type Activity = Static<typeof activitySchema>;
 export const activityValidator = getValidator(activitySchema, dataValidator);
