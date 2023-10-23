@@ -21,6 +21,7 @@ import { mongodb } from "./mongodb";
 import { services } from "./services/index";
 import { channels } from "./channels";
 import regeneratePostsRoute from "./routes/regenerate-posts";
+import { verifyWebhookMiddleware } from "./middleware/verify-webhook";
 
 const app: Application = express(feathers());
 
@@ -44,7 +45,7 @@ app.configure(services);
 app.configure(channels);
 
 // Static routes
-app.post("/regenerate-posts", regeneratePostsRoute);
+app.post("/regenerate-posts", verifyWebhookMiddleware, regeneratePostsRoute);
 
 // Configure a middleware for 404s and the error handler
 app.use(notFound());
