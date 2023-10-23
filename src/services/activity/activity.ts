@@ -1,5 +1,4 @@
-// For more information about this file see https://dove.feathersjs.com/guides/cli/service.html
-import { authenticate } from "@feathersjs/authentication";
+// import { authenticate } from "@feathersjs/authentication";
 
 import { hooks as schemaHooks } from "@feathersjs/schema";
 
@@ -19,16 +18,11 @@ export const activityMethods = ["find", "get", "remove"] as const;
 export * from "./activity.class";
 export * from "./activity.schema";
 
-// A configure function that registers the service and its hooks via `app.configure`
 export const activity = (app: Application) => {
-  // Register our service on the Feathers application
   app.use(activityPath, new ActivityService(getOptions(app)), {
-    // A list of all methods this service exposes externally
     methods: activityMethods,
-    // You can add additional custom events to be sent to clients here
     events: [],
   });
-  // Initialize hooks
   app.service(activityPath).hooks({
     around: {
       all: [
@@ -54,7 +48,6 @@ export const activity = (app: Application) => {
   });
 };
 
-// Add this service to the service type index
 declare module "../../declarations" {
   interface ServiceTypes {
     [activityPath]: ActivityService;
