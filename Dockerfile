@@ -13,8 +13,10 @@ USER node
 
 CMD ["npm", "run", "dev"]
 
-FROM base as prod
+FROM base as production
 
 RUN npm build
+
+EXPOSE 80
 
 CMD ["npm", "start"]

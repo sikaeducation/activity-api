@@ -2,10 +2,6 @@
 
 TODO:
 
-- Not passing TSLint
-  - Tests
-- Structure API folder better, for hosting purposes
-
 - Turn tests back on in the FE
 - Review FE types
 
