@@ -3,14 +3,14 @@ import { vi, test, expect, describe } from "vitest";
 import { app } from "@/app";
 
 import { verifyWebHook } from "@/tools/github";
-import { populatePosts } from "@/tools/posts";
+import { populatePosts } from "@/post-cache";
 
 vi.mock("@/tools/github", () => {
   return {
     verifyWebHook: vi.fn(),
   };
 });
-vi.mock("@/tools/posts", () => {
+vi.mock("@/post-cache", () => {
   return {
     populatePosts: vi.fn(),
   };

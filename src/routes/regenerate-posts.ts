@@ -1,4 +1,4 @@
-import { populatePosts } from "@/tools/posts";
+import { populatePosts } from "@/post-cache";
 import { verifyWebHook } from "@/tools/github";
 
 import type { Request, Response } from "express";

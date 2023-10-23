@@ -8,7 +8,7 @@ import { dataValidator, queryValidator } from "../../validators";
 import type { ArticleService } from "./article.class";
 
 import { activitySchema } from "../activity/activity.schema";
-import { getPost } from "../../tools/posts";
+import { getPost } from "@/post-cache";
 
 // Main data model schema
 export const articleProperties = Type.Object(
