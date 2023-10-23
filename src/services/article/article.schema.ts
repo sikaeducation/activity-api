@@ -7,10 +7,7 @@ import type { HookContext } from "../../declarations";
 import { dataValidator, queryValidator } from "../../validators";
 import type { ArticleService } from "./article.class";
 
-import {
-  activityEditableProperties,
-  activitySchema,
-} from "../activity/activity.schema";
+import { activitySchema } from "../activity/activity.schema";
 import { getPost } from "../../tools/posts";
 
 // Main data model schema
@@ -39,13 +36,10 @@ export const articleExternalResolver = resolve<
 >({});
 
 // Schema for creating new entries
-export const articleDataSchema = Type.Pick(
-  articleSchema,
-  activityEditableProperties,
-  {
-    $id: "ArticleData",
-  },
-);
+export const articleDataSchema = Type.Omit(articleSchema, [
+  "created_at",
+  "updated_at",
+]);
 export type ArticleData = Static<typeof articleDataSchema>;
 export const articleDataValidator = getValidator(
   articleDataSchema,

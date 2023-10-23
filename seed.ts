@@ -1,5 +1,5 @@
 import { readdir } from "fs/promises";
-import { ActivityService } from "./src/services";
+import { app } from "./src/app";
 
 const { LOCAL_POSTS_FOLDER, GITHUB_POSTS_BASE } = process.env;
 
@@ -17,7 +17,7 @@ function seed() {
         .filter((folder: string) => folder !== ".git")
         .map((folder: string) => {
           console.log(`Adding ${folder}...`);
-          return ActivityService.create({
+          return app.service("articles").create({
             _type: "article",
             title: folder,
             post_url: `${GITHUB_POSTS_BASE}/${folder}`,
