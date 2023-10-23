@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-// For more information about this file see https://dove.feathersjs.com/guides/cli/service.html
-import { authenticate } from "@feathersjs/authentication";
+// import { authenticate } from "@feathersjs/authentication";
 
 import { hooks as schemaHooks } from "@feathersjs/schema";
 
@@ -30,16 +28,11 @@ export const articleMethods = [
 export * from "./article.class";
 export * from "./article.schema";
 
-// A configure function that registers the service and its hooks via `app.configure`
 export const article = (app: Application) => {
-  // Register our service on the Feathers application
   app.use(articlePath, new ArticleService(getOptions(app)), {
-    // A list of all methods this service exposes externally
     methods: articleMethods,
-    // You can add additional custom events to be sent to clients here
     events: [],
   });
-  // Initialize hooks
   app.service(articlePath).hooks({
     around: {
       all: [
@@ -74,7 +67,6 @@ export const article = (app: Application) => {
   });
 };
 
-// Add this service to the service type index
 declare module "../../declarations" {
   interface ServiceTypes {
     [articlePath]: ArticleService;

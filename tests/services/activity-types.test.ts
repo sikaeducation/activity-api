@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import request from "supertest";
 import { beforeEach, describe, expect, test } from "vitest";
 import { app } from "@/app";
