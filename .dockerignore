@@ -2,6 +2,7 @@
 **/database
 **/node_modules
 **/.env
+**/.fly.env
 **/build
 **/dist
 
