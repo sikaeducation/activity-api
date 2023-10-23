@@ -4,7 +4,7 @@ import {
   populatePosts,
   getCurrentPosts,
   resetPosts,
-} from "@/tools/posts";
+} from "@/post-cache";
 import { getPostContent } from "@/tools/github";
 
 vi.mock("@/tools/github", () => ({
