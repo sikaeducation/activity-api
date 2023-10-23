@@ -2,23 +2,23 @@ import {
   body as webhookBody,
   signature as webhookSignature,
 } from "./webhook-token-fixture";
-import { verifyWebHook } from "@/middleware/verify-webhook";
+import { verifyToken } from "@/utilities/verify-token";
 import { test, expect } from "vitest";
 
-test("#verifyWebHook verifies good tokens", () => {
+test("#verifyToken verifies good tokens", () => {
   // Key for the signature "valid"
   process.env.GITHUB_WEBHOOK_TOKEN = "HTRdIMlFw0";
 
-  const isValid = verifyWebHook(webhookBody, webhookSignature);
+  const isValid = verifyToken(webhookBody, webhookSignature);
 
   expect(isValid).toBe(true);
 });
 
-test("#verifyWebHook doesn't verify bad tokens", () => {
+test("#verifyToken doesn't verify bad tokens", () => {
   // Key for the signature "valid"
   process.env.GITHUB_WEBHOOK_TOKEN = "HTRdIMlFw0";
 
-  const isValid = verifyWebHook(
+  const isValid = verifyToken(
     { ...webhookBody, totallyWrong: "anything that doesn't belong there" },
     webhookSignature,
   );

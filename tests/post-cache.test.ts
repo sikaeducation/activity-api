@@ -5,10 +5,10 @@ import {
   getCurrentPosts,
   resetPosts,
 } from "@/post-cache";
-import { getPostContent } from "@/tools/github";
+import getGitHubPosts from "@/utilities/get-github-posts";
 
-vi.mock("@/tools/github", () => ({
-  getPostContent: vi.fn(),
+vi.mock("@/utilities/get-github-posts", () => ({
+  default: vi.fn(),
 }));
 
 beforeEach(() => resetPosts());
@@ -19,7 +19,7 @@ test("#getCurrentPosts initializes to empty array", () => {
 });
 
 test("#populatePosts adds posts to memo", async () => {
-  vi.mocked(getPostContent).mockResolvedValue({
+  vi.mocked(getGitHubPosts).mockResolvedValue({
     "mongo-guide": "# Some markdown",
     "sql-1": "# Some other markdown",
   });
@@ -31,7 +31,7 @@ test("#populatePosts adds posts to memo", async () => {
 });
 
 test("#getPost", async () => {
-  vi.mocked(getPostContent).mockResolvedValue({
+  vi.mocked(getGitHubPosts).mockResolvedValue({
     "mongo-guide": "# Some markdown",
     "sql-1": "# Some other markdown",
   });
