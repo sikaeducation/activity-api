@@ -1,7 +1,7 @@
-import { expect, vi, test, beforeEach } from "vitest";
-import { populatePosts, getCurrentPosts } from "./posts";
+import { expect, vi, test } from "vitest";
+import { getPost, populatePosts, getCurrentPosts } from "@/tools/posts";
 
-vi.mock("./github", () => ({
+vi.mock("@/tools/github", () => ({
   getPostContent: vi.fn(() =>
     Promise.resolve({
       "mongo-guide": "# Some markdown",
@@ -9,10 +9,6 @@ vi.mock("./github", () => ({
     }),
   ),
 }));
-
-beforeEach(() => {
-  vi.resetModules(); // Module has cached state
-});
 
 test("#getCurrentPosts initializes to empty array", () => {
   const currentPosts = getCurrentPosts();
@@ -26,8 +22,6 @@ test("#populatePosts adds posts to memo", async () => {
 });
 
 test("#getPost", async () => {
-  // Get around cached state
-  const { getPost, populatePosts } = await import("../../src/services/posts");
   const initialPost = getPost("mongo-guide");
   expect(initialPost).toBe("");
 

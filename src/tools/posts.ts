@@ -1,4 +1,4 @@
-import { getPostContent } from "./github";
+import { getPostContent } from "@/tools/github";
 
 let posts: Record<string, string> = {};
 

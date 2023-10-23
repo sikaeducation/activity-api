@@ -17,11 +17,16 @@
 		"skipLibCheck": true,
 		"strict": true,
 		"target": "ESNext",
-		"outDir": "dist"
+		"outDir": "dist",
+		"paths": {
+			"@/*": [
+				"./src/*"
+			]
+		}
 	},
 	"include": [
 		"src",
-		"integration-tests"
+		"tests"
 	],
 	"files": [
 		"./setup-tests.ts"

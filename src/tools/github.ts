@@ -62,7 +62,6 @@ export function verifyWebHook(body: unknown, rawSignature: string) {
     `sha256=${hmac.update(JSON.stringify(body)).digest("hex")}`,
     "utf8",
   );
-  console.log("stuff", { GITHUB_WEBHOOK_TOKEN, signature, hmac, digest });
 
   return crypto.timingSafeEqual(signature, digest);
 }

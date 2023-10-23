@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import request from "supertest";
 import { beforeEach, describe, expect, test } from "vitest";
-import { app } from "../../src/app";
+import { app } from "@/app";
 
 /*
 	There are specific types of activities with their own schemas. All activities have these properties:
