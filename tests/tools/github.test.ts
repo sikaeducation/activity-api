@@ -18,7 +18,7 @@ vi.mock("octokit", () => ({
   Octokit: vi.fn(),
 }));
 
-const fakeImplementation = () => {
+const getMockRepo = () => {
   const zip = new AdmZip();
   zip.addFile(
     "posts/mongo-intro/README.md",
@@ -28,20 +28,22 @@ const fakeImplementation = () => {
   return Promise.resolve({ data: buffer });
 };
 
+const getMockOctokit = () => ({
+  rest: {
+    repos: {
+      downloadZipballArchive: () =>
+        Promise.resolve({
+          url: "https://github.com/zipballs/some-id.zip",
+        }),
+    },
+  },
+});
+
 test("#getPostContent retrieves post content from GitHub", async () => {
   // eslint-disable-next-line @typescript-eslint/unbound-method
-  vi.mocked(axios.get).mockReturnValue(fakeImplementation());
-  vi.mocked(Octokit).mockImplementation(() => ({
-    rest: {
-      repos: {
-        downloadZipballArchive: () =>
-          // @ts-expect-error: Mock doesn't match real type
-          Promise.resolve({
-            url: "https://github.com/zipballs/some-id.zip",
-          }),
-      },
-    },
-  }));
+  vi.mocked(axios.get).mockReturnValue(getMockRepo());
+  // @ts-expect-error: Mock doesn't match real type
+  vi.mocked(Octokit).mockImplementation(getMockOctokit());
 
   const postContent = await getPostContent();
   expect(postContent).toEqual({ "mongo-intro": "# Some Markdown" });

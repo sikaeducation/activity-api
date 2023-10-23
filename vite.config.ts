@@ -9,8 +9,8 @@ export default defineConfig({
     },
   },
   test: {
-    include: ["**/*.test.ts"],
-    setupFiles: ["./setup-tests.ts"],
+    include: ["./tests/**/*.test.ts"],
+    setupFiles: ["./tests/setup-tests.ts"],
     mockReset: true,
   },
 });
