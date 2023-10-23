@@ -11,9 +11,7 @@ vi.mock("@/tools/github", () => ({
   getPostContent: vi.fn(),
 }));
 
-beforeEach(() => {
-  resetPosts();
-});
+beforeEach(() => resetPosts());
 
 test("#getCurrentPosts initializes to empty array", () => {
   const currentPosts = getCurrentPosts();
@@ -25,7 +23,9 @@ test("#populatePosts adds posts to memo", async () => {
     "mongo-guide": "# Some markdown",
     "sql-1": "# Some other markdown",
   });
+
   await populatePosts();
+
   const currentPosts = getCurrentPosts();
   expect(currentPosts).toEqual(["mongo-guide", "sql-1"]);
 });
@@ -42,6 +42,5 @@ test("#getPost", async () => {
   await populatePosts();
 
   const populatedPost = getPost("mongo-guide");
-
   expect(populatedPost).toEqual("# Some markdown");
 });

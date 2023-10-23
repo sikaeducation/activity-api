@@ -46,10 +46,12 @@ test("#getPostContent retrieves post content from GitHub", async () => {
   vi.mocked(Octokit).mockImplementation(getMockOctokit());
 
   const postContent = await getPostContent();
+
   expect(postContent).toEqual({ "mongo-intro": "# Some Markdown" });
 });
 
 test("#verifyWebHook verifies good tokens", () => {
+  // Key for the signature "valid"
   process.env.GITHUB_WEBHOOK_TOKEN = "HTRdIMlFw0";
 
   const isValid = verifyWebHook(githubHookBody, githubSignature);
@@ -58,6 +60,7 @@ test("#verifyWebHook verifies good tokens", () => {
 });
 
 test("#verifyWebHook doesn't verify bad tokens", () => {
+  // Key for the signature "valid"
   process.env.GITHUB_WEBHOOK_TOKEN = "HTRdIMlFw0";
 
   const isValid = verifyWebHook(

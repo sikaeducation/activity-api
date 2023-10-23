@@ -1,75 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import request from "supertest";
 import { beforeEach, describe, expect, test } from "vitest";
 import { app } from "@/app";
 import { resetDatabase } from "../setup-tests";
-
-/*
-	There are specific types of activities with their own schemas. All activities have these properties:
-
-	| Property    | Type          | Note              |
-	| ----------- | ------------- | ----------------- |
-	| _id         | ActivityType  | Read only         |
-	| _type       | ActivityType  |                   |
-	| title       | string        |                   |
-	| published   | boolean       | Defaults to false |
-	| tags        | string[]      |                   |
-	| notes       | string        | Optional          |
-	| description | string        | Optional          |
-	| created_at  | string        | Read only         |
-	| updated_at  | string        | Read only         |
-
-	These activity types are currently supported:
-
-	* `"article"`
-	* `"vocablist"`
-
-	These are the specific schemas:
-
-	Article:
-	| Property  | Type   | Note |
-	| --------- | ------ | ---- |
-	| post_slug  | string |      |
-	
-	VocabList:
-	| Property  | Type    | Note  |
-	| --------- | ------- | ----- |
-	| entries   | Vocab[] |       |
-	
-	(A `Vocab` is):
-	| Property    | Type    | Note      |
-	| ----------- | ------- | --------- |
-	| term        | string  |           |
-	| definition  | string  |           |
-	| context     | string  | Optional  |
-	
-	Guide:
-	| Property  | Type   | Note |
-	| --------- | ------ | ---- |
-	| post_slug  | string |      |
-	
-	Exercise:
-	| Property        | Type    | Note              |
-	| --------------- | ------- | ----------------- |
-	| exercise_url    | string  |                   |
-	| prompt          | string  |                   |
-	| solution_url    | string  | Optional          |
-	| tests           | boolean | Defaults to false |
-	
-	Video:
-	| Property    | Type   | Note |
-	| ----------  | ------ | ---- |
-	| video_url   | string |      |
-	
-	Lesson:
-	| Property | Type | Note |
-	| --- | --- | --- |
-	| objectives    | string[]  | Optional  |
-	| video_url     | string    | Optional  |
-	| plan          | string    | Optional  |
-	| notes         | string    | Optional  |
-	| date          | string    | Optional  |
-*/
 
 const seedData = [
   {
