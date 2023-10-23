@@ -9,11 +9,6 @@ declare module "vitest" {
 }
 
 export async function resetDatabase(database: Db) {
-  const collections = ["activities", "articles", "vocab"];
-
-  await Promise.all(
-    collections.map((collection: string) => {
-      return database.collection(collection)?.deleteMany({});
-    }),
-  );
+  const collections = await database.collections();
+  await Promise.all(collections.map((collection) => collection.drop()));
 }

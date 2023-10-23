@@ -2,7 +2,7 @@
 import request from "supertest";
 import { beforeEach, describe, expect, test } from "vitest";
 import { app } from "@/app";
-import { resetDatabase } from "../../setup-tests";
+import { resetDatabase } from "../setup-tests";
 
 /*
 	There are specific types of activities with their own schemas. All activities have these properties:

@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import request from "supertest";
 import { test, expect, describe, beforeEach } from "vitest";
 import { app } from "@/app";
 import { Db } from "mongodb";
-import { resetDatabase } from "../setup-tests";
+import { resetDatabase } from "./setup-tests";
 
 beforeEach(async (context) => {
   context.database = await app.get("mongodbClient");
@@ -37,14 +36,7 @@ export default function generateRESTTests(
   describe(collectionName, () => {
     find &&
       test(`Listing - GET /${collectionName}`, async (context) => {
-        const seedData = [
-          {
-            ...firstItem,
-          },
-          {
-            ...secondItem,
-          },
-        ];
+        const seedData = [firstItem, secondItem];
 
         await context.database!.collection(collectionName).insertMany(seedData);
         const response = await request(app).get(`/${collectionName}`);
@@ -60,11 +52,7 @@ export default function generateRESTTests(
 
     get &&
       test(`Get - GET /${collectionName}/:id`, async (context) => {
-        const seedData = [
-          {
-            ...firstItem,
-          },
-        ];
+        const seedData = [firstItem];
 
         const { insertedIds } = await context
           .database!.collection(collectionName)
@@ -104,9 +92,7 @@ export default function generateRESTTests(
 
     patch &&
       test(`Update - PATCH /${collectionName}/:id`, async (context) => {
-        const seedData = {
-          ...firstItem,
-        };
+        const seedData = firstItem;
         const record = await context
           .database!.collection(collectionName)
           .insertOne(seedData);
@@ -124,14 +110,7 @@ export default function generateRESTTests(
 
     remove &&
       test(`Remove - DELETE /${collectionName}/:id`, async (context) => {
-        const seedData = [
-          {
-            ...firstItem,
-          },
-          {
-            ...secondItem,
-          },
-        ];
+        const seedData = [firstItem, secondItem];
         const { insertedIds } = await context
           .database!.collection(collectionName)
           .insertMany(seedData);
