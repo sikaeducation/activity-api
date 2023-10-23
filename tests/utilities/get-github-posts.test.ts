@@ -1,6 +1,6 @@
 import { expect, vi, test } from "vitest";
 import AdmZip from "adm-zip";
-import { getPostContent } from "@/tools/github";
+import getGitHubPosts from "@/utilities/get-github-posts";
 import axios from "axios";
 import { Octokit } from "octokit";
 
@@ -41,7 +41,7 @@ test("#getPostContent retrieves post content from GitHub", async () => {
   // @ts-expect-error: Mock doesn't match real type
   vi.mocked(Octokit).mockImplementation(getMockOctokit());
 
-  const postContent = await getPostContent();
+  const postContent = await getGitHubPosts();
 
   expect(postContent).toEqual({ "mongo-intro": "# Some Markdown" });
 });

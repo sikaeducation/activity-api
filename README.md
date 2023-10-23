@@ -2,6 +2,8 @@
 
 TODO:
 
+- Auth
+- Docs
 - Turn tests back on in the FE
 - Review FE types
 - Update all the meta docs

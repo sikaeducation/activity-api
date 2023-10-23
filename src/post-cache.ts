@@ -1,4 +1,4 @@
-import { getPostContent } from "@/tools/github";
+import getGitHubPosts from "@/utilities/get-github-posts";
 
 let posts: Record<string, string> = {};
 
@@ -11,7 +11,7 @@ export function getPost(slug: string) {
 }
 
 export async function populatePosts() {
-  const files = await getPostContent();
+  const files = await getGitHubPosts();
   posts = {
     ...posts,
     ...files,

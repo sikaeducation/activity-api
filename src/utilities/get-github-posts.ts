@@ -2,7 +2,6 @@ import { Octokit } from "octokit";
 import AdmZip, { IZipEntry } from "adm-zip";
 import axios from "axios";
 import { mapValues, keyBy } from "lodash/fp";
-import crypto from "crypto";
 
 async function getArchiveUrl() {
   const octokit = new Octokit({
@@ -44,24 +43,11 @@ function processFiles(entries: IZipEntry[]) {
   return mapValues("content")(byName);
 }
 
-export async function getPostContent() {
+export default async function getGitHubPosts() {
   return getArchiveUrl()
     .then(getFiles)
     .then(processFiles)
     .catch((error: { message: string }) => {
       console.error(error.message);
     });
-}
-
-export function verifyWebHook(body: unknown, rawSignature: string) {
-  const signature = Buffer.from(rawSignature, "utf8");
-  const GITHUB_WEBHOOK_TOKEN = process.env.GITHUB_WEBHOOK_TOKEN || "";
-
-  const hmac = crypto.createHmac("sha256", GITHUB_WEBHOOK_TOKEN);
-  const digest = Buffer.from(
-    `sha256=${hmac.update(JSON.stringify(body)).digest("hex")}`,
-    "utf8",
-  );
-
-  return crypto.timingSafeEqual(signature, digest);
 }

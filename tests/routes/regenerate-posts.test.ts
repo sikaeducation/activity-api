@@ -2,12 +2,12 @@ import request from "supertest";
 import { vi, test, expect, describe } from "vitest";
 import { app } from "@/app";
 
-import { verifyWebHook } from "@/tools/github";
+import { verifyToken } from "@/utilities/verify-token";
 import { populatePosts } from "@/post-cache";
 
-vi.mock("@/tools/github", () => {
+vi.mock("@/utilities/verify-token", async () => {
   return {
-    verifyWebHook: vi.fn(),
+    verifyToken: vi.fn(),
   };
 });
 vi.mock("@/post-cache", () => {
@@ -18,7 +18,7 @@ vi.mock("@/post-cache", () => {
 
 describe("/regenerate-posts", () => {
   test("POST - Good data", async () => {
-    vi.mocked(verifyWebHook).mockReturnValue(true);
+    vi.mocked(verifyToken).mockReturnValue(true);
     vi.mocked(populatePosts).mockResolvedValue();
 
     const response = await request(app)
@@ -30,7 +30,7 @@ describe("/regenerate-posts", () => {
   });
 
   test("POST - Bad data", async () => {
-    vi.mocked(verifyWebHook).mockReturnValue(false);
+    vi.mocked(verifyToken).mockReturnValue(false);
     vi.mocked(populatePosts).mockResolvedValue();
 
     const response = await request(app)
