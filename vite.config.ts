@@ -9,7 +9,7 @@ export default defineConfig({
     },
   },
   test: {
-    include: ["tests/github.test.ts"],
+    include: ["**/*.test.ts"],
     setupFiles: ["./setup-tests.ts"],
     mockReset: true,
   },

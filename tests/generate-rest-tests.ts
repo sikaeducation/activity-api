@@ -1,8 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import request from "supertest";
-import { test, expect, describe } from "vitest";
-import { app } from "../src/app";
+import { test, expect, describe, beforeEach } from "vitest";
+import { app } from "@/app";
 import { Db } from "mongodb";
+import { resetDatabase } from "../setup-tests";
+
+beforeEach(async (context) => {
+  context.database = await app.get("mongodbClient");
+  await resetDatabase(context.database);
+});
 
 type RESTMethods = "find" | "get" | "create" | "patch" | "remove";
 type RESTFlags = Partial<Record<RESTMethods, boolean>>;
