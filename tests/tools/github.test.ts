@@ -28,7 +28,7 @@ const getMockRepo = () => {
   return Promise.resolve({ data: buffer });
 };
 
-const getMockOctokit = () => ({
+const getMockOctokit = () => () => ({
   rest: {
     repos: {
       downloadZipballArchive: () =>
