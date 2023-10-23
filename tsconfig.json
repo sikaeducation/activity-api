@@ -1,25 +1,24 @@
 {
-  "ts-node": {
-    "files": true
-  },
-  "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "lib": ["esnext"],
-    "module": "CommonJS",
-    "moduleResolution": "node",
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "target": "ESNext",
-    "outDir": "dist",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  },
-  "include": ["src", "tests"],
-  "files": ["./setup-tests.ts", "./vite.config.ts", "./environment.d.ts"]
+	"compilerOptions": {
+		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"lib": [
+			"esnext"
+		],
+		"module": "CommonJS",
+		"moduleResolution": "node",
+		"noUnusedLocals": false,
+		"noUnusedParameters": false,
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"target": "ESNext",
+		"outDir": "dist",
+		"paths": {
+			"@/*": [
+				"./src/*"
+			]
+		}
+	}
 }

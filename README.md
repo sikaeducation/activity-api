@@ -4,37 +4,35 @@ TODO:
 
 - Turn tests back on in the FE
 - Review FE types
-
 - Update all the meta docs
 
 [![CI](https://github.com/sikaeducation/activity-service/actions/workflows/main.yml/badge.svg)](https://github.com/sikaeducation/activity-service/actions/workflows/main.yml)
 
-RESTful API for interacting with activities. Lives at [https://activity-service.fly.dev](https://activity-service.fly.dev).
+RESTful API for Sika Education activities. Lives at [https://activity-service.fly.dev](https://activity-service.fly.dev).
 
 ## Scripts
 
-- `npm test:watch` - Run tests in development
-- `npm test:ci` - Run CI tests
-- `npm run dev` - Start dev environment (base URL is `localhost://3000`)
-- `npm run build` - Compile TS to `/dist`
-- `npm run build:docker` - Force rebuild CI container
+- `npm start` - Run production build
+- `npm dev` - Run hot reloading development build
+- `npm run lint`
+- `npm run build`
+- `npm run build:docker`
+- `npm run test`
+- `npm run test:watch`
+- `npm run fly:env` - Update production environment variables to match `.fly.env`
 
 ## REST Endpoints
 
-- `/activities` - [Documentation](tests/integration/activities.feature)
-  - Activity Types - [Documentation](tests/integration/activity-types.feature)
-- `/vocab` - [Documentation](tests/integration/vocab.feature)
-- `/questions` - [Documentation](tests/integration/question.feature)
+- `/activities` - Find, get, remove, find by type
+  - `/articles` - Find, get, create, patch, remove
+- `/regenerate-posts` - Update cache with latest data from [`https://github.com/sikaeducation/posts`](https://github.com/sikaeducation/posts)
+- `/vocab` - Find, get, create, patch, remove
 
 ## Environment Variables
 
-Copy `.env.example` to `.env` and add:
-
-- `GITHUB_TOKEN` (personal access token for API access)
-- `GITHUB_WEBHOOK_TOKEN` (from the `posts` repo)
-- `AUTH_KEY_URL` (from the Auth0 jwks URL)
-- `DATABASE_URL` (URL to Mongo instance)
+Copy `.env.example` to `.env` and `.fly.env`.
 
 ## Dependencies
 
-- Docker / Docker Compose
+- Docker
+- `flyctl`
