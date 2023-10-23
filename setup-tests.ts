@@ -11,10 +11,8 @@ declare module "vitest" {
 }
 
 beforeEach(async (context) => {
-  //   context.database = await app.get("mongodbClient");
-  //   await resetDatabase(context.database);
-  // });
-  //
+  context.database = await app.get("mongodbClient");
+  await resetDatabase(context.database);
 });
 
 async function resetDatabase(database: Db) {
