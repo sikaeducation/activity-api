@@ -1,4 +1,5 @@
-// import { authenticate } from "@feathersjs/authentication";
+import { authenticate } from "@feathersjs/authentication";
+import { onlyCoaches } from "@/hooks/only-coaches";
 
 import { hooks as schemaHooks } from "@feathersjs/schema";
 
@@ -9,7 +10,7 @@ import {
   activityQueryResolver,
 } from "./activity.schema";
 
-import type { Application } from "../../declarations";
+import type { Application } from "@/declarations";
 import { ActivityService, getOptions } from "./activity.class";
 
 export const activityPath = "activities";
@@ -26,9 +27,11 @@ export const activity = (app: Application) => {
   app.service(activityPath).hooks({
     around: {
       all: [
+        authenticate("jwt"),
         schemaHooks.resolveExternal(activityExternalResolver),
         schemaHooks.resolveResult(activityResolver),
       ],
+      remove: [onlyCoaches],
     },
     before: {
       all: [
@@ -48,7 +51,7 @@ export const activity = (app: Application) => {
   });
 };
 
-declare module "../../declarations" {
+declare module "@/declarations" {
   interface ServiceTypes {
     [activityPath]: ActivityService;
   }

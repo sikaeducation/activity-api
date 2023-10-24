@@ -8,7 +8,7 @@
   "scripts": {
     "start": "pm2 start dist/index.js -i 'max'",
     "dev": "docker compose config && docker compose up --abort-on-container-exit",
-    "_dev": "nodemon -L src/index.ts",
+    "_dev": "nodemon -x ts-node src/index.ts",
     "lint": "npm run lint:ts ; npm run format",
     "lint:ts": "eslint --ignore-path .gitignore --fix .",
     "format": "prettier . --write",
@@ -72,6 +72,8 @@
     "nodemon": "^2.0.19",
     "prettier": "^3.0.3",
     "supertest": "^6.2.4",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.2.2",
     "vite": "^4.5.0",
     "vitest": "^0.34.6"

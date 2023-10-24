@@ -3,8 +3,8 @@ import { Type, getValidator, querySyntax } from "@feathersjs/typebox";
 import { ObjectIdSchema } from "@feathersjs/typebox";
 import type { Static } from "@feathersjs/typebox";
 
-import type { HookContext } from "../../declarations";
-import { dataValidator, queryValidator } from "../../validators";
+import type { HookContext } from "@/declarations";
+import { dataValidator, queryValidator } from "@/validators";
 import type { VocabService } from "./vocab.class";
 
 // Main data model schema

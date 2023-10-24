@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import type { HookContext, NextFunction } from "../declarations";
+import type { HookContext, NextFunction } from "@/declarations";
 import { logger } from "../logger";
 
 export const logError = async (context: HookContext, next: NextFunction) => {

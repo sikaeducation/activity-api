@@ -1,0 +1,4 @@
+export const learnerToken =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwczovL3Npa2FlZHVjYXRpb24uY29tL3JvbGUiOiJsZWFybmVyIn0.m_QoHxQ63OLpnggdFlXqsAGjvTzwDa13CZaBRnu24OM";
+export const coachToken =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwczovL3Npa2FlZHVjYXRpb24uY29tL3JvbGUiOiJjb2FjaCJ9.iFThHQZLybDDx9spWfDM65WYcjfX3JJnluJHLSekzDg";

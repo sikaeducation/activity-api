@@ -1,4 +1,5 @@
-// import { authenticate } from "@feathersjs/authentication";
+import { authenticate } from "@feathersjs/authentication";
+import { onlyCoaches } from "@/hooks/only-coaches";
 
 import { hooks as schemaHooks } from "@feathersjs/schema";
 
@@ -13,7 +14,7 @@ import {
   vocabQueryResolver,
 } from "./vocab.schema";
 
-import type { Application } from "../../declarations";
+import type { Application } from "@/declarations";
 import { VocabService, getOptions } from "./vocab.class";
 
 export * from "./vocab.class";
@@ -37,9 +38,13 @@ export const vocab = (app: Application) => {
   app.service(vocabPath).hooks({
     around: {
       all: [
+        authenticate("jwt"),
         schemaHooks.resolveExternal(vocabExternalResolver),
         schemaHooks.resolveResult(vocabResolver),
       ],
+      create: [onlyCoaches],
+      patch: [onlyCoaches],
+      remove: [onlyCoaches],
     },
     before: {
       all: [
@@ -67,7 +72,7 @@ export const vocab = (app: Application) => {
   });
 };
 
-declare module "../../declarations" {
+declare module "@/declarations" {
   interface ServiceTypes {
     [vocabPath]: VocabService;
   }

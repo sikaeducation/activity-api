@@ -5,7 +5,7 @@ import type {
   MongoDBAdapterOptions,
 } from "@feathersjs/mongodb";
 
-import type { Application } from "../../declarations";
+import type { Application } from "@/declarations";
 import type {
   Article,
   ArticleData,

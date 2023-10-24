@@ -8,6 +8,7 @@ services:
       - "27017"
     ports:
       - "27018:27017" # For external debugging
+    command: mongod --quiet --logpath /dev/null
   api:
     depends_on:
       - database
