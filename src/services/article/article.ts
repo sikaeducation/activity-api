@@ -1,4 +1,4 @@
-// import { authenticate } from "@feathersjs/authentication";
+import { authenticate } from "@feathersjs/authentication";
 
 import { hooks as schemaHooks } from "@feathersjs/schema";
 
@@ -13,8 +13,9 @@ import {
   articleQueryResolver,
 } from "./article.schema";
 
-import type { Application } from "../../declarations";
+import type { Application } from "@/declarations";
 import { ArticleService, getOptions } from "./article.class";
+import { onlyCoaches } from "@/hooks/only-coaches";
 
 export const articlePath = "articles";
 export const articleMethods = [
@@ -36,9 +37,13 @@ export const article = (app: Application) => {
   app.service(articlePath).hooks({
     around: {
       all: [
+        authenticate("jwt"),
         schemaHooks.resolveExternal(articleExternalResolver),
         schemaHooks.resolveResult(articleResolver),
       ],
+      create: [onlyCoaches],
+      patch: [onlyCoaches],
+      remove: [onlyCoaches],
     },
     before: {
       all: [
@@ -67,7 +72,7 @@ export const article = (app: Application) => {
   });
 };
 
-declare module "../../declarations" {
+declare module "@/declarations" {
   interface ServiceTypes {
     [articlePath]: ArticleService;
   }

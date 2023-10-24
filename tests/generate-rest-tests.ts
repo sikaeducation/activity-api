@@ -3,6 +3,7 @@ import { test, expect, describe, beforeEach } from "vitest";
 import { app } from "@/app";
 import { Db } from "mongodb";
 import { resetDatabase } from "./setup-tests";
+import { coachToken } from "./jwt-tokens";
 
 beforeEach(async (context) => {
   context.database = await app.get("mongodbClient");
@@ -12,7 +13,7 @@ beforeEach(async (context) => {
 type RESTMethods = "find" | "get" | "create" | "patch" | "remove";
 type RESTFlags = Partial<Record<RESTMethods, boolean>>;
 
-type SampleData = [Record<string, unknown>, Record<string, unknown>];
+type SampleData = Record<string, unknown>[];
 
 declare module "vitest" {
   export interface TestContext {
@@ -46,7 +47,9 @@ export default function generateRESTTests(
         ];
 
         await context.database!.collection(collectionName).insertMany(seedData);
-        const response = await request(app).get(`/${collectionName}`);
+        const response = await request(app)
+          .get(`/${collectionName}`)
+          .set("Authorization", `Bearer ${coachToken}`);
 
         expect(response.status).toBe(200);
         expect(response.body).toMatchObject({
@@ -70,9 +73,9 @@ export default function generateRESTTests(
           .insertMany(seedData);
         const firstId = Object.values(insertedIds)[0].toString();
 
-        const response = await request(app).get(
-          `/${collectionName}/${firstId}`,
-        );
+        const response = await request(app)
+          .get(`/${collectionName}/${firstId}`)
+          .set("Authorization", `Bearer ${coachToken}`);
 
         expect(response.status).toBe(200);
         expect(response.body).toMatchObject({
@@ -85,6 +88,7 @@ export default function generateRESTTests(
       test(`Create - POST /${collectionName}`, async (context) => {
         const postResponse = await request(app)
           .post(`/${collectionName}`)
+          .set("Authorization", `Bearer ${coachToken}`)
           .send(firstItem);
 
         expect(postResponse.status).toBe(201);
@@ -113,6 +117,7 @@ export default function generateRESTTests(
 
         const response = await request(app)
           .patch(`/${collectionName}/${firstId}`)
+          .set("Authorization", `Bearer ${coachToken}`)
           .send(secondItem);
 
         expect(response.status).toBe(200);
@@ -136,9 +141,9 @@ export default function generateRESTTests(
           .insertMany(seedData);
         const firstId = Object.values(insertedIds)[0].toString();
 
-        const response = await request(app).delete(
-          `/${collectionName}/${firstId}`,
-        );
+        const response = await request(app)
+          .delete(`/${collectionName}/${firstId}`)
+          .set("Authorization", `Bearer ${coachToken}`);
 
         expect(response.status).toBe(200);
         const items = await context

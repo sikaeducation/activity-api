@@ -18,6 +18,7 @@ import { configurationValidator } from "./configuration";
 import { logger } from "./logger";
 import { logError } from "./hooks/log-error";
 import { mongodb } from "./mongodb";
+import { authentication } from "./authentication";
 import { services } from "./services/index";
 import { channels } from "./channels";
 import regeneratePostsRoute from "./routes/regenerate-posts";
@@ -41,6 +42,7 @@ app.configure(
   }),
 );
 app.configure(mongodb);
+app.configure(authentication);
 app.configure(services);
 app.configure(channels);
 
@@ -66,10 +68,7 @@ app.hooks({
   teardown: [],
 });
 
-// import { authenticate } from "./auth0";
-// if (process.env.NODE_ENV === "production") {
-// 	app.use(authenticate);
-
+// TODO: Populate posts on load
 // import { populatePosts } from "../tools/posts";
 // 	// eslint-disable-next-line @typescript-eslint/no-misused-promises
 // 	!(async () => await populatePosts())();

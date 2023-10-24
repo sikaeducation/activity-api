@@ -1,13 +1,12 @@
-/* eslint-disable @typescript-eslint/require-await */
 import { resolve, virtual } from "@feathersjs/schema";
 import { Type, getValidator, querySyntax } from "@feathersjs/typebox";
 import type { Static } from "@feathersjs/typebox";
 
-import type { HookContext } from "../../declarations";
-import { dataValidator, queryValidator } from "../../validators";
+import type { HookContext } from "@/declarations";
+import { dataValidator, queryValidator } from "@/validators";
 import type { ArticleService } from "./article.class";
 
-import { activitySchema } from "../activity/activity.schema";
+import { activitySchema } from "@/services/activity/activity.schema";
 import { getPost } from "@/post-cache";
 
 // Main data model schema
