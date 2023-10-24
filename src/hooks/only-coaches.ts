@@ -1,18 +1,6 @@
 import { Forbidden, NotAuthenticated } from "@feathersjs/errors";
 import type { HookContext, NextFunction } from "@/declarations";
-
-type AuthenticatedHookContext = {
-  params: {
-    authentication: {
-      payload: {
-        "https://sikaeducation.com/role": "learner" | "coach";
-      };
-    };
-    user?: {
-      role: "learner" | "coach";
-    };
-  };
-};
+import { AuthenticatedHookContext, isAuthenticated } from "@/authentication";
 
 export const onlyCoaches = async (context: HookContext, next: NextFunction) => {
   let role = "";
@@ -32,12 +20,3 @@ export const onlyCoaches = async (context: HookContext, next: NextFunction) => {
   }
   await next();
 };
-
-function isAuthenticated(
-  context: AuthenticatedHookContext,
-): context is AuthenticatedHookContext {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  return !!context.params.authentication.payload[
-    "https://sikaeducation.com/role"
-  ];
-}

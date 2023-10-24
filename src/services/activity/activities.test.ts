@@ -2,10 +2,10 @@
 import request from "supertest";
 import { beforeEach, describe, expect, test } from "vitest";
 import { app } from "@/app";
-import { resetDatabase } from "$/test-helpers/reset-database";
-import { learnerToken, coachToken } from "$/test-helpers/jwt-tokens";
+import { resetDatabase } from "$/reset-database";
+import { learnerToken, coachToken } from "$/jwt-tokens";
 
-import generateRestTests from "$/test-helpers/generate-rest-tests";
+import generateRestTests from "$/generate-rest-tests";
 
 const seedData = [
   {

@@ -1,4 +1,3 @@
-// For more information about this file see https://dove.feathersjs.com/guides/cli/typescript.html
 import {
   HookContext as FeathersHookContext,
   NextFunction,

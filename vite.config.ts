@@ -6,12 +6,12 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      $: path.resolve(__dirname, "./tests"),
+      $: path.resolve(__dirname, "./test-helpers"),
     },
   },
   test: {
-    include: ["./tests/**/*.test.ts"],
-    setupFiles: ["./tests/test-helpers/setup-tests.ts"],
+    include: ["./**/*.test.ts"],
+    setupFiles: ["./test-helpers/setup-tests.ts"],
     mockReset: true,
   },
 });

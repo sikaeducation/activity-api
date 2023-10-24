@@ -36,14 +36,10 @@ class StatelessJwtService extends AuthenticationService {
   }
   async getPayload(authResult: AuthenticationResult, params: Params) {
     const payload = await super.getPayload(authResult, params);
-    console.log("what's in here?", payload, authResult, params);
     payload.user = {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       email: authResult["https://sikaeducation.com/email"],
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       role: authResult["https://sikaeducation.com/role"],
     };
-    console.log("This ran", payload);
 
     return payload;
   }
@@ -62,3 +58,24 @@ export const authentication = (app: Application) => {
 
   app.use("authentication", authentication);
 };
+
+export type AuthenticatedHookContext = {
+  params: {
+    authentication: {
+      payload: {
+        "https://sikaeducation.com/role": "learner" | "coach";
+      };
+    };
+    user?: {
+      role: "learner" | "coach";
+    };
+  };
+};
+
+export function isAuthenticated(
+  context: AuthenticatedHookContext,
+): context is AuthenticatedHookContext {
+  return !!context.params.authentication.payload[
+    "https://sikaeducation.com/role"
+  ];
+}

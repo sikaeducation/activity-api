@@ -1,4 +1,4 @@
-import generateRestTests from "$/test-helpers/generate-rest-tests";
+import generateRestTests from "$/generate-rest-tests";
 
 generateRestTests("vocab", [
   {
