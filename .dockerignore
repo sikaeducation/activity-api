@@ -2,7 +2,7 @@
 **/database
 **/node_modules
 **/.env
-**/.fly.env
+**/.production.env
 **/build
 **/dist
 **/coverage

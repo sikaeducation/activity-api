@@ -6,6 +6,7 @@ TODO:
 - Turn tests back on in the FE
 - Review FE types
 - Update all the meta docs
+- Make releases all use GITHUB_TOKEN instead
 
 [![CI](https://github.com/sikaeducation/activity-service/actions/workflows/main.yml/badge.svg)](https://github.com/sikaeducation/activity-service/actions/workflows/main.yml)
 
@@ -13,14 +14,12 @@ RESTful API for Sika Education activities. Lives at [https://activity-service.fl
 
 ## Scripts
 
-- `npm start` - Run production build
-- `npm dev` - Run hot reloading development build
+- `npm start` - Run pm2 production build
+- `npm dev`
 - `npm run lint`
 - `npm run build`
 - `npm run build:docker`
-- `npm run test`
-- `npm run test:watch`
-- `npm run fly:env` - Update production environment variables to match `.fly.env`
+- `npm run test`, `npm run test:watch`
 
 ## REST Endpoints
 
@@ -31,9 +30,13 @@ RESTful API for Sika Education activities. Lives at [https://activity-service.fl
 
 ## Environment Variables
 
-Copy `.env.example` to `.env` and `.fly.env`.
+Copy `.env.example` to `.env`
 
 ## Dependencies
 
 - Docker
 - `flyctl`
+
+## Deployment
+
+Increment the version with `npm verision { patch | minor | major }` and push.

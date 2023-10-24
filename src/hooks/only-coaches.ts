@@ -7,16 +7,16 @@ export const onlyCoaches = async (context: HookContext, next: NextFunction) => {
   if (isAuthenticated(context)) {
     const authenticatedContext: AuthenticatedHookContext = context;
     role =
-      authenticatedContext?.params.authentication?.payload[
+      authenticatedContext.params.authentication.payload[
         "https://sikaeducation.com/role"
-      ] ?? authenticatedContext.params?.user?.role;
+      ];
   }
 
   if (!role) {
     throw new NotAuthenticated("User not authenticated");
   }
   if (role !== "coach") {
-    throw new Forbidden(`Need role 'coach', got role: ${role}`);
+    throw new Forbidden(`Client needs 'coach' role, got: "${role}"`);
   }
   await next();
 };

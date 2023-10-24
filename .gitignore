@@ -3,5 +3,5 @@ node_modules
 .env
 build
 dist
-.prod.env
+.production.env
 coverage

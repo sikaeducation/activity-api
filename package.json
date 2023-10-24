@@ -17,8 +17,7 @@
     "test": "docker compose run api npm run _test",
     "test:watch": "docker compose run api npm run _test:watch",
     "_test": "vitest --run --no-threads --coverage",
-    "_test:watch": "vitest --watch --no-threads",
-    "fly:env": "flyctl secrets import < .fly.env"
+    "_test:watch": "vitest --watch --no-threads"
   },
   "repository": {
     "type": "git",

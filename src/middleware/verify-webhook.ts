@@ -4,7 +4,7 @@ import { verifyToken } from "@/utilities/verify-token";
 
 export function verifyWebhookMiddleware(
   request: Request,
-  response: Response,
+  _: Response,
   next: NextFunction,
 ) {
   const rawSignature = request.get("X-Hub-Signature-256") || "";

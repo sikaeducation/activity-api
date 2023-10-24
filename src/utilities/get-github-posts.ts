@@ -2,18 +2,18 @@ import { Octokit } from "octokit";
 import AdmZip, { IZipEntry } from "adm-zip";
 import axios from "axios";
 import { mapValues, keyBy } from "lodash/fp";
+import { logger } from "@/logger";
 
 async function getArchiveUrl() {
   const octokit = new Octokit({
-    auth: process.env.GITHUB_TOKEN,
+    auth: process.env.REPO_TOKEN,
   });
-  return octokit.rest.repos
-    .downloadZipballArchive({
-      owner: "sikaeducation",
-      repo: "posts",
-      ref: "master",
-    })
-    .then((response) => response.url);
+  const repos = await octokit.rest.repos.downloadZipballArchive({
+    owner: "sikaeducation",
+    repo: "posts",
+    ref: "master",
+  });
+  return repos.url;
 }
 
 async function getFiles(url: string) {
@@ -48,6 +48,6 @@ export default async function getGitHubPosts() {
     .then(getFiles)
     .then(processFiles)
     .catch((error: { message: string }) => {
-      console.error(error.message);
+      logger.error(error.message);
     });
 }
