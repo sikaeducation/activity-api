@@ -1,9 +1,8 @@
 import request from "supertest";
 import { test, expect, describe, beforeEach } from "vitest";
 import { app } from "@/app";
-import { Db } from "mongodb";
-import { resetDatabase } from "./setup-tests";
-import { coachToken } from "./jwt-tokens";
+import { resetDatabase } from "$/test-helpers/reset-database";
+import { coachToken } from "$/test-helpers/jwt-tokens";
 
 beforeEach(async (context) => {
   context.database = await app.get("mongodbClient");
@@ -14,12 +13,6 @@ type RESTMethods = "find" | "get" | "create" | "patch" | "remove";
 type RESTFlags = Partial<Record<RESTMethods, boolean>>;
 
 type SampleData = Record<string, unknown>[];
-
-declare module "vitest" {
-  export interface TestContext {
-    database?: Db;
-  }
-}
 
 export default function generateRESTTests(
   collectionName: string,
@@ -32,19 +25,13 @@ export default function generateRESTTests(
     remove: true,
   },
 ) {
-  const [firstItem, secondItem] = data;
+  const getItems = () => [{ ...data[0] }, { ...data[1] }];
 
   describe(collectionName, () => {
     find &&
-      test(`Listing - GET /${collectionName}`, async (context) => {
-        const seedData = [
-          {
-            ...firstItem,
-          },
-          {
-            ...secondItem,
-          },
-        ];
+      test(`Find - GET /${collectionName}`, async (context) => {
+        const seedData = getItems();
+        const [firstItem, secondItem] = seedData;
 
         await context.database!.collection(collectionName).insertMany(seedData);
         const response = await request(app)
@@ -52,21 +39,23 @@ export default function generateRESTTests(
           .set("Authorization", `Bearer ${coachToken}`);
 
         expect(response.status).toBe(200);
-        expect(response.body).toMatchObject({
-          data: [
-            expect.objectContaining(firstItem),
-            expect.objectContaining(secondItem),
-          ],
-        });
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        expect(response.body.data).toMatchObject([
+          {
+            _id: expect.any(String) as string,
+            ...firstItem,
+          },
+          {
+            _id: expect.any(String) as string,
+            ...secondItem,
+          },
+        ]);
       });
 
     get &&
       test(`Get - GET /${collectionName}/:id`, async (context) => {
-        const seedData = [
-          {
-            ...firstItem,
-          },
-        ];
+        const seedData = getItems();
+        const [firstItem] = seedData;
 
         const { insertedIds } = await context
           .database!.collection(collectionName)
@@ -86,6 +75,7 @@ export default function generateRESTTests(
 
     create &&
       test(`Create - POST /${collectionName}`, async (context) => {
+        const [firstItem] = getItems();
         const postResponse = await request(app)
           .post(`/${collectionName}`)
           .set("Authorization", `Bearer ${coachToken}`)
@@ -107,12 +97,10 @@ export default function generateRESTTests(
 
     patch &&
       test(`Update - PATCH /${collectionName}/:id`, async (context) => {
-        const seedData = {
-          ...firstItem,
-        };
+        const [firstItem, secondItem] = getItems();
         const record = await context
           .database!.collection(collectionName)
-          .insertOne(seedData);
+          .insertOne(firstItem);
         const firstId = record.insertedId.toString();
 
         const response = await request(app)
@@ -128,14 +116,9 @@ export default function generateRESTTests(
 
     remove &&
       test(`Remove - DELETE /${collectionName}/:id`, async (context) => {
-        const seedData = [
-          {
-            ...firstItem,
-          },
-          {
-            ...secondItem,
-          },
-        ];
+        const seedData = getItems();
+        const [firstItem, secondItem] = seedData;
+
         const { insertedIds } = await context
           .database!.collection(collectionName)
           .insertMany(seedData);
@@ -152,6 +135,7 @@ export default function generateRESTTests(
           .toArray();
 
         expect(items).toHaveLength(1);
+        expect(items[0]).toMatchObject(secondItem);
       });
   });
 }

@@ -2,10 +2,10 @@
 import request from "supertest";
 import { beforeEach, describe, expect, test } from "vitest";
 import { app } from "@/app";
-import { resetDatabase } from "../setup-tests";
-import { learnerToken, coachToken } from "../jwt-tokens";
+import { resetDatabase } from "$/test-helpers/reset-database";
+import { learnerToken, coachToken } from "$/test-helpers/jwt-tokens";
 
-import generateRestTests from "../generate-rest-tests";
+import generateRestTests from "$/test-helpers/generate-rest-tests";
 
 const seedData = [
   {
@@ -26,15 +26,13 @@ generateRestTests("articles", seedData, {
   remove: true,
 });
 
-beforeEach(async (context) => {
-  context.database = await app.get("mongodbClient");
-  await resetDatabase(context.database);
-});
-
 describe("activities", () => {
   beforeEach(async (context) => {
-    await context.database!.collection("activities").insertMany(seedData);
+    context.database = await app.get("mongodbClient");
+    await resetDatabase(context.database);
+    await context.database.collection("activities").insertMany(seedData);
   });
+
   describe("Listing - GET /activities", () => {
     const findRequest = () => request(app).get("/activities");
 
