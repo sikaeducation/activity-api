@@ -1,6 +1,6 @@
 export default {
   host: "localhost",
-  port: process.env.PORT,
+  port: 80,
   origins: ["http://localhost:3000", "https://lms.sikaeducation.com"],
   paginate: {
     default: 100,

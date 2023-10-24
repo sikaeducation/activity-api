@@ -1,6 +1,6 @@
-import generateRestTests from "$/generate-rest-tests";
+import { generateRESTTests } from "$/rest-test-generator";
 
-generateRestTests("vocab", [
+generateRESTTests("vocab", [
   {
     term: "HTTP",
     definition: "HyperText Transfer Protocol",

@@ -4,8 +4,7 @@ import { beforeEach, describe, expect, test } from "vitest";
 import { app } from "@/app";
 import { resetDatabase } from "$/reset-database";
 import { learnerToken, coachToken } from "$/jwt-tokens";
-
-import generateRestTests from "$/generate-rest-tests";
+import { generateRESTTests } from "$/rest-test-generator";
 
 const seedData = [
   {
@@ -20,7 +19,7 @@ const seedData = [
   },
 ];
 
-generateRestTests("articles", seedData, {
+generateRESTTests("articles", [seedData[0], seedData[1]], {
   find: true,
   get: true,
   remove: true,

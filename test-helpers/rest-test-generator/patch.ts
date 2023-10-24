@@ -6,25 +6,24 @@ import { cloneDeep } from "lodash";
 import request from "supertest";
 import { test, beforeEach, describe, expect } from "vitest";
 
-export default function generateTests(
+export default function generatePatchTests(
   collectionName: string,
   items: SampleData,
 ) {
-  describe(`Get - GET /${collectionName}/:id`, () => {
+  describe(`Patch - PATCH /${collectionName}/:id`, () => {
     beforeEach(async (context) => {
       context.items = cloneDeep(items);
 
-      const { insertedIds } = await context
+      const record = await context
         .database!.collection(collectionName)
-        .insertMany(context.items);
-
-      context.firstId = Object.values(insertedIds)[0].toString();
+        .insertOne(context.items[0]);
+      context.firstId = record.insertedId.toString();
     });
 
     test("anonymous", async (context) => {
-      const response = await request(app).get(
-        `/${collectionName}/${context.firstId}`,
-      );
+      const response = await request(app)
+        .patch(`/${collectionName}/${context.firstId}`)
+        .send(context.items?.[1]);
 
       expect(response.status).toBe(401);
       expect(response.body.data).toBeUndefined();
@@ -32,24 +31,23 @@ export default function generateTests(
 
     test("as a learner", async (context) => {
       const response = await request(app)
-        .get(`/${collectionName}/${context.firstId}`)
-        .set("Authorization", `Bearer ${learnerToken}`);
+        .patch(`/${collectionName}/${context.firstId}`)
+        .set("Authorization", `Bearer ${learnerToken}`)
+        .send(context.items?.[1]);
 
-      expect(response.status).toBe(200);
-      expect(response.body).toMatchObject({
-        _id: context.firstId,
-        ...context.items?.[0],
-      });
+      expect(response.status).toBe(403);
+      expect(response.body.data).toBeUndefined();
     });
 
     test("as a coach", async (context) => {
       const response = await request(app)
-        .get(`/${collectionName}/${context.firstId}`)
-        .set("Authorization", `Bearer ${coachToken}`);
+        .patch(`/${collectionName}/${context.firstId}`)
+        .set("Authorization", `Bearer ${coachToken}`)
+        .send(context.items?.[1]);
+
       expect(response.status).toBe(200);
       expect(response.body).toMatchObject({
-        _id: context.firstId,
-        ...context.items?.[0],
+        ...context.items?.[1],
       });
     });
   });
