@@ -21,8 +21,9 @@ import { mongodb } from "./mongodb";
 import { authentication } from "./authentication";
 import { services } from "./services/index";
 import { channels } from "./channels";
-import regeneratePostsRoute from "./routes/regenerate-posts";
+import { regeneratePostsRoute } from "./routes/regenerate-posts";
 import { verifyWebhookMiddleware } from "./middleware/verify-webhook";
+import { populatePosts } from "./post-cache";
 
 const app: Application = express(feathers());
 
@@ -68,14 +69,8 @@ app.hooks({
 });
 // Register application setup and teardown hooks here
 app.hooks({
-  setup: [],
+  setup: [populatePosts],
   teardown: [],
 });
-
-// TODO: Populate posts on load
-// import { populatePosts } from "../tools/posts";
-// 	// eslint-disable-next-line @typescript-eslint/no-misused-promises
-// 	!(async () => await populatePosts())();
-// }
 
 export { app };

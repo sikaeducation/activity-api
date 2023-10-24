@@ -5,7 +5,7 @@ import { app } from "@/app";
 import { verifyToken } from "@/utilities/verify-token";
 import { populatePosts } from "@/post-cache";
 
-vi.mock("@/utilities/verify-token", async () => {
+vi.mock("@/utilities/verify-token", () => {
   return {
     verifyToken: vi.fn(),
   };
