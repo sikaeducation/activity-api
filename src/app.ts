@@ -51,7 +51,11 @@ app.post("/regenerate-posts", verifyWebhookMiddleware, regeneratePostsRoute);
 
 // Configure a middleware for 404s and the error handler
 app.use(notFound());
-app.use(errorHandler({ logger }));
+if (process.env.NODE_ENV !== "test") {
+  app.use(errorHandler({ logger }));
+} else {
+  app.use(errorHandler({ logger: false }));
+}
 
 // Register hooks that run on all service methods
 app.hooks({

@@ -12,6 +12,6 @@ export function verifyWebhookMiddleware(
   if (verifyToken(request.body, rawSignature)) {
     next();
   } else {
-    next(new NotAuthenticated({ error: "Bad webhook signature" }));
+    next(new NotAuthenticated("Bad webhook signature"));
   }
 }

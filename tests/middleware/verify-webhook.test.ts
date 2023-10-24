@@ -1,7 +1,7 @@
 import {
   body as webhookBody,
   signature as webhookSignature,
-} from "./webhook-token-fixture";
+} from "$/test-helpers/webhook-token-fixture";
 import { verifyToken } from "@/utilities/verify-token";
 import { test, expect } from "vitest";
 
