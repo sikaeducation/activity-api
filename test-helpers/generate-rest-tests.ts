@@ -2,17 +2,13 @@ import request from "supertest";
 import { test, expect, describe, beforeEach } from "vitest";
 import { app } from "@/app";
 import { resetDatabase } from "$/reset-database";
-import { coachToken } from "$/jwt-tokens";
-
-beforeEach(async (context) => {
-  context.database = await app.get("mongodbClient");
-  await resetDatabase(context.database);
-});
+import { coachToken, learnerToken } from "$/jwt-tokens";
+import generateFindTests from "./rest-test-generator/find";
+import generateGetTests from "./rest-test-generator/get";
+import { SampleData } from "./setup-tests";
 
 type RESTMethods = "find" | "get" | "create" | "patch" | "remove";
 type RESTFlags = Partial<Record<RESTMethods, boolean>>;
-
-type SampleData = Record<string, unknown>[];
 
 export default function generateRESTTests(
   collectionName: string,
@@ -25,53 +21,16 @@ export default function generateRESTTests(
     remove: true,
   },
 ) {
+  beforeEach(async (context) => {
+    context.database = await app.get("mongodbClient");
+    await resetDatabase(context.database);
+  });
+
   const getItems = () => [{ ...data[0] }, { ...data[1] }];
 
   describe(collectionName, () => {
-    find &&
-      test(`Find - GET /${collectionName}`, async (context) => {
-        const seedData = getItems();
-        const [firstItem, secondItem] = seedData;
-
-        await context.database!.collection(collectionName).insertMany(seedData);
-        const response = await request(app)
-          .get(`/${collectionName}`)
-          .set("Authorization", `Bearer ${coachToken}`);
-
-        expect(response.status).toBe(200);
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        expect(response.body.data).toMatchObject([
-          {
-            _id: expect.any(String) as string,
-            ...firstItem,
-          },
-          {
-            _id: expect.any(String) as string,
-            ...secondItem,
-          },
-        ]);
-      });
-
-    get &&
-      test(`Get - GET /${collectionName}/:id`, async (context) => {
-        const seedData = getItems();
-        const [firstItem] = seedData;
-
-        const { insertedIds } = await context
-          .database!.collection(collectionName)
-          .insertMany(seedData);
-        const firstId = Object.values(insertedIds)[0].toString();
-
-        const response = await request(app)
-          .get(`/${collectionName}/${firstId}`)
-          .set("Authorization", `Bearer ${coachToken}`);
-
-        expect(response.status).toBe(200);
-        expect(response.body).toMatchObject({
-          _id: firstId,
-          ...firstItem,
-        });
-      });
+    find && generateFindTests(collectionName, data);
+    get && generateGetTests(collectionName, data);
 
     create &&
       test(`Create - POST /${collectionName}`, async (context) => {
