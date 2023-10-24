@@ -5,6 +5,7 @@
 **/.fly.env
 **/build
 **/dist
+**/coverage
 
 # flyctl launch added from .husky/_/.gitignore
 .husky/_/**/*

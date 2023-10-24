@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import type { HookContext, NextFunction } from "@/declarations";
 import { logger } from "../logger";
 
 export const logError = async (context: HookContext, next: NextFunction) => {
   try {
     await next();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (process.env.NODE_ENV !== "test") {
       logger.error(error.stack);

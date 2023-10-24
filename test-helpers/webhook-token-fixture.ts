@@ -1,5 +1,6 @@
 export const signature =
   "sha256=d4f47b99863cd56ae43a78bd2dca7af3efbd6a6ab9e5dcb6a57609fdde452268";
+
 export const body = {
   ref: "refs/heads/master",
   before: "45c51544d6f71630c1eaf20ca0a717f728e46ae1",
@@ -232,4 +233,4 @@ export const body = {
     removed: [],
     modified: ["agile/README.md"],
   },
-};
+} as const;

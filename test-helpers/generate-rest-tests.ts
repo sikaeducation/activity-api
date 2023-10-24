@@ -1,8 +1,8 @@
 import request from "supertest";
 import { test, expect, describe, beforeEach } from "vitest";
 import { app } from "@/app";
-import { resetDatabase } from "$/test-helpers/reset-database";
-import { coachToken } from "$/test-helpers/jwt-tokens";
+import { resetDatabase } from "$/reset-database";
+import { coachToken } from "$/jwt-tokens";
 
 beforeEach(async (context) => {
   context.database = await app.get("mongodbClient");
@@ -117,7 +117,7 @@ export default function generateRESTTests(
     remove &&
       test(`Remove - DELETE /${collectionName}/:id`, async (context) => {
         const seedData = getItems();
-        const [firstItem, secondItem] = seedData;
+        const [_, secondItem] = seedData;
 
         const { insertedIds } = await context
           .database!.collection(collectionName)
