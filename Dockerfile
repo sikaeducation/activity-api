@@ -5,6 +5,8 @@ USER root
 COPY ./package.json .
 COPY ./package-lock.json .
 
+RUN npm -g npm@9
+
 RUN npm ci
 
 COPY . .
