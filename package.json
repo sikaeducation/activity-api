@@ -17,6 +17,7 @@
 		"test": "docker compose run api npm run _test",
 		"test:watch": "docker compose run api npm run _test:watch",
 		"_test": "vitest --run --no-threads --coverage",
+		"_test:coverage": "vitest --run --no-threads",
 		"_test:watch": "vitest --watch --no-threads"
 	},
 	"repository": {
