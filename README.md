@@ -1,17 +1,5 @@
 # Activity API
 
-TODO:
-
-- Kill fly.env file, it made it to github
-- Read env out of .env file instead?
-- Add rest of Docker file for api
-- Turn tests back on in the FE
-- Review FE types
-- Update all the meta docs
-- Make releases all use GITHUB_TOKEN instead
-- Make aliases for components folder in UI
-- Look at other envs
-
 [![CI](https://github.com/sikaeducation/activity-service/actions/workflows/main.yml/badge.svg)](https://github.com/sikaeducation/activity-service/actions/workflows/main.yml)
 
 RESTful API for Sika Education activities. Lives at [https://activity-service.fly.dev](https://activity-service.fly.dev).
@@ -27,7 +15,7 @@ RESTful API for Sika Education activities. Lives at [https://activity-service.fl
 
 ## Documentation
 
-- [Production]()
+- [Production](https://activity-service.fly.dev/docs)
 - `/docs` locally
 
 ## Webhook Endpoint
