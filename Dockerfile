@@ -5,12 +5,12 @@ USER root
 COPY ./package.json .
 COPY ./package-lock.json .
 
-# To fix GitHub Actions runner PID bug
-RUN npm -g npm@9
-
 RUN npm ci
 
 COPY . .
+
+# To fix npm/Docker/GitHub Actions runner PID bug
+RUN mkdir node_modules/.cache && chmod -R ugo+a node_modules/.cache
 
 USER node
 
