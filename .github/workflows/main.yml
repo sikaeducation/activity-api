@@ -22,6 +22,12 @@ jobs:
         run: npm ci
       - name: Run tests
         run: npm test
+        env:
+          DATABASE_NAME: ${{vars.DATABASE_NAME}}
+          AUTH_KEY_URL: ${{vars.AUTH_KEY_URL}}
+          DATABASE_URL: ${{secrets.DATABASE_URL}}
+          REPO_TOKEN: ${{secrets.REPO_TOKEN}}
+          WEBHOOK_TOKEN: ${{secrets.WEBHOOK_TOKEN}}
   build:
     runs-on: ubuntu-latest
     name: Install dependencies and build
@@ -59,11 +65,11 @@ jobs:
           path: dist
       - name: Set environment variables
         env:
+          DATABASE_NAME: ${{vars.DATABASE_NAME}}
+          AUTH_KEY_URL: ${{vars.AUTH_KEY_URL}}
           DATABASE_URL: ${{secrets.DATABASE_URL}}
-          DATABASE_NAME: ${{secrets.DATABASE_NAME}}
           REPO_TOKEN: ${{secrets.REPO_TOKEN}}
           WEBHOOK_TOKEN: ${{secrets.WEBHOOK_TOKEN}}
-          AUTH_KEY_URL: ${{vars.AUTH_KEY_URL}}
         run: |
           flyctl secrets set \
             DATABASE_URL=${DATABASE_URL} \
