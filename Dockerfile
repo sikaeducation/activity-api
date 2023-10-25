@@ -9,9 +9,6 @@ RUN npm ci
 
 COPY . .
 
-# To fix npm/Docker/GitHub Actions runner PID bug
-RUN mkdir node_modules/.vitest && chmod -R 777 node_modules/.vitest
-
 USER node
 
 CMD ["npm", "run", "dev"]
