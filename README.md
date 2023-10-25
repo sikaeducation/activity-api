@@ -1,18 +1,16 @@
-# Activity Service
+# Activity API
 
 TODO:
 
 - Kill fly.env file, it made it to github
 - Read env out of .env file instead?
 - Add rest of Docker file for api
-- Docs
 - Turn tests back on in the FE
 - Review FE types
 - Update all the meta docs
 - Make releases all use GITHUB_TOKEN instead
 - Make aliases for components folder in UI
 - Look at other envs
-- Deploy docs
 
 [![CI](https://github.com/sikaeducation/activity-service/actions/workflows/main.yml/badge.svg)](https://github.com/sikaeducation/activity-service/actions/workflows/main.yml)
 
@@ -27,12 +25,14 @@ RESTful API for Sika Education activities. Lives at [https://activity-service.fl
 - `npm run build:docker`
 - `npm run test`, `npm run test:watch`
 
-## REST Endpoints
+## Documentation
 
-- `/activities` - Find, get, remove, find by type
-  - `/articles` - Find, get, create, patch, remove
-- `/regenerate-posts` - Update cache with latest data from [`https://github.com/sikaeducation/posts`](https://github.com/sikaeducation/posts)
-- `/vocab` - Find, get, create, patch, remove
+- [Production]()
+- `/docs` locally
+
+## Webhook Endpoint
+
+- `POST /regenerate-posts`: Update cache with latest data from [`https://github.com/sikaeducation/posts`](https://github.com/sikaeducation/posts), authenticated with the `WEBHOOK_TOKEN` environment variable. Generate this token from the Posts repo.
 
 ## Environment Variables
 

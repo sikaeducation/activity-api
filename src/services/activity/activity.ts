@@ -31,17 +31,20 @@ export const activity = (app: Application) => {
         activitySchema,
         activityQuerySchema,
       },
-      docs: {},
+      docs: {
+        description: "All types",
+        securities: ["all"],
+      },
     }),
   });
   app.service(activityPath).hooks({
     around: {
       all: [
-        // authenticate("jwt"),
+        authenticate("jwt"),
         schemaHooks.resolveExternal(activityExternalResolver),
         schemaHooks.resolveResult(activityResolver),
       ],
-      // remove: [onlyCoaches],
+      remove: [onlyCoaches],
     },
     before: {
       all: [

@@ -8,6 +8,7 @@ import jwt, { GetPublicKeyOrSecret } from "jsonwebtoken";
 
 import type { Application } from "./declarations";
 import { Params } from "@feathersjs/feathers";
+import { SwaggerConfigs } from "swagger-ui-dist";
 
 const client = jwksClient({
   cache: true,
@@ -22,6 +23,7 @@ const getKey: GetPublicKeyOrSecret = (header, callback) => {
 };
 
 class StatelessJwtService extends AuthenticationService {
+  docs: SwaggerConfigs = {};
   async verifyAccessToken(token: string) {
     // Don't check signatures when testing
     if (process.env.NODE_ENV === "test")

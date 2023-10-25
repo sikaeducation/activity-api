@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/require-await */
 import { resolve, virtual } from "@feathersjs/schema";
 import { Type, getValidator, querySyntax } from "@feathersjs/typebox";
 import type { Static } from "@feathersjs/typebox";

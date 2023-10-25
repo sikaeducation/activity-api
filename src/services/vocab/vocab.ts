@@ -12,10 +12,15 @@ import {
   vocabDataResolver,
   vocabPatchResolver,
   vocabQueryResolver,
+  vocabSchema,
+  vocabQuerySchema,
+  vocabDataSchema,
+  vocabPatchSchema,
 } from "./vocab.schema";
 
 import type { Application } from "@/declarations";
 import { VocabService, getOptions } from "./vocab.class";
+import { createSwaggerServiceOptions } from "feathers-swagger";
 
 export * from "./vocab.class";
 export * from "./vocab.schema";
@@ -34,6 +39,18 @@ export const vocab = (app: Application) => {
   app.use(vocabPath, new VocabService(getOptions(app)), {
     methods: vocabMethods,
     events: [],
+    docs: createSwaggerServiceOptions({
+      schemas: {
+        vocabSchema,
+        vocabDataSchema,
+        vocabPatchSchema,
+        vocabQuerySchema,
+      },
+      docs: {
+        description: "",
+        securities: ["all"],
+      },
+    }),
   });
   app.service(vocabPath).hooks({
     around: {

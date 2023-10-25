@@ -11,11 +11,16 @@ import {
   articleDataResolver,
   articlePatchResolver,
   articleQueryResolver,
+  articleSchema,
+  articleDataSchema,
+  articlePatchSchema,
+  articleQuerySchema,
 } from "./article.schema";
 
 import type { Application } from "@/declarations";
 import { ArticleService, getOptions } from "./article.class";
 import { onlyCoaches } from "@/hooks/only-coaches";
+import { createSwaggerServiceOptions } from "feathers-swagger";
 
 export const articlePath = "articles";
 export const articleMethods = [
@@ -33,6 +38,18 @@ export const article = (app: Application) => {
   app.use(articlePath, new ArticleService(getOptions(app)), {
     methods: articleMethods,
     events: [],
+    docs: createSwaggerServiceOptions({
+      schemas: {
+        articleSchema,
+        articleDataSchema,
+        articlePatchSchema,
+        articleQuerySchema,
+      },
+      docs: {
+        description: "",
+        securities: ["all"],
+      },
+    }),
   });
   app.service(articlePath).hooks({
     around: {
