@@ -2,7 +2,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 import { feathers } from "@feathersjs/feathers";
-import express, {
+import feathersExpress, {
   rest,
   json,
   cors,
@@ -25,7 +25,7 @@ import { regeneratePostsRoute } from "./routes/regenerate-posts";
 import { verifyWebhookMiddleware } from "./middleware/verify-webhook";
 import { populatePosts } from "./post-cache";
 
-const app: Application = express(feathers());
+const app: Application = feathersExpress(feathers());
 
 // Load app configuration
 app.configure(configuration(configurationValidator));
@@ -41,8 +41,23 @@ app.configure(swagger.customMethodsHandler).configure(
         version: "1.0.0",
       },
       schemes: ["http", "https"],
+      components: {
+        securitySchemes: {
+          BearerAuth: {
+            type: "http",
+            scheme: "bearer",
+          },
+        },
+      },
+      security: [{ BearerAuth: [] }],
     },
-    ui: swagger.swaggerUI({}),
+    prefix: "",
+    ignore: {
+      paths: [/authentication/i],
+    },
+    ui: swagger.swaggerUI({
+      docsPath: "/docs",
+    }),
   }),
 );
 app.configure(rest());
