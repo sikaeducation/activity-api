@@ -9,14 +9,20 @@ RUN npm ci
 
 COPY . .
 
-USER node
+FROM base as test
 
-CMD ["npm", "run", "dev"]
+USER root
+ENTRYPOINT ["npm", "run", "_test"]
+
+FROM base as dev
+
+USER node
+ENTRYPOINT ["npm", "run", "_dev"]
 
 FROM base as production
 
-RUN npm build
-
+USER root
+RUN ["npm", "run", "build"]
 EXPOSE 80
-
-CMD ["npm", "start"]
+USER node
+ENTRYPOINT ["npm", "start"]
