@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/require-await */
-import { resolve } from "@feathersjs/schema";
+import { resolve, virtual } from "@feathersjs/schema";
 import { Type, getValidator, querySyntax } from "@feathersjs/typebox";
 import { ObjectIdSchema } from "@feathersjs/typebox";
 import type { Static } from "@feathersjs/typebox";
@@ -7,6 +7,8 @@ import type { Static } from "@feathersjs/typebox";
 import type { HookContext } from "@/declarations";
 import { dataValidator, queryValidator } from "@/validators";
 import type { ActivityService } from "./activity.class";
+import { getPost } from "@/post-cache";
+import { Article } from "../article/article.class";
 
 // Main data model schema
 export const activitySchema = Type.Object(
@@ -18,16 +20,24 @@ export const activitySchema = Type.Object(
     published: Type.Boolean(),
     notes: Type.Optional(Type.String()),
     tags: Type.Array(Type.String()),
+    content: Type.String(),
     created_at: Type.Integer(),
     updated_at: Type.Integer(),
   },
   { $id: "Activity", additionalProperties: false },
 );
 
-export type Activity = Static<typeof activitySchema>;
+export type Activity = Article;
 export const activityValidator = getValidator(activitySchema, dataValidator);
+
 export const activityResolver = resolve<Activity, HookContext<ActivityService>>(
-  {},
+  {
+    content: virtual(async (activity) => {
+      if (activity._type === "article") {
+        return getPost(activity.post_slug);
+      }
+    }),
+  },
 );
 
 export const activityExternalResolver = resolve<
