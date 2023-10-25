@@ -1,6 +1,3 @@
-import * as dotenv from "dotenv";
-dotenv.config();
-
 import { feathers } from "@feathersjs/feathers";
 import feathersExpress, {
   rest,
