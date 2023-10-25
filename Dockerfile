@@ -5,6 +5,7 @@ USER root
 COPY ./package.json .
 COPY ./package-lock.json .
 
+# To fix GitHub Actions runner PID bug
 RUN npm -g npm@9
 
 RUN npm ci
