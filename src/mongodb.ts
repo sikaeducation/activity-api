@@ -5,14 +5,14 @@ import type { Application } from "./declarations";
 declare module "./declarations" {
   interface Configuration {
     mongodbClient: Promise<Db>;
+    mongoDatabase: string;
   }
 }
 
 export const mongodb = (app: Application) => {
   const connection = app.get("mongodb") as string;
-  const database = new URL(connection).pathname.substring(1);
   const mongoClient = MongoClient.connect(connection).then((client) =>
-    client.db(database),
+    client.db(app.get("mongoDatabase")),
   );
 
   app.set("mongodbClient", mongoClient);

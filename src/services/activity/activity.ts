@@ -8,10 +8,13 @@ import {
   activityResolver,
   activityExternalResolver,
   activityQueryResolver,
+  activitySchema,
+  activityQuerySchema,
 } from "./activity.schema";
 
 import type { Application } from "@/declarations";
 import { ActivityService, getOptions } from "./activity.class";
+import { createSwaggerServiceOptions } from "feathers-swagger";
 
 export const activityPath = "activities";
 export const activityMethods = ["find", "get", "remove"] as const;
@@ -23,15 +26,22 @@ export const activity = (app: Application) => {
   app.use(activityPath, new ActivityService(getOptions(app)), {
     methods: activityMethods,
     events: [],
+    docs: createSwaggerServiceOptions({
+      schemas: {
+        activitySchema,
+        activityQuerySchema,
+      },
+      docs: {},
+    }),
   });
   app.service(activityPath).hooks({
     around: {
       all: [
-        authenticate("jwt"),
+        // authenticate("jwt"),
         schemaHooks.resolveExternal(activityExternalResolver),
         schemaHooks.resolveResult(activityResolver),
       ],
-      remove: [onlyCoaches],
+      // remove: [onlyCoaches],
     },
     before: {
       all: [

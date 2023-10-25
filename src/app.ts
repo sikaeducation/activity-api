@@ -5,13 +5,13 @@ import { feathers } from "@feathersjs/feathers";
 import express, {
   rest,
   json,
-  urlencoded,
   cors,
   notFound,
   errorHandler,
 } from "@feathersjs/express";
 import configuration from "@feathersjs/configuration";
 import socketio from "@feathersjs/socketio";
+import swagger from "feathers-swagger";
 
 import type { Application } from "./declarations";
 import { configurationValidator } from "./configuration";
@@ -31,9 +31,20 @@ const app: Application = express(feathers());
 app.configure(configuration(configurationValidator));
 app.use(cors());
 app.use(json());
-app.use(urlencoded({ extended: true }));
 
 // Configure services and real-time functionality
+app.configure(swagger.customMethodsHandler).configure(
+  swagger({
+    specs: {
+      info: {
+        title: "Activity API",
+        version: "1.0.0",
+      },
+      schemes: ["http", "https"],
+    },
+    ui: swagger.swaggerUI({}),
+  }),
+);
 app.configure(rest());
 app.configure(
   socketio({
