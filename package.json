@@ -14,7 +14,7 @@
     "format": "prettier . --write",
     "build": "tsc",
     "build:docker": "docker compose build",
-    "test": "docker compose run api npm run _test",
+    "test": "docker compose run test",
     "test:watch": "docker compose run api npm run _test:watch",
     "_test": "vitest --run --no-threads",
     "_test:coverage": "vitest --run --no-threads --coverage",
