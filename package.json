@@ -1,6 +1,6 @@
 {
 	"name": "sika-activty-service",
-	"version": "0.2.13",
+	"version": "0.2.14",
 	"description": "RESTful API for interacting with activities. Lives at [https://activity-service.fly.dev](https://activity-service.fly.dev).",
 	"engines": {
 		"node": ">= 20.8.1"
