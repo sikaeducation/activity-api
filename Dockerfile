@@ -4,25 +4,22 @@ USER root
 
 COPY ./package.json .
 COPY ./package-lock.json .
-
 RUN npm ci
 
 COPY . .
 
-FROM base as test
+EXPOSE 8080
 
+FROM base as test
 USER root
 ENTRYPOINT ["npm", "run", "_test"]
 
 FROM base as dev
 USER node
-EXPOSE 8080
 ENTRYPOINT ["npm", "run", "_dev"]
 
 FROM base as production
-
 USER root
 RUN ["npm", "run", "build"]
-EXPOSE 8080
 USER node
 ENTRYPOINT ["npm", "start"]
