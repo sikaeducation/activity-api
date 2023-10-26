@@ -15,8 +15,8 @@ USER root
 ENTRYPOINT ["npm", "run", "_test"]
 
 FROM base as dev
-
 USER node
+EXPOSE 8080
 ENTRYPOINT ["npm", "run", "_dev"]
 
 FROM base as production
