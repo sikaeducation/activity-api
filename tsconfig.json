@@ -1,24 +1,32 @@
 {
-  "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "lib": ["esnext"],
-    "module": "CommonJS",
-    "moduleResolution": "node",
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "target": "ESNext",
-    "outDir": "dist",
-    "paths": {
-      "@/*": ["./src/*"],
-      "$/*": ["./test-helpers/*"]
-    }
-  },
-  "ts-node": {
-    "require": ["tsconfig-paths/register"]
-  }
+	"compilerOptions": {
+		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"lib": [
+			"esnext"
+		],
+		"module": "CommonJS",
+		"moduleResolution": "node",
+		"noUnusedLocals": false,
+		"noUnusedParameters": false,
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"target": "ESNext",
+		"outDir": "dist",
+		"paths": {
+			"@/*": [
+				"./src/*"
+			],
+			"$/*": [
+				"./test-helpers/*"
+			]
+		}
+	},
+	"ts-node": {
+		"require": [
+			"tsconfig-paths/register"
+		]
+	}
 }

@@ -11,21 +11,18 @@ import { getPost } from "@/post-cache";
 import { Article } from "../article/article.class";
 
 // Main data model schema
-export const activitySchema = Type.Object(
-  {
-    _id: ObjectIdSchema(),
-    _type: Type.String(),
-    title: Type.Optional(Type.String()),
-    description: Type.Optional(Type.String()),
-    published: Type.Boolean(),
-    notes: Type.Optional(Type.String()),
-    tags: Type.Array(Type.String()),
-    content: Type.String(),
-    created_at: Type.Integer(),
-    updated_at: Type.Integer(),
-  },
-  { $id: "Activity", additionalProperties: false },
-);
+export const activitySchema = Type.Object({
+  _id: ObjectIdSchema(),
+  _type: Type.String(),
+  title: Type.Optional(Type.String()),
+  description: Type.Optional(Type.String()),
+  published: Type.Boolean(),
+  notes: Type.Optional(Type.String()),
+  tags: Type.Array(Type.String()),
+  content: Type.String(),
+  created_at: Type.Integer(),
+  updated_at: Type.Integer(),
+});
 
 export type Activity = Article;
 export const activityValidator = getValidator(activitySchema, dataValidator);
