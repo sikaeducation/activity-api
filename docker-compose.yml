@@ -15,7 +15,7 @@ services:
     build:
       target: dev
     ports:
-      - "4000:80"
+      - "4000:8080"
     volumes:
       - "./:/app"
     environment:

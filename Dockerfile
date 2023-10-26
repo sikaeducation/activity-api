@@ -23,6 +23,6 @@ FROM base as production
 
 USER root
 RUN ["npm", "run", "build"]
-EXPOSE 80
+EXPOSE 8080
 USER node
 ENTRYPOINT ["npm", "start"]
