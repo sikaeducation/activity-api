@@ -23,7 +23,6 @@ jobs:
       - name: Run tests
         run: npm test
         env:
-          DATABASE_NAME: ${{vars.DATABASE_NAME}}
           AUTH_KEY_URL: ${{vars.AUTH_KEY_URL}}
           DATABASE_URL: ${{secrets.DATABASE_URL}}
           REPO_TOKEN: ${{secrets.REPO_TOKEN}}
@@ -65,7 +64,6 @@ jobs:
           path: dist
       - name: Set environment variables
         env:
-          DATABASE_NAME: ${{vars.DATABASE_NAME}}
           AUTH_KEY_URL: ${{vars.AUTH_KEY_URL}}
           DATABASE_URL: ${{secrets.DATABASE_URL}}
           REPO_TOKEN: ${{secrets.REPO_TOKEN}}
@@ -73,7 +71,6 @@ jobs:
         run: |
           flyctl secrets set \
             DATABASE_URL=${DATABASE_URL} \
-            DATABASE_NAME=${DATABASE_NAME} \
             REPO_TOKEN=${REPO_TOKEN} \
             WEBHOOK_TOKEN=${WEBHOOK_TOKEN} \
             AUTH_KEY_URL=${AUTH_KEY_URL}
