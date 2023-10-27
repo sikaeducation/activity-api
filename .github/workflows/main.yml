@@ -44,7 +44,7 @@ jobs:
           DATABASE_URL: ${{secrets.DATABASE_URL}}
           REPO_TOKEN: ${{secrets.REPO_TOKEN}}
           WEBHOOK_TOKEN: ${{secrets.WEBHOOK_TOKEN}}
-          SENTRY_URL: ${{secrets.SENTRY_URL}}
+          SENTRY_DSN: ${{secrets.SENTRY_DSN}}
           SENTRY_AUTH_TOKEN: ${{secrets.SENTRY_URL}}
         run: "flyctl secrets set DATABASE_URL=${DATABASE_URL} REPO_TOKEN=${REPO_TOKEN} WEBHOOK_TOKEN=${WEBHOOK_TOKEN} AUTH_KEY_URL=${AUTH_KEY_URL} SENTRY_URL=${SENTRY_URL}"
       - name: Deploy
