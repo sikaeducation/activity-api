@@ -1,13 +1,13 @@
 # Activity API
 
-[![CI](https://github.com/sikaeducation/activity-service/actions/workflows/main.yml/badge.svg)](https://github.com/sikaeducation/activity-service/actions/workflows/main.yml)
+[![CI](https://github.com/sikaeducation/activity-api/actions/workflows/main.yml/badge.svg)](https://github.com/sikaeducation/activity-api/actions/workflows/main.yml)
 
-RESTful API for Sika Education activities. Lives at [https://activity-service.fly.dev](https://activity-service.fly.dev).
+RESTful API for Sika Education activities. Lives at [https://activity-api.fly.dev](https://activity-api.fly.dev).
 
 ## API Documentation
 
 - [`http://localhost:4000/docs`](http://localhost:4000/docs): Development
-- [https://activity-service.fly.dev/docs](https://activity-service.fly.dev/docs): Production
+- [https://activity-api.fly.dev/docs](https://activity-api.fly.dev/docs): Production
 
 ## Webhook Endpoint
 
@@ -18,8 +18,8 @@ RESTful API for Sika Education activities. Lives at [https://activity-service.fl
 Requires Docker.
 
 ```bash
-git clone git@github.com:sikaeducation/activity-service.git
-cd activity-service
+git clone git@github.com:sikaeducation/activity-api.git
+cd activity-api
 npm install
 cp .env.example .env # Fill out values
 npm run dev
@@ -30,7 +30,7 @@ Install [`flyctl`](https://fly.io/docs/hands-on/install-flyctl/) to change deplo
 ### Environment Variables
 
 - For development, copy `.env.example` to `.env` and set values
-- For production, set these in GitHub [secrets](https://github.com/sikaeducation/activity-service/settings/secrets/actions) and [variables](https://github.com/sikaeducation/activity-service/settings/variables/actions):
+- For production, set these in GitHub [secrets](https://github.com/sikaeducation/activity-api/settings/secrets/actions) and [variables](https://github.com/sikaeducation/activity-api/settings/variables/actions):
   - Secrets:
     - `DATABASE_URL`: Full connection string
     - `FLY_API_TOKEN`: For deploying to Fly, generate on the [Fly personal access tokens page](https://fly.io/user/personal_access_tokens) page
@@ -41,7 +41,7 @@ Install [`flyctl`](https://fly.io/docs/hands-on/install-flyctl/) to change deplo
   - Variables:
     - `AUTH_KEY_URL`: JWKS well-known URL
 
-Additionally, GitHub actions needs its auto-generated `GITHUB_TOKEN` to have permissions to create releases. Set this under [Workflow Permissions](https://github.com/sikaeducation/activity-service/settings/actions).
+Additionally, GitHub actions needs its auto-generated `GITHUB_TOKEN` to have permissions to create releases. Set this under [Workflow Permissions](https://github.com/sikaeducation/activity-api/settings/actions).
 
 ### Scripts
 
@@ -55,4 +55,4 @@ Additionally, GitHub actions needs its auto-generated `GITHUB_TOKEN` to have per
 ## Deployment
 
 - Increment the version with `npm version { patch | minor | major }` and push.
-- [App dashboard](https://fly.io/apps/activity-service))
+- [App dashboard](https://fly.io/apps/activity-api))
