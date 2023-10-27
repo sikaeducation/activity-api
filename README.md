@@ -41,6 +41,8 @@ Install [`flyctl`](https://fly.io/docs/hands-on/install-flyctl/) to change deplo
   - Variables:
     - `AUTH_KEY_URL`: JWKS well-known URL
 
+Additionally, GitHub actions needs its auto-generated `GITHUB_TOKEN` to have permissions to create releases. Set this under [Workflow Permissions](https://github.com/sikaeducation/activity-service/settings/actions).
+
 ### Scripts
 
 - `npm start`

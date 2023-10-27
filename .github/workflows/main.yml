@@ -9,8 +9,8 @@ env:
 permissions: write-all
 jobs:
   test:
+    name: Test
     runs-on: ubuntu-latest
-    name: Test components
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -28,8 +28,8 @@ jobs:
           REPO_TOKEN: ${{secrets.REPO_TOKEN}}
           WEBHOOK_TOKEN: ${{secrets.WEBHOOK_TOKEN}}
   build:
+    name: Build
     runs-on: ubuntu-latest
-    name: Install dependencies and build
     needs: test
     steps:
       - name: Checkout code
@@ -48,12 +48,13 @@ jobs:
           name: dist
           path: dist
   deploy:
-    needs: build
+    name: Deploy
     runs-on: ubuntu-latest
+    needs: build
     env:
       FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
     steps:
-      - name: Checkout files from repo
+      - name: Checkout code
         uses: actions/checkout@v3
       - name: Setup flyctl
         uses: superfly/flyctl-actions/setup-flyctl@master
@@ -62,7 +63,7 @@ jobs:
         with:
           name: dist
           path: dist
-      - name: Set environment variables
+      - name: Set environment variables on fly.io
         env:
           AUTH_KEY_URL: ${{vars.AUTH_KEY_URL}}
           DATABASE_URL: ${{secrets.DATABASE_URL}}
