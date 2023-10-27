@@ -1,5 +1,5 @@
 # flyctl launch added from .gitignore
-**/database
 **/node_modules
 **/.env
 **/coverage
+**/dist
