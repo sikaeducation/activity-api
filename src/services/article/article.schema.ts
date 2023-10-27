@@ -36,11 +36,13 @@ export const articleExternalResolver = resolve<
 >({});
 
 // Schema for creating new entries
-export const articleDataSchema = Type.Omit(articleSchema, [
-  "_id",
-  "content",
-  "created_at",
-  "updated_at",
+export const articleDataSchema = Type.Pick(articleSchema, [
+  "_type",
+  "title",
+  "description",
+  "published",
+  "notes",
+  "tags",
 ]);
 export type ArticleData = Static<typeof articleDataSchema>;
 export const articleDataValidator = getValidator(
