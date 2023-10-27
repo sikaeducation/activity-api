@@ -52,8 +52,6 @@ jobs:
         env:
           SENTRY_DSN: ${{secrets.SENTRY_DSN}}
           SENTRY_AUTH_TOKEN: ${{secrets.SENTRY_AUTH_TOKEN}}
-          SENTRY_ORG: sika-education
-          SENTRY_PROJECT: activity-api
   create_release:
     name: Create release
     runs-on: ubuntu-latest
