@@ -68,7 +68,7 @@ jobs:
           DATABASE_URL: ${{secrets.DATABASE_URL}}
           REPO_TOKEN: ${{secrets.REPO_TOKEN}}
           WEBHOOK_TOKEN: ${{secrets.WEBHOOK_TOKEN}}
-        run: |
+        run: >
           flyctl secrets set \
             DATABASE_URL=${DATABASE_URL} \
             REPO_TOKEN=${REPO_TOKEN} \
