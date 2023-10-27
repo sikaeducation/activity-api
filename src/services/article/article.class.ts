@@ -25,6 +25,6 @@ export class ArticleService<
 export const getOptions = (app: Application): MongoDBAdapterOptions => {
   return {
     paginate: app.get("paginate"),
-    Model: app.get("mongodbClient").then((db) => db.collection("articles")),
+    Model: app.get("mongodbClient").then((db) => db.collection("activities")),
   };
 };
