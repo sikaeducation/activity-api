@@ -6,7 +6,7 @@ export default {
     max: 1000,
   },
   mongodb: process.env.DATABASE_URL,
-  mongoDatabase: process.env.DATABASE_NAME,
+  mongoDatabase: "activityService",
   authentication: {
     entity: null,
     authStrategies: ["jwt"],
