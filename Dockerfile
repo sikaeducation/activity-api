@@ -11,12 +11,10 @@ COPY . .
 FROM base as test
 USER root
 ENV NODE_ENV="test"
-ENTRYPOINT ["npm", "run", "_test"]
 
 FROM base as dev
 USER node
 ENV NODE_ENV="dev"
-ENTRYPOINT ["npm", "run", "_dev"]
 
 FROM base as production
 USER root
