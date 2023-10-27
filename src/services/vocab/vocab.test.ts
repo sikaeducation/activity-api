@@ -1,12 +1,17 @@
 import { generateRESTTests } from "$/rest-test-generator";
 
-generateRESTTests("vocab", [
-  {
-    term: "HTTP",
-    definition: "HyperText Transfer Protocol",
-  },
-  {
-    term: "SSH",
-    definition: "Secure Shell",
-  },
-]);
+generateRESTTests({
+  serviceName: "vocab",
+  items: [
+    {
+      term: "HTTP",
+      definition: "HyperText Transfer Protocol",
+    },
+    {
+      term: "SSH",
+      definition: "Secure Shell",
+    },
+  ],
+  collectionName: "vocab",
+  tests: ["get", "find", "create", "patch", "remove"],
+});

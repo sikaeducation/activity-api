@@ -19,10 +19,11 @@ const seedData = [
   },
 ];
 
-generateRESTTests("articles", [seedData[0], seedData[1]], {
-  find: true,
-  get: true,
-  remove: true,
+generateRESTTests({
+  serviceName: "articles",
+  collectionName: "activities",
+  items: [seedData[0], seedData[1]],
+  tests: ["find", "get", "remove"],
 });
 
 describe("activities", () => {
