@@ -4,47 +4,53 @@
 
 RESTful API for Sika Education activities. Lives at [https://activity-service.fly.dev](https://activity-service.fly.dev).
 
-## Scripts
+## API Documentation
 
-- `npm start` - Run pm2 production build
+- [`http://localhost:4000/docs`](http://localhost:4000/docs): Development
+- [https://activity-service.fly.dev/docs](https://activity-service.fly.dev/docs): Production
+
+## Webhook Endpoint
+
+- `POST /regenerate-posts`: RPC command to update the posts cache with latest data from the posts repo, authenticated with the `WEBHOOK_TOKEN` environment variable.
+
+## Development
+
+Requires Docker.
+
+```bash
+git clone git@github.com:sikaeducation/activity-service.git
+cd activity-service
+npm install
+cp .env.example .env # Fill out values
+npm run dev
+```
+
+Install [`flyctl`](https://fly.io/docs/hands-on/install-flyctl/) to change deployment configuration.
+
+### Environment Variables
+
+- For development, copy `.env.example` to `.env` and set values
+- For production, set these in GitHub [secrets](https://github.com/sikaeducation/activity-service/settings/secrets/actions) and [variables](https://github.com/sikaeducation/activity-service/settings/variables/actions):
+  - Secrets:
+    - `DATABASE_URL`: Full connection string
+    - `FLY_API_TOKEN`: For deploying to Fly, generate on the [Fly personal access tokens page](https://fly.io/user/personal_access_tokens) page
+    - `REPO_TOKEN`: To download data from [`https://github.com/sikaeducation/posts`](https://github.com/sikaeducation/posts), generate on the [personal access tokens page](https://github.com/settings/tokens)
+    - `SENTRY_TOKEN`
+    - `SENTRY_URL`
+    - `WEBHOOK_TOKEN`: Allows the [posts repo](https://github.com/sikaeducation/posts) to make webhook requests to this app, generate on the [Posts webhooks](https://github.com/sikaeducation/posts/settings/hooks) page.
+  - Variables:
+    - `AUTH_KEY_URL`: JWKS well-known URL
+
+### Scripts
+
+- `npm start`
 - `npm dev`
 - `npm run lint`
 - `npm run build`
 - `npm run build:docker`
 - `npm run test`, `npm run test:watch`
 
-## Documentation
-
-- [Production](https://activity-service.fly.dev/docs)
-- `/docs` locally
-
-## Webhook Endpoint
-
-- `POST /regenerate-posts`: Update cache with latest data from [`https://github.com/sikaeducation/posts`](https://github.com/sikaeducation/posts), authenticated with the `WEBHOOK_TOKEN` environment variable. Generate this token from the Posts repo.
-
-## Environment Variables
-
-- For development, copy `.env.example` to `.env`
-- For production, ensure that these are set in GitHub:
-
-```yaml
-AUTH_KEY_URL: ${{vars.AUTH_KEY_URL}}
-DATABASE_URL: ${{secrets.DATABASE_URL}}
-REPO_TOKEN: ${{secrets.REPO_TOKEN}}
-WEBHOOK_TOKEN: ${{secrets.WEBHOOK_TOKEN}}
-```
-
-- `vars.AUTH_KEY_URL`
-  SENTRY_URL='https://58b7db5d17119ab93ce142fdd1663ca3@o4506115444637696.ingest.sentry.io/4506115444768768'
-  REPO_TOKEN='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'
-  WEBHOOK_TOKEN='8fm7fMwZsLPEY8xAACXQ'
-  PRODUCTION_DATABASE_URL='mongodb+srv://sika-activity-api:0Q1HwSPWmGud9Bxv@cluster0.cvevubu.mongodb.net/?retryWrites=true&w=majority'
-
-## Dependencies
-
-- Docker
-- `flyctl`
-
 ## Deployment
 
-Increment the version with `npm verision { patch | minor | major }` and push.
+- Increment the version with `npm version { patch | minor | major }` and push.
+- [App dashboard](https://fly.io/apps/activity-service))
