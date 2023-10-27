@@ -48,7 +48,7 @@ jobs:
         run: npm run sentry:sourcemaps
         env:
           SENTRY_AUTH_TOKEN: ${{secrets.SENTRY_AUTH_TOKEN}}
-      - name: Upload artifact
+      - name: Upload build
         uses: actions/upload-artifact@v3
         with:
           name: dist
