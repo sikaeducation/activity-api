@@ -49,6 +49,9 @@ jobs:
         run: "flyctl secrets set DATABASE_URL=${DATABASE_URL} REPO_TOKEN=${REPO_TOKEN} WEBHOOK_TOKEN=${WEBHOOK_TOKEN} AUTH_KEY_URL=${AUTH_KEY_URL} SENTRY_URL=${SENTRY_URL}"
       - name: Deploy
         run: flyctl deploy --remote-only
+        env:
+          SENTRY_DSN: ${{secrets.SENTRY_DSN}}
+          SENTRY_AUTH_TOKEN: ${{secrets.SENTRY_URL}}
   create_release:
     name: Create release
     runs-on: ubuntu-latest
