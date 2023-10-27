@@ -1,3 +1,5 @@
+import type { Application } from "@/declarations";
+
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
@@ -8,4 +10,8 @@ declare global {
       DATABASE_URL: string;
     }
   }
+}
+
+declare module "#/src/app" {
+  export function app(): Application;
 }

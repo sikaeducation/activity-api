@@ -2,10 +2,10 @@
 import path from "node:path";
 import { defineConfig } from "vite";
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": path.resolve(__dirname, mode === "production" ? "./dist" : "./src"),
       $: path.resolve(__dirname, "./test-helpers"),
     },
   },
@@ -19,4 +19,4 @@ export default defineConfig({
   build: {
     sourcemap: true,
   },
-});
+}));
