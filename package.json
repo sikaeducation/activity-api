@@ -1,7 +1,7 @@
 {
-	"name": "sika-activty-service",
+	"name": "sika-activty-api",
 	"version": "0.2.35",
-	"description": "RESTful API for interacting with activities. Lives at [https://activity-service.fly.dev](https://activity-service.fly.dev).",
+	"description": "RESTful API for interacting with activities. Lives at [https://activity-api.fly.dev](https://activity-api.fly.dev).",
 	"engines": {
 		"node": ">= 20.8.1"
 	},
@@ -21,15 +21,15 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/sikaeducation/activity-service.git"
+		"url": "git+https://github.com/sikaeducation/activity-api.git"
 	},
 	"keywords": [],
 	"author": "Kyle Coberly",
 	"license": "Proprietary",
 	"bugs": {
-		"url": "https://github.com/sikaeducation/activity-service/issues"
+		"url": "https://github.com/sikaeducation/activity-api/issues"
 	},
-	"homepage": "https://github.com/sikaeducation/activity-service#readme",
+	"homepage": "https://github.com/sikaeducation/activity-api",
 	"dependencies": {
 		"@feathersjs/adapter-commons": "^5.0.11",
 		"@feathersjs/authentication": "^5.0.11",
