@@ -4,14 +4,22 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_LOG_DIR: /dev/null
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
     expose:
       - "27017"
     ports:
       - "27018:27017" # For external debugging
-    command: mongod --quiet --logpath /dev/null
+    command: mongod
   api:
     depends_on:
-      - database
+      database:
+        condition: service_healthy
     build:
       target: dev
     tty: true
@@ -27,7 +35,7 @@ services:
       WEBHOOK_TOKEN: "${WEBHOOK_TOKEN}"
   test:
     depends_on:
-      - database
+      - api
     build:
       target: test
     environment:
