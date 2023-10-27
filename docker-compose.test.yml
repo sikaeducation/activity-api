@@ -6,19 +6,12 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: password
     expose:
       - "27017"
-    ports:
-      - "27018:27017" # For external debugging
     command: mongod --quiet --logpath /dev/null
-  api:
+  test:
     depends_on:
       - database
     build:
-      target: dev
-    tty: true
-    ports:
-      - "4000:8080"
-    volumes:
-      - "./:/app"
+      target: test
     environment:
       AUTH_KEY_URL: "${AUTH_KEY_URL}"
       DATABASE_NAME: "${DATABASE_NAME}"

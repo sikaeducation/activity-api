@@ -1,7 +1,6 @@
 export default {
-  host: "0.0.0.0",
+  host: "localhost",
   port: 8080,
-  origins: ["http://localhost", "https://lms.sikaeducation.com"],
   paginate: {
     default: 100,
     max: 1000,

@@ -8,8 +8,6 @@ RUN npm ci
 
 COPY . .
 
-EXPOSE 8080
-
 FROM base as test
 USER root
 ENV NODE_ENV="test"

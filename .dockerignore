@@ -2,10 +2,4 @@
 **/database
 **/node_modules
 **/.env
-**/.production.env
-**/build
-**/dist
 **/coverage
-
-# flyctl launch added from .husky/_/.gitignore
-.husky/_/**/*

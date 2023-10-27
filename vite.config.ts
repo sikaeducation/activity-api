@@ -1,4 +1,3 @@
-import { sentryVitePlugin } from "@sentry/vite-plugin";
 /// <reference types="vitest" />
 import path from "node:path";
 import { defineConfig } from "vite";
@@ -18,11 +17,6 @@ export default defineConfig({
   },
 
   build: {
-    sourcemap: true
+    sourcemap: true,
   },
-
-  plugins: [sentryVitePlugin({
-    org: "kyle-coberly-si",
-    project: "activity-service"
-  })]
 });
