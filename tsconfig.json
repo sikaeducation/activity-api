@@ -1,20 +1,6 @@
 {
+	"extends": "@tsconfig/node20/tsconfig.json",
 	"compilerOptions": {
-		// TODO: Extends instead?
-		"allowSyntheticDefaultImports": true,
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
-		"lib": [
-			"esnext"
-		],
-		"module": "CommonJS",
-		"moduleResolution": "node",
-		"noUnusedLocals": false,
-		"noUnusedParameters": false,
-		"resolveJsonModule": true,
-		"skipLibCheck": true,
-		"strict": true,
-		"target": "ESNext",
 		"outDir": "dist",
 		"paths": {
 			"@/*": [
