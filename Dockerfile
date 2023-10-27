@@ -9,17 +9,14 @@ RUN npm ci
 COPY . .
 
 FROM base as test
-USER root
 ENV NODE_ENV="test"
 CMD ["npm", "run", "_test"]
 
 FROM base as dev
-USER node
 ENV NODE_ENV="dev"
 CMD ["npm", "run", "_dev"]
 
 FROM base as production
-USER root
 ENV NODE_ENV="production"
 RUN ["npm", "run", "build"]
 USER node
