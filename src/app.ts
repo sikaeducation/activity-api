@@ -8,7 +8,6 @@ import feathersExpress, {
 } from "@feathersjs/express";
 import configuration from "@feathersjs/configuration";
 import socketio from "@feathersjs/socketio";
-import swagger from "feathers-swagger";
 
 import type { Application } from "./declarations";
 import { configurationValidator } from "./configuration";
@@ -20,59 +19,20 @@ import { services } from "./services/index";
 import { channels } from "./channels";
 import { regeneratePostsRoute } from "./routes/regenerate-posts";
 import { verifyWebhookMiddleware } from "./middleware/verify-webhook";
-import expressWinston from "express-winston";
 import { populatePosts } from "./post-cache";
-import winston from "winston";
+import { requestLogger } from "./request-logger";
+import { swagger } from "./swagger";
 
 const app: Application = feathersExpress(feathers());
 
 // Load app configuration
 app.configure(configuration(configurationValidator));
-if (process.env.NODE_ENV === "dev") {
-  app.use(
-    expressWinston.logger({
-      transports: [new winston.transports.Console()],
-      meta: false,
-      format: winston.format.combine(
-        winston.format.colorize(),
-        winston.format.printf((info) => `${info.message}`),
-      ),
-      msg: "{{res.statusCode}} - {{req.path}}",
-      colorize: true,
-    }),
-  );
-}
+app.configure(requestLogger);
 app.use(cors());
 app.use(json());
 
 // Configure services and real-time functionality
-app.configure(swagger.customMethodsHandler).configure(
-  swagger({
-    specs: {
-      info: {
-        title: "Activity API",
-        version: "1.0.0",
-      },
-      schemes: ["http", "https"],
-      components: {
-        securitySchemes: {
-          BearerAuth: {
-            type: "http",
-            scheme: "bearer",
-          },
-        },
-      },
-      security: [{ BearerAuth: [] }],
-    },
-    prefix: "",
-    ignore: {
-      paths: [/authentication/i],
-    },
-    ui: swagger.swaggerUI({
-      docsPath: "/docs",
-    }),
-  }),
-);
+app.configure(swagger);
 app.configure(rest());
 app.configure(
   socketio({
