@@ -1,16 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { learnerToken, coachToken } from "$/jwt-tokens";
-import { SampleData } from "$/setup-tests";
 import { app } from "@/app";
 import { cloneDeep } from "lodash";
 import request from "supertest";
 import { test, beforeEach, describe, expect } from "vitest";
 
-export default function generateRemoveTests(
-  collectionName: string,
-  items: SampleData,
-) {
-  describe(`Remove - DELETE /${collectionName}/:id`, () => {
+import { GeneratorParameters } from "$/rest-test-generator";
+
+export default function generateRemoveTests({
+  serviceName,
+  collectionName,
+  items,
+}: GeneratorParameters) {
+  describe(`Remove - DELETE /${serviceName}/:id`, () => {
     beforeEach(async (context) => {
       context.items = cloneDeep(items);
 
@@ -22,7 +24,7 @@ export default function generateRemoveTests(
 
     test("anonymous", async (context) => {
       const response = await request(app).delete(
-        `/${collectionName}/${context.firstId}`,
+        `/${serviceName}/${context.firstId}`,
       );
 
       expect(response.status).toBe(401);
@@ -31,7 +33,7 @@ export default function generateRemoveTests(
 
     test("as a learner", async (context) => {
       const response = await request(app)
-        .delete(`/${collectionName}/${context.firstId}`)
+        .delete(`/${serviceName}/${context.firstId}`)
         .set("Authorization", `Bearer ${learnerToken}`);
 
       expect(response.status).toBe(403);
@@ -40,7 +42,7 @@ export default function generateRemoveTests(
 
     test("as a coach", async (context) => {
       const response = await request(app)
-        .delete(`/${collectionName}/${context.firstId}`)
+        .delete(`/${serviceName}/${context.firstId}`)
         .set("Authorization", `Bearer ${coachToken}`);
 
       expect(response.status).toBe(200);

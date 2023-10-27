@@ -9,29 +9,37 @@ import generatePatchTests from "./patch";
 import generateRemoveTests from "./remove";
 
 type RESTMethods = "find" | "get" | "create" | "patch" | "remove";
-type RESTFlags = Partial<Record<RESTMethods, boolean>>;
 
-export function generateRESTTests(
-  collectionName: string,
-  data: SampleData,
-  { find, get, create, patch, remove }: RESTFlags = {
-    find: true,
-    get: true,
-    create: true,
-    patch: true,
-    remove: true,
-  },
-) {
+type Parameters = {
+  serviceName: string;
+  items: SampleData;
+  tests: RESTMethods[];
+  collectionName: string;
+};
+
+export type GeneratorParameters = Omit<Parameters, "tests">;
+
+export function generateRESTTests({
+  serviceName,
+  items,
+  tests,
+  collectionName = serviceName,
+}: Parameters) {
   beforeEach(async (context) => {
     context.database = await app.get("mongodbClient");
     await resetDatabase(context.database);
   });
 
-  describe(collectionName, () => {
-    find && generateFindTests(collectionName, data);
-    get && generateGetTests(collectionName, data);
-    create && generateCreateTests(collectionName, data);
-    patch && generatePatchTests(collectionName, data);
-    remove && generateRemoveTests(collectionName, data);
+  describe(serviceName, () => {
+    tests.includes("find") &&
+      generateFindTests({ collectionName, serviceName, items });
+    tests.includes("get") &&
+      generateGetTests({ collectionName, serviceName, items });
+    tests.includes("create") &&
+      generateCreateTests({ collectionName, serviceName, items });
+    tests.includes("patch") &&
+      generatePatchTests({ collectionName, serviceName, items });
+    tests.includes("remove") &&
+      generateRemoveTests({ collectionName, serviceName, items });
   });
 }
