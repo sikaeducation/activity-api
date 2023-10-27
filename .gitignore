@@ -1,10 +1,4 @@
-database
 node_modules
 .env
-build
 dist
-.production.env
 coverage
-
-# Sentry Config File
-.env.sentry-build-plugin
