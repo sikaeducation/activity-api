@@ -40,10 +40,14 @@ jobs:
           node-version: 20
       - name: Install dependencies
         run: npm ci
+      - name: Setup `sentry-cli`
+        uses: mathieu-bour/setup-sentry-cli@v1
+        with:
+          token: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          organization: sikaeducation
+          project: activity-api
       - name: Build
         run: npm run build
-        env:
-          SENTRY_AUTH_TOKEN: ${{vars.SENTRY_AUTH_TOKEN}}
       - name: Upload build
         uses: actions/upload-artifact@v3
         with:
