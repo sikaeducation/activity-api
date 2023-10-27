@@ -1,19 +1,14 @@
 {
-	"extends": "@tsconfig/node20/tsconfig.json",
-	"compilerOptions": {
-		"outDir": "dist",
-		"paths": {
-			"@/*": [
-				"./src/*"
-			],
-			"$/*": [
-				"./test-helpers/*"
-			]
-		}
-	},
-	"ts-node": {
-		"require": [
-			"tsconfig-paths/register"
-		]
-	}
+  "extends": "@tsconfig/node20/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "paths": {
+      "@/*": ["./src/*"],
+      "$/*": ["./test-helpers/*"]
+    }
+  },
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  },
+  "exclude": ["./vite.config.ts"]
 }
