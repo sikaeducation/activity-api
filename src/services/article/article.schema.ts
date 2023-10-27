@@ -37,6 +37,8 @@ export const articleExternalResolver = resolve<
 
 // Schema for creating new entries
 export const articleDataSchema = Type.Omit(articleSchema, [
+  "_id",
+  "content",
   "created_at",
   "updated_at",
 ]);
