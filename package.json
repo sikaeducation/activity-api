@@ -7,14 +7,14 @@
   },
   "scripts": {
     "start": "node dist/src/index.js",
-    "dev": "docker compose config && docker compose up --build --remove-orphans --abort-on-container-exit",
+    "dev": "docker compose config && docker compose run --service-ports api npm run _dev",
     "_dev": "nodemon -x ts-node src/index.ts",
     "lint": "npm run lint:ts ; npm run format",
     "lint:ts": "eslint --ignore-path .gitignore --fix .",
     "format": "prettier . --write",
     "build": "tsc",
-    "test": "docker compose -f docker-compose.test.yml up --build --remove-orphans --abort-on-container-exit",
-    "test:watch": "docker compose -f docker-compose.test.yml run test npm run _test:watch",
+    "test": "docker compose run test npm run _test",
+    "test:watch": "docker compose run test npm run _test:watch",
     "_test": "vitest --run --no-threads --coverage",
     "_test:watch": "vitest --watch --no-threads"
   },

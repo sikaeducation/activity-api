@@ -1,15 +1,8 @@
 services:
-  database:
-    image: mongo:7.0
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: password
-    expose:
-      - "27017"
-    command: mongod --quiet --logpath /dev/null
   test:
     depends_on:
       - database
+      - api
     build:
       target: test
     environment:

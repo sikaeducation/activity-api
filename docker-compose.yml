@@ -25,3 +25,14 @@ services:
       DATABASE_URL: "${DATABASE_URL}"
       REPO_TOKEN: "${REPO_TOKEN}"
       WEBHOOK_TOKEN: "${WEBHOOK_TOKEN}"
+  test:
+    depends_on:
+      - database
+    build:
+      target: test
+    environment:
+      AUTH_KEY_URL: "${AUTH_KEY_URL}"
+      DATABASE_NAME: "${DATABASE_NAME}"
+      DATABASE_URL: "${DATABASE_URL}"
+      REPO_TOKEN: "${REPO_TOKEN}"
+      WEBHOOK_TOKEN: "${WEBHOOK_TOKEN}"
