@@ -1,30 +1,23 @@
 services:
   test_database:
-    image: mongo:7.0
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: password
-    healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27020/test --quiet
-      interval: 10s
-      timeout: 10s
-      retries: 5
-      start_period: 10s
-    expose:
-      - "27020"
-    command: ["mongod", "--port", "27020", "--quiet", "--logpath", "/dev/null"]
+    extends:
+      file: "common.yml"
+      service: database
+    networks:
+      - test
   test:
     depends_on:
       test_database:
         condition: service_healthy
+    extends:
+      file: "common.yml"
+      service: api
     build:
-      context: .
       target: test
-    volumes:
-      - "./:/app"
+    networks:
+      - test
     environment:
-      DATABASE_URL: "mongodb://root:password@test_database:27020"
-      DATABASE_NAME: "${DATABASE_NAME}"
-      AUTH_KEY_URL: "${AUTH_KEY_URL}"
-      REPO_TOKEN: "${REPO_TOKEN}"
-      WEBHOOK_TOKEN: "${WEBHOOK_TOKEN}"
+      DATABASE_URL: "mongodb://root:password@test_database:27017"
+      DATABASE_NAME: "testData"
+networks:
+  test:
