@@ -39,7 +39,9 @@ class StatelessJwtService extends AuthenticationService {
   async getPayload(authResult: AuthenticationResult, params: Params) {
     const payload = await super.getPayload(authResult, params);
     payload.user = {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       email: authResult["https://sikaeducation.com/email"],
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       role: authResult["https://sikaeducation.com/role"],
     };
 

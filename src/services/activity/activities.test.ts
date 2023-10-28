@@ -27,6 +27,7 @@ generateRESTTests({
 });
 
 describe("activities", () => {
+  // eslint-disable-next-line vitest/no-done-callback
   beforeEach(async (context) => {
     context.database = await app.get("mongodbClient");
     await resetDatabase(context.database);

@@ -5,4 +5,5 @@ module.exports = {
     "@sikaeducation",
     "@sikaeducation/eslint-config/src/configs/vitest",
   ],
+  ignorePatterns: ["vite.config.ts"],
 };
