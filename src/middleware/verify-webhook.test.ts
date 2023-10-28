@@ -11,7 +11,7 @@ test("#verifyToken verifies good tokens", () => {
 
   const isValid = verifyToken(webhookBody, webhookSignature);
 
-  expect(isValid).toBe(true);
+  expect(isValid).toBeTruthy();
 });
 
 test("#verifyToken doesn't verify bad tokens", () => {
@@ -23,5 +23,5 @@ test("#verifyToken doesn't verify bad tokens", () => {
     webhookSignature,
   );
 
-  expect(isValid).toBe(false);
+  expect(isValid).toBeFalsy();
 });

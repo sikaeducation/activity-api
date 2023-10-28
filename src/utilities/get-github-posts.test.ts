@@ -43,5 +43,5 @@ test("#getPostContent retrieves post content from GitHub", async () => {
 
   const postContent = await getGitHubPosts();
 
-  expect(postContent).toEqual({ "mongo-intro": "# Some Markdown" });
+  expect(postContent).toStrictEqual({ "mongo-intro": "# Some Markdown" });
 });

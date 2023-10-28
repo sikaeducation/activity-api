@@ -17,7 +17,7 @@ vi.mock("@/post-cache", () => {
 });
 
 describe("/regenerate-posts", () => {
-  test("POST - Good data", async () => {
+  test("pOST - Good data", async () => {
     vi.mocked(verifyToken).mockReturnValue(true);
     vi.mocked(populatePosts).mockResolvedValue();
 
@@ -25,11 +25,11 @@ describe("/regenerate-posts", () => {
       .post("/regenerate-posts")
       .set("X-Hub-Signature-256", "valid");
 
-    expect(vi.mocked(populatePosts).mock.calls.length).toBe(1);
+    expect(vi.mocked(populatePosts).mock.calls).toHaveLength(1);
     expect(response.statusCode).toBe(200);
   });
 
-  test("POST - Bad data", async () => {
+  test("pOST - Bad data", async () => {
     vi.mocked(verifyToken).mockReturnValue(false);
     vi.mocked(populatePosts).mockResolvedValue();
 
@@ -37,7 +37,7 @@ describe("/regenerate-posts", () => {
       .post("/regenerate-posts")
       .set("X-Hub-Signature-256", "invalid");
 
-    expect(vi.mocked(populatePosts).mock.calls.length).toBe(0);
+    expect(vi.mocked(populatePosts).mock.calls).toHaveLength(0);
     expect(response.statusCode).toBe(401);
   });
 });

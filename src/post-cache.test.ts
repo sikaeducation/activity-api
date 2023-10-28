@@ -15,7 +15,7 @@ beforeEach(() => resetPosts());
 
 test("#getCurrentPosts initializes to empty array", () => {
   const currentPosts = getCurrentPosts();
-  expect(currentPosts).toEqual([]);
+  expect(currentPosts).toStrictEqual([]);
 });
 
 test("#populatePosts adds posts to memo", async () => {
@@ -27,7 +27,7 @@ test("#populatePosts adds posts to memo", async () => {
   await populatePosts();
 
   const currentPosts = getCurrentPosts();
-  expect(currentPosts).toEqual(["mongo-guide", "sql-1"]);
+  expect(currentPosts).toStrictEqual(["mongo-guide", "sql-1"]);
 });
 
 test("#getPost", async () => {
@@ -42,5 +42,5 @@ test("#getPost", async () => {
   await populatePosts();
 
   const populatedPost = getPost("mongo-guide");
-  expect(populatedPost).toEqual("# Some markdown");
+  expect(populatedPost).toBe("# Some markdown");
 });
