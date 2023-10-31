@@ -10,7 +10,7 @@ services:
       timeout: 10s
       retries: 5
       start_period: 10s
-    command: mongod --quiet --logpath /dev/null
+    command: ["mongod", "--quiet", "--logpath", "/dev/null"]
     ports:
       - "27018:27017" # For external debugging
   api:
@@ -29,3 +29,5 @@ services:
       AUTH_KEY_URL: "${AUTH_KEY_URL}"
       REPO_TOKEN: "${REPO_TOKEN}"
       WEBHOOK_TOKEN: "${WEBHOOK_TOKEN}"
+      PRIVATE_PORT: "8080"
+      PUBLIC_PORT: "4000"

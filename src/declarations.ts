@@ -9,7 +9,9 @@ import { ServiceSwaggerOptions } from "feathers-swagger";
 export { NextFunction };
 
 // The types for app.get(name) and app.set(name)
-export interface Configuration extends ApplicationConfiguration {}
+export interface Configuration extends ApplicationConfiguration {
+  publicPort: string;
+}
 
 // A mapping of service names to types. Will be extended in service files.
 export interface ServiceTypes {}

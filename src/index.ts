@@ -20,12 +20,18 @@ if (process.env.NODE_ENV === "production") {
   app.use(Sentry.Handlers.tracingHandler());
 }
 
-const port = app.get("port");
+const privatePort = app.get("port");
+const publicPort = app.get("publicPort");
 
 process.on("unhandledRejection", (reason) =>
   logger.error("Unhandled Rejection %O", reason),
 );
 
-app.listen(port).then(() => {
-  logger.info(`API listening for requests on port ${port}`);
+app.listen(privatePort).then(() => {
+  logger.info(`API listening for requests:
+
+* Internal: http://localhost:${privatePort}
+* External: http://localhost:${publicPort}
+
+`);
 });

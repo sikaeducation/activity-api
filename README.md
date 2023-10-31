@@ -25,6 +25,8 @@ cp .env.example .env # Fill out values
 npm run dev
 ```
 
+`@/` is aliased `./src/` and `$/` is aliased to `./test-helpers/`.
+
 Install [`flyctl`](https://fly.io/docs/hands-on/install-flyctl/) to change deployment configuration.
 
 ### Environment Variables

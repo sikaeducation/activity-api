@@ -1,6 +1,7 @@
 export default {
   host: "localhost",
-  port: 8080,
+  port: Number(process.env.PRIVATE_PORT),
+  publicPort: Number(process.env.PUBLIC_PORT),
   paginate: {
     default: 100,
     max: 1000,

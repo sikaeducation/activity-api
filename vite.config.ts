@@ -1,4 +1,4 @@
-/// <reference types="vitest" />
+/** @type {import('vite').UserConfig} */
 import path from "node:path";
 import { defineConfig } from "vite";
 
