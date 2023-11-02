@@ -29,7 +29,7 @@
     "test:watch": "docker compose run -e NODE_ENV=test --rm api npm run _test:watch",
     "_test": "vitest --run --no-threads --coverage",
     "_test:watch": "vitest --watch --no-threads",
-    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org sika-education --project activity-api ./dist && sentry-cli sourcemaps upload --auth-token $SENTRY_AUTH_TOKEN --org sika-education --project activity-api ./dist"
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org sikaeducation --project activity-api ./dist && sentry-cli sourcemaps upload --auth-token $SENTRY_AUTH_TOKEN --org sikaeducation --project activity-api ./dist"
   },
   "dependencies": {
     "@feathersjs/adapter-commons": "^5.0.11",
