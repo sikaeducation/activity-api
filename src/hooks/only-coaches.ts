@@ -4,7 +4,7 @@ import { AuthPayload } from "@/authentication";
 
 export const onlyCoaches = async (context: HookContext, next: NextFunction) => {
   const payload = context.params?.authentication?.payload as AuthPayload;
-  const { roles } = payload;
+  const roles = payload["https://sikaeducation.com/roles"]!;
 
   if (!Array.isArray(roles)) {
     throw new NotAuthenticated("User not authenticated");
