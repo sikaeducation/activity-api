@@ -13,4 +13,11 @@ export default {
     authStrategies: ["jwt"],
     secret: "UNUSED",
   },
+  jwtOptions: {
+    header: { typ: "access" },
+    audience: "https://yourdomain.com",
+    issuer: "feathers",
+    algorithm: "HS256",
+    expiresIn: "1d",
+  },
 };

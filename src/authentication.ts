@@ -7,8 +7,12 @@ import jwksClient from "jwks-rsa";
 import jwt, { GetPublicKeyOrSecret } from "jsonwebtoken";
 
 import type { Application } from "./declarations";
-import { Params } from "@feathersjs/feathers";
 import { SwaggerConfigs } from "swagger-ui-dist";
+import { Params } from "@feathersjs/feathers";
+
+export type AuthPayload = {
+  ["https://sikaeducation.com/roles"]: string[];
+};
 
 const client = jwksClient({
   cache: true,
@@ -30,21 +34,21 @@ class StatelessJwtService extends AuthenticationService {
       return Promise.resolve(jwt.decode(token));
 
     return new Promise((resolve, reject) => {
-      jwt.verify(token, getKey, (error, decodedJwt) => {
-        if (error) reject(error);
-        resolve(decodedJwt);
-      });
+      jwt.verify(
+        token,
+        getKey,
+        { audience: process.env.AUTH_AUDIENCE },
+        (error, decodedJwt) => {
+          if (error) reject(error);
+          resolve(decodedJwt);
+        },
+      );
     });
   }
-  async getPayload(authResult: AuthenticationResult, params: Params) {
-    const payload = await super.getPayload(authResult, params);
-    payload.user = {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      email: authResult["https://sikaeducation.com/email"],
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      role: authResult["https://sikaeducation.com/role"],
-    };
 
+  async getPayload(authResult: AuthenticationResult, params: Params) {
+    const payload = super.getPayload(authResult, params);
+    console.log(payload);
     return payload;
   }
 }
@@ -62,24 +66,3 @@ export const authentication = (app: Application) => {
 
   app.use("authentication", authentication);
 };
-
-export type AuthenticatedHookContext = {
-  params: {
-    authentication: {
-      payload: {
-        "https://sikaeducation.com/role": "learner" | "coach";
-      };
-    };
-    user?: {
-      role: "learner" | "coach";
-    };
-  };
-};
-
-export function isAuthenticated(
-  context: AuthenticatedHookContext,
-): context is AuthenticatedHookContext {
-  return !!context.params.authentication.payload[
-    "https://sikaeducation.com/role"
-  ];
-}
