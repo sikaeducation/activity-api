@@ -46,7 +46,7 @@ Install [`flyctl`](https://fly.io/docs/hands-on/install-flyctl/) to change deplo
     - `PUBLIC_PORT`: External port to advertise (doesn't bind the port)
     - `PRIVATE_PORT`: Internal container port (must be 8080 for fly.io)
 
-Additionally, GitHub actions needs its auto-generated `GITHUB_TOKEN` to have permissions to create releases (`repo` permissions). Set this under [Workflow Permissions](https://github.com/sikaeducation/activity-api/settings/actions).
+GitHub actions needs its auto-generated `GITHUB_TOKEN` to have permissions to create releases (`repo` permissions). Set this under [Workflow Permissions](https://github.com/sikaeducation/activity-api/settings/actions).
 
 ### Scripts
 
