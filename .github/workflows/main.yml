@@ -79,11 +79,12 @@ jobs:
         env:
           AUTH_KEY_URL: ${{vars.AUTH_KEY_URL}}
           SENTRY_DSN: ${{vars.SENTRY_DSN}}
+          PUBLIC_PORT: ${{vars.PUBLIC_PORT}}
+          PRIVATE_PORT: ${{vars.PRIVATE_PORT}}
           DATABASE_URL: ${{secrets.DATABASE_URL}}
           REPO_TOKEN: ${{secrets.REPO_TOKEN}}
           WEBHOOK_TOKEN: ${{secrets.WEBHOOK_TOKEN}}
-          PUBLIC_PORT: ${{vars.PUBLIC_PORT}}
-          PRIVATE_PORT: ${{vars.PRIVATE_PORT}}
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
         run: "flyctl secrets set DATABASE_URL=${DATABASE_URL} REPO_TOKEN=${REPO_TOKEN} WEBHOOK_TOKEN=${WEBHOOK_TOKEN} AUTH_KEY_URL=${AUTH_KEY_URL} SENTRY_DSN=${SENTRY_DSN} PUBLIC_PORT=${PUBLIC_PORT} PRIVATE_PORT=${PRIVATE_PORT}"
   create_release:
     name: Create release
