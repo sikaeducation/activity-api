@@ -1,6 +1,6 @@
 {
 	"name": "sika-activty-api",
-	"version": "1.0.9",
+	"version": "1.0.10",
 	"description": "RESTful API for interacting with activities. Lives at [https://activity-api.fly.dev](https://activity-api.fly.dev).",
 	"repository": {
 		"type": "git",
