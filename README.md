@@ -38,7 +38,7 @@ Install [`flyctl`](https://fly.io/docs/hands-on/install-flyctl/) to change deplo
     - `DATABASE_URL`: Full connection string
     - `REPO_TOKEN`: To download data from [`https://github.com/sikaeducation/posts`](https://github.com/sikaeducation/posts), generate on the [personal access tokens page](https://github.com/settings/tokens)
     - `WEBHOOK_TOKEN`: Allows the [posts repo](https://github.com/sikaeducation/posts) to make webhook requests to this app, generate on the [Posts webhooks](https://github.com/sikaeducation/posts/settings/hooks) page.
-    - `SENTRY_DSN`: Connection URL for Sentry, retrieve on the [Sentry dashboard](https://sika-education.sentry.io/projects/activity-api)
+    - `SENTRY_DSN`: Connection URL for Sentry, retrieve on the [Sentry dashboard](https://sikaeducation.sentry.io/projects/activity-api)
     - `SENTRY_AUTH_TOKEN`: Upload token for source maps on build, generated with the Sentry wizard (`npx @sentry/wizard@latest -i sourcemaps`)
     - `FLY_API_TOKEN`: For deploying to Fly, generate on the [Fly personal access tokens page](https://fly.io/user/personal_access_tokens) page
   - Variables:
