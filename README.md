@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/sikaeducation/activity-api/actions/workflows/main.yml/badge.svg?event=push)](https://github.com/sikaeducation/activity-api/actions/workflows/main.yml)
 
-RESTful API for Sika Education activities. Lives at [https://activity-api.fly.dev](https://activity-api.fly.dev).
+RESTful API for Sika Education activities. Deployed at [https://activity-api.fly.dev](https://activity-api.fly.dev).
 
 ## API Documentation
 
