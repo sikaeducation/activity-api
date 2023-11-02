@@ -57,8 +57,19 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     needs: build
-    env:
-      FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Deploy
+        run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+  environment:
+    name: Set environment variables
+    runs-on: ubuntu-latest
+    needs: deploy
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -71,9 +82,9 @@ jobs:
           DATABASE_URL: ${{secrets.DATABASE_URL}}
           REPO_TOKEN: ${{secrets.REPO_TOKEN}}
           WEBHOOK_TOKEN: ${{secrets.WEBHOOK_TOKEN}}
-        run: "flyctl secrets set DATABASE_URL=${DATABASE_URL} REPO_TOKEN=${REPO_TOKEN} WEBHOOK_TOKEN=${WEBHOOK_TOKEN} AUTH_KEY_URL=${AUTH_KEY_URL} SENTRY_DSN=${SENTRY_DSN}"
-      - name: Deploy
-        run: flyctl deploy --remote-only
+          PUBLIC_PORT: ${{vars.PUBLIC_PORT}}
+          PRIVATE_PORT: ${{vars.PRIVATE_PORT}}
+        run: "flyctl secrets set DATABASE_URL=${DATABASE_URL} REPO_TOKEN=${REPO_TOKEN} WEBHOOK_TOKEN=${WEBHOOK_TOKEN} AUTH_KEY_URL=${AUTH_KEY_URL} SENTRY_DSN=${SENTRY_DSN} PUBLIC_PORT=${PUBLIC_PORT} PRIVATE_PORT=${PRIVATE_PORT}"
   create_release:
     name: Create release
     runs-on: ubuntu-latest
