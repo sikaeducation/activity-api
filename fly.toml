@@ -16,7 +16,7 @@ kill_timeout = "5s"
   build-target = "production"
 
 [deploy]
-  strategy = "immediate"
+  strategy = "rolling"
 
 [[services]]
   protocol = "tcp"
