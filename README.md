@@ -6,7 +6,7 @@ RESTful API for Sika Education activities. Deployed at [https://activity-api.fly
 
 ## API Documentation
 
-- [`http://localhost:4000/docs`](http://localhost:4000/docs): Development
+- [http://localhost:4000/docs](http://localhost:4000/docs): Development
 - [https://activity-api.fly.dev/docs](https://activity-api.fly.dev/docs): Production
 
 ## Webhook Endpoint
