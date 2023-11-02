@@ -29,7 +29,6 @@ const getKey: GetPublicKeyOrSecret = (header, callback) => {
 class StatelessJwtService extends AuthenticationService {
   docs: SwaggerConfigs = {};
   async verifyAccessToken(token: string) {
-    console.log("heyo");
     // Don't check signatures when testing
     if (process.env.NODE_ENV === "test")
       return Promise.resolve(jwt.decode(token));
@@ -40,7 +39,6 @@ class StatelessJwtService extends AuthenticationService {
         getKey,
         // { audience: process.env.AUTH_AUDIENCE },
         (error, decodedJwt) => {
-          console.log("resolving", error, decodedJwt);
           if (error) reject(error);
           resolve(decodedJwt);
         },
@@ -51,7 +49,6 @@ class StatelessJwtService extends AuthenticationService {
   async getPayload(authResult: AuthenticationResult, params: Params) {
     const payload = await super.getPayload(authResult, params);
     payload.roles = authResult?.user["https://sikaeducation.com/roles"];
-    console.log(payload);
     return payload;
   }
 }
