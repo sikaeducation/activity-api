@@ -11,7 +11,7 @@ import { SwaggerConfigs } from "swagger-ui-dist";
 import { Params } from "@feathersjs/feathers";
 
 export type AuthPayload = {
-  ["https://sikaeducation.com/roles"]: string[];
+  roles: string[];
 };
 
 const client = jwksClient({
@@ -47,8 +47,8 @@ class StatelessJwtService extends AuthenticationService {
   }
 
   async getPayload(authResult: AuthenticationResult, params: Params) {
-    const payload = super.getPayload(authResult, params);
-    console.log(payload);
+    const payload = await super.getPayload(authResult, params);
+    payload.roles = authResult?.user["https://sikaeducation.com/roles"];
     return payload;
   }
 }
